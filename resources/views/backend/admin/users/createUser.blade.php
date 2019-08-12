@@ -3,42 +3,50 @@
     <div class="col-md-12 grid-margin stretch-card">
       <div class="card fixed">
         <div class="card-body">
+            @if ($errors->any())
+              <div class="alert alert-danger" role="alert">
+                  @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                  @endforeach
+              </div>
+            @endif
             <p class="card-description">
               Create New User
             </p>
-          <form class="forms-sample"action="">
+          <form method="post" action="{{route('backend.admin.users.store')}}" enctype="multipart/form-data">
+            @csrf
             <div class="row">
                 <div class="form-group col-lg-6">
                     <label for="firstname">Firstname</label>
-                    <input type="text" class="form-control" id="firstname" placeholder="Firstname">
+                  <input name="firstname" type="text" class="form-control" id="firstname" placeholder="Firstname" value="{{old('firstname')}}">
                 </div>
                 <div class="form-group col-lg-6">
                   <label for="lastname">Lastname</label>
-                  <input type="text" class="form-control" id="lastname" placeholder="Lastname">
+                  <input name="lastname" type="text" class="form-control" id="lastname" placeholder="Lastname" value="{{old('lastname')}}">
                 </div>
             </div>
 
             <div class="form-group">
               <label for="Email">Email address</label>
-              <input type="email" class="form-control" id="Email" placeholder="Email">
+              <input name="email" type="email" class="form-control" id="Email" placeholder="Email" value="{{old('email')}}">
             </div>  
             
             <div class="row">
               <div class="form-group col-lg-6">
                 <label for="Password">Password</label>
-                <input type="password" class="form-control" id="Password" placeholder="Password">
+                <input name="password" type="password" class="form-control" id="Password" placeholder="Password">
               </div>
   
               <div class="form-group col-lg-6">
                 <label for="ConfirmPassword">Confirm Password</label>
-                <input type="password" class="form-control" id="ConfirmPassword" placeholder="Password">
+                <input name="confirm_password" type="password" class="form-control" id="ConfirmPassword" placeholder="Confirm Password">
               </div>
             </div>
             
             <div class="row">
               <div class="form-group col-lg-6">
                 <label for="number">Contact Number</label>
-                <input type="integer" class="form-control" id="number" placeholder="Contact Number">
+                <input name="number" type="integer" class="form-control" id="number" placeholder="Contact Number" value="{{old('number')}}">
               </div>
               <div class="form-group col-lg-6">
                 <label for="image">File upload</label>
@@ -51,10 +59,21 @@
                 </div>
               </div>
             </div>
-
+            <div class="row">
+              <div class="col-lg-6"></div>
+              <div class="form-group col-lg-6">
+                <label for="role">Role</label>
+                <select class="form-control form-control-sm" id="role" name="role">
+                  <option disabled="" selected>Please Select A role</option>
+                  @foreach ($roles as $role)
+                    <option value="{{$role}}">{{$role}}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
             <div class="pull-right">
                 <button type="submit" class="btn btn-outline-success">Submit</button>    
-                <button type="submit" class="btn btn-outline-danger">Cancel</button>    
+                <button type="button" class="btn btn-outline-danger">Cancel</button>    
             </div>
           </form>
         </div>
@@ -70,5 +89,16 @@
     $("#upload-btn").on("click", function(){
       $("#image").click();
     })
+    
+    @if(Session::has('message'))  
+    $.toast({
+      heading: "{{Session::get('heading')}}",
+      text: "{{Session::get('message')}}",
+      showHideTransition: 'plain',
+      icon: "{{Session::get('icon')}}",
+      loaderBg: '#60cf00',
+      position: 'top-right'
+    });
+    @endif
   </script>
 @endsection

@@ -11,15 +11,9 @@
 |
 */
 
-<<<<<<< HEAD
-Route::get('/', function () {
-    return view('backend.admin.dashboard.dashboard');
-});
-=======
 // Route::get('/', function () {
 //     return view('backend.admin.dashboard.dashboard');
 // });
 
 include_once app_path('Http\Routers\Backend.php');
 include_once app_path('Http\Routers\Root.php');
->>>>>>> 2ce7d968c0d71d605fc807dcc8275f0bafeec62b

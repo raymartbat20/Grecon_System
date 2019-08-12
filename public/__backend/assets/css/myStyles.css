@@ -1,20 +1,12 @@
-<<<<<<< HEAD
-.breadcrumbs{
-=======
 .breadcrumbs {
->>>>>>> 2ce7d968c0d71d605fc807dcc8275f0bafeec62b
     position: fixed;
-    width: 100%;
-    background-color: white;
+    width: 84.5%;
+    background-color: #ffffff;
     min-height: 70px;
     z-index: 1;
-<<<<<<< HEAD
-};
-=======
 }
 
  .pull-right {
     float: right;
 }
     
->>>>>>> 2ce7d968c0d71d605fc807dcc8275f0bafeec62b

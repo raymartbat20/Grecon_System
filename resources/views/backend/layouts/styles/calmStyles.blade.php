@@ -1,12 +1,10 @@
   <link rel="stylesheet" href="/__backend/assets/vendors/mdi/css/materialdesignicons.min.css">
-<<<<<<< HEAD
-=======
   <link rel="stylesheet" href="/__backend/assets/vendors/simple-line-icons/css/simple-line-icons.css">
->>>>>>> 2ce7d968c0d71d605fc807dcc8275f0bafeec62b
   <link rel="stylesheet" href="/__backend/assets/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- Plugin css for this page -->
   <link rel="stylesheet" href="/__backend/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="/__backend/assets/vendors/jquery-toast-plugin/jquery.toast.min.css">
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="/__backend/assets/css/vertical-layout-light/style.css">
