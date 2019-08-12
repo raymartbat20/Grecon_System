@@ -7,6 +7,7 @@
             <span class="mdi mdi-menu"></span>
           </button>
         </li>
+<<<<<<< HEAD
         <li class="nav-item nav-search d-none d-lg-flex">
           <div class="input-group">
             <div class="input-group-prepend">
@@ -17,6 +18,8 @@
             <input type="text" class="form-control" placeholder="search" aria-label="search" aria-describedby="search">
           </div>
         </li>
+=======
+>>>>>>> 2ce7d968c0d71d605fc807dcc8275f0bafeec62b
       </ul>
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <a class="navbar-brand brand-logo" href="index.html"><img src="http://www.urbanui.com/calmui/template/images/logo.svg" alt="logo"/></a>
@@ -84,9 +87,15 @@
             <span class="nav-profile-name">Evan Morales</span>
           </a>
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+<<<<<<< HEAD
             <a class="dropdown-item">
               <i class="mdi mdi-settings text-primary"></i>
               Settings
+=======
+            <a class="dropdown-item" href="{{url('/admin/users/create')}}">
+              <i class="icon-user-follow text-primary"></i>
+              New User
+>>>>>>> 2ce7d968c0d71d605fc807dcc8275f0bafeec62b
             </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item">

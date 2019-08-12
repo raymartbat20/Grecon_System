@@ -12,12 +12,17 @@
   <!-- plugins:css -->
   @include('backend.layouts.styles.calmStyles')
 </head>
+<<<<<<< HEAD
 <body>
+=======
+<body class="sidebar-fixed">
+>>>>>>> 2ce7d968c0d71d605fc807dcc8275f0bafeec62b
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     @include('backend.admin.partials.toolbars.adminHeader')
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
+<<<<<<< HEAD
       <!-- partial:partials/_settings-panel.html -->
         <!-- Theme Selector -->
             {{-- <div class="theme-setting-wrapper">
@@ -192,11 +197,17 @@
         <!-- End Right Hidden sidebard -->
 
       <!-- partial -->
+=======
+>>>>>>> 2ce7d968c0d71d605fc807dcc8275f0bafeec62b
       <!-- partial:partials/_sidebar.html -->
         @include('backend.admin.partials.toolbars.adminSidebar')
       <!-- partial -->
       <div class="main-panel">
             <div class="breadcrumbs">
+<<<<<<< HEAD
+=======
+                <h1 style="position:fixed; right:10px ;margin-top:20px; margin-left:75%;">Hello</h1>
+>>>>>>> 2ce7d968c0d71d605fc807dcc8275f0bafeec62b
                 @yield('bredcrumbs')
             </div>
         <div class="content-wrapper">

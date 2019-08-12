@@ -1,4 +1,8 @@
   <link rel="stylesheet" href="/__backend/assets/vendors/mdi/css/materialdesignicons.min.css">
+<<<<<<< HEAD
+=======
+  <link rel="stylesheet" href="/__backend/assets/vendors/simple-line-icons/css/simple-line-icons.css">
+>>>>>>> 2ce7d968c0d71d605fc807dcc8275f0bafeec62b
   <link rel="stylesheet" href="/__backend/assets/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- Plugin css for this page -->

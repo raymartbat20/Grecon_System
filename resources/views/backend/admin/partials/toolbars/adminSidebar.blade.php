@@ -1,5 +1,9 @@
 <!-- partial:partials/_sidebar.html -->
+<<<<<<< HEAD
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
+=======
+<nav class="sidebar sidebar-offcanvas sidebar-fixed" id="sidebar">
+>>>>>>> 2ce7d968c0d71d605fc807dcc8275f0bafeec62b
     <ul class="nav">
       <li class="nav-item">
         <a class="nav-link" href="index.html">
