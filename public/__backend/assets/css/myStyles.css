@@ -1,7 +1,12 @@
-.breadcrumbs{
+.breadcrumbs {
     position: fixed;
     width: 100%;
     background-color: white;
     min-height: 70px;
     z-index: 1;
-};
+}
+
+ .pull-right {
+    float: right;
+}
+    

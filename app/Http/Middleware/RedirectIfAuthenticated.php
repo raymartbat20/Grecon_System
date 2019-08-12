@@ -18,7 +18,16 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            switch('role'){
+                case 'ADMIN':
+                 return redirect('/admin/dashboard');
+
+                 case 'CASHIER':
+                 return redirect('/cashier/dashboard');
+
+                 case 'INVENTORY':
+                 return redirect('/inventory/dashboard');
+            }
         }
 
         return $next($request);
