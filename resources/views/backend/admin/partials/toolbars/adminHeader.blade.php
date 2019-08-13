@@ -9,8 +9,8 @@
         </li>
       </ul>
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="index.html"><img src="http://www.urbanui.com/calmui/template/images/logo.svg" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="http://www.urbanui.com/calmui/template/images/logo-mini.svg" alt="logo"/></a>
+        <a class="navbar-brand brand-logo" href="/admin/dashboard"><img src="/__backend/assets/images/grecon_logo.png" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="/admin/dashboard"><img src="/__backend/assets/images/grecon_logo.png" alt="logo"/></a>
       </div>
       <ul class="navbar-nav navbar-nav-right">
         <li class="nav-item dropdown">
@@ -70,19 +70,25 @@
         </li>
         <li class="nav-item nav-profile dropdown">
           <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-            <img src="/__backend/assets/images/faces/face5.jpg" alt="profile"/>
-            <span class="nav-profile-name">Evan Morales</span>
+            <img src="/__backend/assets/images/avatars/{{Auth::user()->image}}" alt="profile"/>
+            <span class="nav-profile-name">{{Auth::user()->getFullName()}}</span>
           </a>
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
             <a class="dropdown-item" href="{{url('/admin/users/create')}}">
               <i class="icon-user-follow text-primary"></i>
               New User
             </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item">
-              <i class="mdi mdi-logout text-primary"></i>
-              Logout
+            <a class="dropdown-item" href="{{url('/admin/users')}}">
+              <i class="icon-user text-primary"></i>
+              Users
             </a>
+            <div class="dropdown-divider"></div>
+            <form action="{{route('auth.signOut')}}" method="get">
+              <button type="submit" class="dropdown-item">
+                <i class="mdi mdi-logout text-primary"></i>
+                Logout
+              </button>
+            </form>
           </div>
         </li>
         <li class="nav-item nav-toggler-item-right d-lg-none">

@@ -2,15 +2,15 @@
 <nav class="sidebar sidebar-offcanvas sidebar-fixed" id="sidebar">
     <ul class="nav">
       <li class="nav-item">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{{url('/admin/dashboard')}}">
           <i class="mdi mdi-view-quilt menu-icon"></i>
           <span class="menu-title">Dashboard</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="pages/widgets/widgets.html">
-          <i class="mdi mdi-airplay menu-icon"></i>
-          <span class="menu-title">Widgets</span>
+        <a class="nav-link" href="{{url('/admin/suppliers')}}">
+          <i class="fa fa-address-book menu-icon"></i>
+          <span class="menu-title">Suppliers</span>
         </a>
       </li>
       <li class="nav-item">

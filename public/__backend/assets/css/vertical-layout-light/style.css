@@ -13279,7 +13279,7 @@ input[type="button"].btn-block {
   padding-top: 0.3125rem;
   padding-bottom: 0.3125rem;
   margin-right: 1rem;
-  font-size: 1.25rem;
+  font-size: 1.50rem;
   line-height: inherit;
   white-space: nowrap;
 }
@@ -13855,6 +13855,7 @@ input[type="button"].btn-block {
 .breadcrumb {
   display: flex;
   flex-wrap: wrap;
+  min-height:50px;
   padding: 0.56rem 1.13rem;
   margin-bottom: 1rem;
   list-style: none;
@@ -21476,7 +21477,7 @@ code {
 .card .card-title {
   color: #4a4a4a;
   margin-bottom: 1.5rem;
-  font-size: .875rem;
+  font-size: 1.5rem;
   font-weight: 400;
 }
 

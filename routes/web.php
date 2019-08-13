@@ -11,9 +11,5 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('backend.admin.dashboard.dashboard');
-// });
-
 include_once app_path('Http\Routers\Backend.php');
 include_once app_path('Http\Routers\Root.php');

@@ -23,7 +23,7 @@
       <!-- partial -->
       <div class="main-panel">
             <div class="breadcrumbs">
-                @yield('bredcrumbs')
+                @yield('breadcrumbs')
             </div>
         <div class="content-wrapper">
             @yield('content')
@@ -32,7 +32,7 @@
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2018 <a href="../../../../index.html" target="_blank">Urbanui</a>. All rights reserved.</span>
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2018. All rights reserved.</span>
             <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span>
           </div>
         </footer>
@@ -46,6 +46,19 @@
 </body>
   @include('backend.layouts.scripts.calmScripts')
   @yield('scripts')
+  <script>
+    @if(Session::has('message'))  
+        $.toast({
+            heading: "{{Session::get('heading')}}",
+            text: "{{Session::get('message')}}",
+            showHideTransition: 'plain',
+            icon: "{{Session::get('icon')}}",
+            loaderBg: '#60cf00',
+            hideAfter: 5000,
+            position: 'top-right'
+        });
+        @endif
+  </script>
 
 
 <!-- Mirrored from www.urbanui.com/calmui/template/demo/vertical-default-light/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Aug 2019 15:48:57 GMT -->

@@ -1,4 +1,13 @@
 @extends('backend.admin.master.adminMaster')
+@section('breadcrumbs')
+    <nav aria-labelledby="breadcrumb">
+        <ol class="breadcrumb bg-light">
+            <li class="breadcrumb-item" style="font-size:20px;"><a href="{{url('admin/dashboard')}}">Dashboard</a></li>
+            <li class="breadcrumb-item" style="font-size:20px;"><a href="{{url('admin/users')}}">Users</a></li>
+            <li class="breadcrumb-item active" style="font-size:20px;">Create User</li>
+        </ol>
+    </nav>
+@endsection
 @section('content')
     <div class="col-md-12 grid-margin stretch-card">
       <div class="card fixed">
@@ -34,7 +43,8 @@
             <div class="row">
               <div class="form-group col-lg-6">
                 <label for="Password">Password</label>
-                <input name="password" type="password" class="form-control" id="Password" placeholder="Password">
+                <input name="password" type="password" class="form-control tooltipped" id="Password" placeholder="Password"
+                data-toggle="tooltip" data-title="Minimum length is 5">
               </div>
   
               <div class="form-group col-lg-6">
@@ -88,17 +98,11 @@
 
     $("#upload-btn").on("click", function(){
       $("#image").click();
-    })
-    
-    @if(Session::has('message'))  
-    $.toast({
-      heading: "{{Session::get('heading')}}",
-      text: "{{Session::get('message')}}",
-      showHideTransition: 'plain',
-      icon: "{{Session::get('icon')}}",
-      loaderBg: '#60cf00',
-      position: 'top-right'
     });
-    @endif
+
+    $('.tooltipped').tooltip({
+      placement: "top",
+      trigger: "focus",
+    })
   </script>
 @endsection

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use Auth;
 use Hash;
 use Image;
 
@@ -17,7 +18,9 @@ class UsersController extends Controller
      */
     public function index()
     {
-
+        $roles = ['ADMIN','CASHIER','INVENTORY','MANAGER'];
+        $users = User::paginate(5);
+        return view('backend.admin.users.users',compact('users','roles'));
     }
 
     /**
@@ -81,7 +84,7 @@ class UsersController extends Controller
             'heading' => 'Success!',
         );
 
-        return back()->with($notification);
+        return redirect(route('backend.admin.users.index'))->with($notification);
     }
 
     /**
@@ -113,9 +116,31 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'firstname'         => 'required|min:2|max:20',
+            'lastname'          => 'required|min:2|max:20',
+            'email'             => 'required|email',
+            'number'            => 'numeric|required|digits_between:0,11',
+            'role'              => 'required',
+        ]);
+        $user = User::find(request('userid'));
+
+        $user->number   = request('number');
+        $user->role     = request('role');
+
+        $user->save();
+
+        $name = $user->getFullName();
+
+        $notification = array(
+            'message' => "Employee ".$name." was successfully updated!",
+            'icon' => 'success',
+            'heading' => 'Updated!',
+        );
+
+        return redirect(route('backend.admin.users.index'))->with($notification);
     }
 
     /**
@@ -124,8 +149,30 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        if(Hash::check(request('password'),Auth::user()->password)){
+            $user = User::find(request('myid'));
+
+            $user->delete();
+
+            $name = $user->getFullName();
+            $notification = array(
+                'message' => "Employee ".$name." was successfully deleted!",
+                'icon' => 'success',
+                'heading' => 'Deleted!',
+            );
+            
+            return back()->with($notification);
+        }
+        else{
+
+            $notification = array(
+                'message' => "Password Doesn't match",
+                'icon' => 'error',
+                'heading' => 'Failed!',
+            );
+            return back()->with($notification);
+        }
     }
 }
