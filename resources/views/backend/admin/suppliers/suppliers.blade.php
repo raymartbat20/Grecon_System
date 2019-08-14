@@ -23,9 +23,11 @@
                             </div>
                         @endif
                         @if (Session::has('message'))
-                            <div class="alert alert-danger">
-                                <li>{{Session::get('message')}}</li>
-                            </div>
+                            @if(Session::get('message') == "one of the email or number should have a value!")
+                                <div class="alert alert-danger">
+                                    <li>{{Session::get('message')}}</li>
+                                </div>
+                            @endif
                         @endif
                         <thead>
                             <th>Supplier</th>
@@ -101,7 +103,7 @@
                         <div class="row">
                             <div class="form-group col-lg-6">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" placeholder="--No Email--"
+                                <input type="text" class="form-control" placeholder="--No Email--"
                                      name="email" id="email">
                             </div>
                             <div class="form-group col-lg-6">
@@ -185,9 +187,4 @@
 @endsection
 @section('scripts')
     <script type="text/javascript" src="/__backend/assets/js/myjs/myModals.js"></script>
-    <script>
-        $(".tooltipped").tooltip({
-            trigger: "hover",
-        });
-    </script>
 @endsection

@@ -20,5 +20,8 @@
         Route::resource('suppliers','SuppliersController')->except([
             'edit','show',
         ]);
+
+        //Category Controller
+        Route::resource('category','CategoriesController');
     });
  });

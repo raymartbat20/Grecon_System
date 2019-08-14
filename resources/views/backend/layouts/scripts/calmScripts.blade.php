@@ -5,6 +5,8 @@
   <script src="/__backend/assets/vendors/chart.js/Chart.min.js"></script>
   <script src="/__backend/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
   <script src="/__backend/assets/js/tooltips.js"></script>
+  <script src="/__backend/assets/js/myjs/myTooltip.js"></script>
+  <script src="/__backend/assets/js/myjs/myModals.js"></script>
   <!-- End plugin js for this page -->
   <!-- Plugin jquery toast -->
   <script src="/__backend/assets/vendors/jquery-toast-plugin/jquery.toast.min.js"></script>

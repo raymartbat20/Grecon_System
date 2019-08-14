@@ -1,0 +1,3 @@
+$(".tooltipped").tooltip({
+    trigger: "hover",
+});

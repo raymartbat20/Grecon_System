@@ -21,7 +21,7 @@
                     </div>
                 @endif
                 <div class="table-responsive">
-                    <table class="table table-hover table-striped">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th>User</th>
@@ -39,7 +39,24 @@
                                     <td>{{$user->getFullName()}}</td>
                                     <td>{{$user->email}}</td>
                                     <td>{{$user->number}}</td>
-                                    <td>{{$user->role}}</td>
+                                    <td>
+                                        @switch($user->role)
+                                            @case("ADMIN")
+                                                <div class="badge badge-primary">
+                                                    ADMIN
+                                                </div>
+                                                @break
+                                            @case("CASHIER")
+                                                <div class="badge badge-warning">
+                                                    CASHIER
+                                                </div>
+                                                @break
+                                            @default
+                                            <div class="badge badge-info">
+                                                INVENTORY
+                                            </div>
+                                        @endswitch
+                                    </td>
                                     <td>
                                         <span class="tooltipped" data-toggle="tooltip" data-title="Edit User" data-placement="top">
                                             <button class="btn btn-rounded btn-icon btn-primary" data-toggle="modal"

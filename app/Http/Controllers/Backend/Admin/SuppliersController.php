@@ -129,6 +129,7 @@ class SuppliersController extends Controller
      */
     public function update(Request $request)
     {
+
         $request->validate([
             'firstname'     => 'required|min:2|max:20',
             'lastname'      => 'required|min:2|max:20',
@@ -145,35 +146,36 @@ class SuppliersController extends Controller
             );
             return back()->with($notification);
         }
-        elseif(request('email') != null){
+        
+        if(request('email') != null){
             $request->validate([
                 'email' => 'email'
                 ]);
-            $supplier->email =  request('email');
+            $supplier->email = request('email');
         }
-        else{
+        
+        if(request('number') != null){
             $request->validate([
                 'number' => 'numeric|digits_between:0,11',
             ]);
-            $supplier->email =  request('number');
+            $supplier->number = request('number');
         }
 
-
-        $supplier->firstname = request('firstname');
-        $supplier->lastname = request('lastname');
-        $supplier->company = request('company');
-
-        
         if($request->hasFile('image')){
             $request->validate([
                 'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
             $image = request('image');
             $filename = time(). '.' .$image->getClientOriginalExtension();
+            Image::make($image)->resize(300,300)->save(public_path('/__backend/assets/images/suppliers/'.$filename));
 
             $supplier->image = $filename;
-        Image::make($image)->resize(300,300)->save(public_path('/__backend/assets/images/suppliers/'.$filename));
+
         }
+
+        $supplier->firstname = request('firstname');
+        $supplier->lastname = request('lastname');
+        $supplier->company = request('company');
 
         $supplier->save();
 

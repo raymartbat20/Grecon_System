@@ -15,13 +15,13 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-          <i class="mdi mdi-palette menu-icon"></i>
-          <span class="menu-title">UI Elements</span>
+          <i class="fa fa-database menu-icon"></i>
+          <span class="menu-title">Inventory</span>
           <i class="menu-arrow"></i>
         </a>
         <div class="collapse" id="ui-basic">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/accordions.html">Accordions</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{url('/admin/category')}}"><i class="mdi mdi-layers"></i>Categories</a></li>
             <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
             <li class="nav-item"> <a class="nav-link" href="pages/ui-features/badges.html">Badges</a></li>
             <li class="nav-item"> <a class="nav-link" href="pages/ui-features/breadcrumbs.html">Breadcrumbs</a></li>

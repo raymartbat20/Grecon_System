@@ -75,6 +75,14 @@ $(document).ready(function(){
         modal.find('.modal-body #number').val(number);
         modal.find('.modal-body #company').val(company);
         modal.find('.modal-header #image-avatar').attr('src','/__backend/assets/images/suppliers/'+image);
+
+        $("#image").on("change",function(){
+            $("#image-name").val(this.files[0].name);
+        });
+
+        $("#upload-btn").on("click",function(){
+            $("#image").click();
+        });
     });
 
     $('#delete-supplier').on('show.bs.modal',function(event){
@@ -106,4 +114,42 @@ $(document).ready(function(){
 
     //End Suppliers modal
 
+    //Category modal
+
+    $("#update-category").on('show.bs.modal',function(event){
+            var button = $(event.relatedTarget);
+            var catid = button.data('categoryid');
+            var category = button.data('name');
+
+            var modal = $(this);
+
+            modal.find('.modal-body #update-category-id').val(catid);
+            modal.find('.modal-body #update-category').val(category);
+    });
+
+    $("#delete-category").on('show.bs.modal',function(event){
+            
+            var button = $(event.relatedTarget);
+            var catid = button.data('categoryid');
+            var category = button.data('name');
+
+            var modal = $(this);
+
+            modal.find('.modal-body #delete-category-id').val(catid);
+            modal.find('.modal-body #message').html("<h3>Delete this <span>"+category+"</span> category?</h3>");
+            modal.find('.modal-body #message h3 span').attr('style','color:blue');
+            modal.find('.modal-footer #btn-delete').attr('data-categoryid',catid);
+    });
+
+    $("#password-confirm").on('show.bs.modal',function(event){
+
+        $("#delete-category").modal('toggle');
+        var button = $(event.relatedTarget);
+        var catid = button.data('categoryid');
+
+        var modal = $(this);
+        modal.find('.modal-body #categoryid').val(catid);
+    });
+
+    //End Category modal
 });
