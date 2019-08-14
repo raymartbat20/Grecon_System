@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use User;
+use App\User;
 
 class UserSeeder extends Seeder
 {
@@ -16,6 +16,10 @@ class UserSeeder extends Seeder
             'firstname' => 'Admin',
             'lastname'  => 'Grecon',
             'email'     => 'admin@example.com',
+            'password'  => Hash::make('password'),
+            'image'     => '1565630577.jpg',
+            'number'    => '09195241355',
+            'role'      => 'ADMIN',
         ]);
     }
 }

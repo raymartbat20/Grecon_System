@@ -82,6 +82,10 @@
               <i class="icon-user text-primary"></i>
               Users
             </a>
+            <a class="dropdown-item" href="{{url('/admin/change_password')}}">
+              <i class="icon-lock text-primary"></i>
+              Change Password
+            </a>
             <div class="dropdown-divider"></div>
             <form action="{{route('auth.signOut')}}" method="get">
               <button type="submit" class="dropdown-item">

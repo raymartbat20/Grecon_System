@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="/__backend/assets/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="/__backend/assets/vendors/jquery-toast-plugin/jquery.toast.min.css">
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="./__backend/assets/css/vertical-layout-light/style.css">
@@ -95,9 +96,28 @@
   <script src="/__backend/assets/js/template.js"></script>
   <script src="/__backend/assets/js/settings.js"></script>
   <script src="/__backend/assets/js/todolist.js"></script>
+  <script src="/__backend/assets/vendors/jquery-toast-plugin/jquery.toast.min.js"></script>
+  <script src="/__backend/assets/js/toastDemo.js"></script>
+
   <!-- endinject -->
 </body>
 
+<script>
+    $(document).ready(function(){
+      @if(Session::has('message'))  
+        $.toast({
+            heading: "{{Session::get('heading')}}",
+            text: "{{Session::get('message')}}",
+            showHideTransition: 'plain',
+            icon: "{{Session::get('icon')}}",
+            loaderBg: '#60cf00',
+            hideAfter: 5000,
+            position: 'top-right'
+        });
+        @endif
+    });
+</script>
 
 <!-- Mirrored from www.urbanui.com/calmui/template/demo/vertical-default-light/pages/samples/login-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Aug 2019 15:55:48 GMT -->
 </html>
+
