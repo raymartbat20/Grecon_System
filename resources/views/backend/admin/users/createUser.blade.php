@@ -74,7 +74,7 @@
               <div class="form-group col-lg-6">
                 <label for="role">Role</label>
                 <select class="form-control form-control-sm" id="role" name="role">
-                  <option disabled="" selected>Please Select A role</option>
+                  <option selected>Please Select A role</option>
                   @foreach ($roles as $role)
                     <option value="{{$role}}">{{$role}}</option>
                   @endforeach

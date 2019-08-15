@@ -9,8 +9,8 @@
         </li>
       </ul>
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="/admin/dashboard"><img src="/__backend/assets/images/grecon_logo.png" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="/admin/dashboard"><img src="/__backend/assets/images/grecon_logo.png" alt="logo"/></a>
+        <a class="navbar-brand brand-logo" href="/admin/dashboard"><img src="/__backend/assets/images/grecon_logo_lg.png" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="/admin/dashboard"><img src="/__backend/assets/images/grecon_logo_lg.png" alt="logo"/></a>
       </div>
       <ul class="navbar-nav navbar-nav-right">
         <li class="nav-item dropdown">

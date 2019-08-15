@@ -51,6 +51,11 @@
                                                     CASHIER
                                                 </div>
                                                 @break
+                                            @case("MANAGER")
+                                                <div class="badge badge-danger">
+                                                    MANAGER
+                                                </div>
+                                                @break
                                             @default
                                             <div class="badge badge-info">
                                                 INVENTORY
