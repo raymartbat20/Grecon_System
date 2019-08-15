@@ -18,14 +18,14 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            switch(Auth::user()->role){
-                case 'ADMIN':
+            switch(Auth::user()->role_id){
+                case 1:
                  return redirect('/admin/dashboard');
 
-                 case 'CASHIER':
+                 case 2:
                  return redirect('/cashier/dashboard');
 
-                 case 'INVENTORY':
+                 case 3:
                  return redirect('/inventory/dashboard');
             }
         }

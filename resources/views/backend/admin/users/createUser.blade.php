@@ -76,7 +76,7 @@
                 <select class="form-control form-control-sm" id="role" name="role">
                   <option selected>Please Select A role</option>
                   @foreach ($roles as $role)
-                    <option value="{{$role}}">{{$role}}</option>
+                    <option value="{{$role->role_id}}">{{$role->role}}</option>
                   @endforeach
                 </select>
               </div>
@@ -99,10 +99,5 @@
     $("#upload-btn").on("click", function(){
       $("#image").click();
     });
-
-    $('.tooltipped').tooltip({
-      placement: "top",
-      trigger: "focus",
-    })
   </script>
 @endsection

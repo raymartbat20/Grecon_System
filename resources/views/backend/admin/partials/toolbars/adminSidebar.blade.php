@@ -22,7 +22,7 @@
         <div class="collapse" id="ui-basic">
           <ul class="nav flex-column sub-menu">
             <li class="nav-item"> <a class="nav-link" href="{{url('/admin/category')}}"><i class="mdi mdi-layers"></i>Categories</a></li>
-            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{url('/admin/products/create')}}"><i class="mdi mdi-briefcase-plus"></i> New Product</a></li>
             <li class="nav-item"> <a class="nav-link" href="pages/ui-features/badges.html">Badges</a></li>
             <li class="nav-item"> <a class="nav-link" href="pages/ui-features/breadcrumbs.html">Breadcrumbs</a></li>
             <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>

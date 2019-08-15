@@ -6,6 +6,7 @@
   <!-- Plugin css for this page -->
   <link rel="stylesheet" href="/__backend/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
   <link rel="stylesheet" href="/__backend/assets/vendors/jquery-toast-plugin/jquery.toast.min.css">
+  <link rel="stylesheet" href="/__backend/assets/vendors/dropify/dropify.min.css">
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="/__backend/assets/css/vertical-layout-light/style.css">

@@ -2,9 +2,14 @@
 
  Route::namespace('Backend')->name('backend.')->group(function(){
 
-    Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth','role:ADMIN')->group(function(){
+    Route::namespace('Admin')->name('admin.')->prefix('admin')->middleware('auth','role:1')->group(function(){
         Route::get('/dashboard','DashboardController@index')->name('dashboard');
 
+        //profile Controller
+        Route::name('profile.')->group(function(){
+            Route::get('/profile','ProfileController@index')->name('index');
+            Route::patch('/profile/update','ProfileController@update')->name('update');
+        });
         //Password Controller
         Route::name('password.')->group(function(){
             Route::get('/change_password','PasswordController@index')->name('index');
@@ -12,6 +17,7 @@
         });
 
         //Users Controller
+        Route::get('/users/trying','UsersController@try');
         Route::resource('users','UsersController')->except([
             'edit','show',
         ]);
@@ -23,5 +29,8 @@
 
         //Category Controller
         Route::resource('category','CategoriesController');
+
+        //Products Controller
+        Route::resource('products','ProductsController');
     });
  });

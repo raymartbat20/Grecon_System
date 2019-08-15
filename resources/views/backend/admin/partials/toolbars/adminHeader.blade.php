@@ -74,12 +74,16 @@
             <span class="nav-profile-name">{{Auth::user()->getFullName()}}</span>
           </a>
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+            <a class="dropdown-item" href="{{url('/admin/profile')}}">
+            <i class="icon-user text-primary"></i>
+              Profile
+            </a>
             <a class="dropdown-item" href="{{url('/admin/users/create')}}">
               <i class="icon-user-follow text-primary"></i>
               New User
             </a>
             <a class="dropdown-item" href="{{url('/admin/users')}}">
-              <i class="icon-user text-primary"></i>
+              <i class="icon-people text-primary"></i>
               Users
             </a>
             <a class="dropdown-item" href="{{url('/admin/change_password')}}">

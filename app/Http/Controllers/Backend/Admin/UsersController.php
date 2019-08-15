@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Backend\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\User;
+use App\{User,Role};
 use Auth;
+use DB;
 use Hash;
 use Image;
 
@@ -18,7 +19,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $roles = ['ADMIN','CASHIER','INVENTORY','MANAGER'];
+        // $roles = ['ADMIN','CASHIER','INVENTORY','MANAGER'];
+        $roles = Role::all();
         $users = User::paginate(5);
         return view('backend.admin.users.users',compact('users','roles'));
     }
@@ -30,12 +32,14 @@ class UsersController extends Controller
      */
     public function create()
     {
-        $roles  = [
-            'ADMIN',
-            'CASHIER',
-            'INVENTORY',
-            'MANAGER',
-        ];
+
+        $roles = Role::all();
+        // $roles  = [
+        //     'ADMIN',
+        //     'CASHIER',
+        //     'INVENTORY',
+        //     'MANAGER',
+        // ];
         return view('backend.admin.users.createUser',compact('roles'));        
     }
 
@@ -65,7 +69,7 @@ class UsersController extends Controller
         $user->email = request('email');
         $user->number = request('number');
         $user->password = Hash::make(request('password'));
-        $user->role = request('role');
+        $user->role_id = request('role');
 
         if($request->hasFile('image')){
             $image = request('image');
@@ -127,8 +131,8 @@ class UsersController extends Controller
         ]);
         $user = User::find(request('userid'));
 
-        $user->number   = request('number');
-        $user->role     = request('role');
+        $user->number      = request('number');
+        $user->role_id     = request('role');
 
         $user->save();
 
@@ -174,5 +178,26 @@ class UsersController extends Controller
             );
             return back()->with($notification);
         }
+    }
+
+    public function try()
+    {
+        $count = DB::table('users')->where('role_id', 2)
+                                   ->where('deleted_at', '=', null)->count();
+        if($count == 0){
+            Role::find(2)->delete();
+            $notification = array(
+                'message' => "Password Doesn't match",
+                'icon' => 'success',
+                'heading' => 'Failed!',
+            );
+            return redirect(route('backend.admin.users.index'))->with($notification);
+        }
+        $notification = array(
+            'message' => "Password Doesn't match",
+            'icon' => 'error',
+            'heading' => 'Failed!',
+        );
+        return redirect(route('backend.admin.users.index'))->with($notification);
     }
 }
