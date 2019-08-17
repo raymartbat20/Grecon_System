@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Category;
 use Hash;
+use DB;
 use Auth;
 
 class CategoriesController extends Controller
@@ -121,17 +122,29 @@ class CategoriesController extends Controller
     public function destroy()
     {
         if(Hash::check(request('password'),Auth::user()->password)){
-            $category = Category::find(request('categoryid'));
 
-            $category->delete();
-            
-            $notification = array(
-                'message' => "category ".$category->category." was successfuly deleted!",
-                'icon'  => 'warning',
-                'heading'   => 'Success!',
-            );
-    
-            return back()->with($notification); 
+            $count = DB::table('products')->where('category_id',request('categoryid'))
+                                          ->where('deleted_at','=',null)->count();
+                if($count == 0){
+                $category = Category::find(request('categoryid'));
+
+                $category->delete();
+                
+                $notification = array(
+                    'message' => "category ".$category->category." was successfuly deleted!",
+                    'icon'  => 'warning',
+                    'heading'   => 'Success!',
+                );
+        
+                return back()->with($notification); 
+            }
+            else{
+                $notification = array(
+                    'message' => "Category is being used by other/s Product!",
+                    'icon'  => 'error',
+                    'heading'   => 'Failed!',
+                );
+            }
         }
         else{
             $notification = array(

@@ -40,7 +40,7 @@
                                     <td>{{$user->email}}</td>
                                     <td>{{$user->number}}</td>
                                     <td>
-                                        @switch($user->role)
+                                        @switch($user->role->role)
                                             @case("ADMIN")
                                                 <div class="badge badge-primary">
                                                     ADMIN
@@ -68,7 +68,7 @@
                                                 data-target="#edit-user" data-userid = "{{$user->user_id}}"
                                                 data-firstname = "{{$user->firstname}}" data-lastname = "{{$user->lastname}}"
                                                 data-email = "{{$user->email}}" data-number = "{{$user->number}}"
-                                                data-role = "{{$user->role}}" data-image="{{$user->image}}">
+                                                data-role = "{{$user->role->role}}" data-image="{{$user->image}}">
                                                 <i class="fa fa-pencil"></i>
                                             </button>
                                         </span>
@@ -133,7 +133,7 @@
                                 <label for="role">Role</label>
                                 <select class="form-control form-control-sm" id="role" name="role">
                                     @foreach ($roles as $role)
-                                        <option value="{{$role}}">{{$role}}</option>
+                                        <option value="{{$role->role_id}}">{{$role->role}}</option>
                                     @endforeach
                                 </select>
                             </div>

@@ -7,6 +7,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use App\Role;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -40,6 +42,12 @@ class User extends Authenticatable
     ];
 
     protected $primaryKey = "user_id";
+
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
     public function getFullName()
     {
         return "{$this->firstname} {$this->lastname}";
