@@ -21,6 +21,10 @@ class ProfileController extends Controller
             'firstname'         => 'required|min:2|max:20',
             'lastname'          => 'required|min:2|max:20',
             'number'            => 'numeric|required|digits_between:0,11',
+        ],
+        [
+            'number.required' => 'Contact Number field is required.',
+            'number.numeric'    => 'Contact Number should be numbers only.'
         ]);
 
         $user = User::find(Auth::user()->user_id);

@@ -43,7 +43,7 @@
             <div class="row">
               <div class="form-group col-lg-6">
                 <label for="Password">Password</label>
-                <input name="password" type="password" class="form-control tooltipped" id="Password" placeholder="Password"
+                <input name="password" type="password" class="form-control tooltipped-focus" id="Password" placeholder="Password"
                 data-toggle="tooltip" data-title="Minimum length is 5">
               </div>
   

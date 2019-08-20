@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Role;
+use App\{Role,Category};
 
 
 class RoleSeeder extends Seeder
@@ -21,6 +21,9 @@ class RoleSeeder extends Seeder
         ]);
         Role::Create([
             'role' => 'INVENTORY'
+        ]);
+        Category::Create([
+            'category' => 'SLIDING DOORS'
         ]);
     }
 }

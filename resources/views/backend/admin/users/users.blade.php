@@ -131,9 +131,9 @@
 
                             <div class="form-group col-lg-6">
                                 <label for="role">Role</label>
-                                <select class="form-control form-control-sm" id="role" name="role">
+                                <select class="form-control form-control-sm" name="role">
                                     @foreach ($roles as $role)
-                                        <option value="{{$role->role_id}}">{{$role->role}}</option>
+                                        <option id="role" value="{{$role->role_id}}">{{$role->role}}</option>
                                     @endforeach
                                 </select>
                             </div>
