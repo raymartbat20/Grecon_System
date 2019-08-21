@@ -27567,6 +27567,14 @@ div.tagsinput span.tag a {
   flex-grow: 1;
 }
 
+.content-wrapper-login {
+  background: #f1f2f7;
+  padding: 2.5rem 2.5rem;
+  width: 100%;
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+}
+
 /* Sidebar */
 .sidebar {
   min-height: calc(100vh - 70px);

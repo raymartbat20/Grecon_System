@@ -69,23 +69,28 @@
           </div>
         </li>
         <li class="nav-item nav-profile dropdown">
+          <div class="dropdown-divider"></div>
           <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
             <img src="/__backend/assets/images/avatars/{{Auth::user()->image}}" alt="profile"/>
             <span class="nav-profile-name">{{Auth::user()->getFullName()}}</span>
           </a>
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{url('/admin/profile')}}">
             <i class="icon-user text-primary"></i>
               Profile
             </a>
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{url('/admin/users/create')}}">
               <i class="icon-user-follow text-primary"></i>
               New User
             </a>
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{url('/admin/users')}}">
               <i class="icon-people text-primary"></i>
               Users
             </a>
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{url('/admin/change_password')}}">
               <i class="icon-lock text-primary"></i>
               Change Password

@@ -31,6 +31,9 @@
         Route::resource('category','CategoriesController');
 
         //Products Controller
+        Route::get('/products/{product}/log','ProductsController@productLog')->name('products.log');
+        Route::patch('/products/addStocks','ProductsController@addStocks')->name('products.addStocks');
+        Route::patch('/products/removeDefectives','ProductsController@removeDefectives')->name('products.removeDefectives');
         Route::resource('products','ProductsController');
     });
  });

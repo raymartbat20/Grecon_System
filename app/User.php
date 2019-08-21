@@ -7,7 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-use App\Role;
+use App\{Role,Defective};
 
 class User extends Authenticatable
 {
@@ -43,6 +43,16 @@ class User extends Authenticatable
 
     protected $primaryKey = "user_id";
 
+
+    public function defectives()
+    {
+        return $this->hasMany(Defective::class,'user_id');
+    }
+
+    public function addstock()
+    {
+        return $this->hasMany(AddStock::class,'user_id');
+    }
 
     public function role()
     {

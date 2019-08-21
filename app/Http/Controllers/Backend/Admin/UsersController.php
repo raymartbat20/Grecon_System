@@ -78,7 +78,6 @@ class UsersController extends Controller
 
             $user->image = $filename;
         }
-
         $user->save();
         $name = $user->getFullName();
 
