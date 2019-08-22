@@ -19,7 +19,7 @@ $(document).ready(function(){
         modal.find('.modal-body #lastname').val(lastname);
         modal.find('.modal-body #number').val(number);
         modal.find('.modal-body #email').val(email);
-        modal.find('.modal-body #role').val(role);
+        modal.find('.modal-body select').val(role);
         modal.find('.modal-header #img-avatar').attr('src','/__backend/assets/images/avatars/' + image);
     });
 
@@ -152,4 +152,31 @@ $(document).ready(function(){
     });
 
     //End Category modal
+
+    //product modal
+
+    $('#add-stocks').on('show.bs.modal',function(event){
+
+        var button = $(event.relatedTarget);
+        var product_id = button.data('product_id');
+        var product_name = button.data('product_name');
+
+        var modal = $(this);
+
+        modal.find('.modal-header .modal-title').text('Add stocks to '+product_name);
+        modal.find('.modal-body #product_id').val(product_id);
+    });
+
+    $("#remove-defectives").on('show.bs.modal',function(event){
+
+        var button = $(event.relatedTarget);
+        var product_id = button.data('product_id');
+
+        var modal = $(this);
+
+        modal.find('.modal-body #remove_product_id').val(product_id);
+    });
+
+
+    //End product modal
 });

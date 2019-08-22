@@ -19,7 +19,6 @@ class UsersController extends Controller
      */
     public function index()
     {
-        // $roles = ['ADMIN','CASHIER','INVENTORY','MANAGER'];
         $roles = Role::all();
         $users = User::paginate(5);
         return view('backend.admin.users.users',compact('users','roles'));
@@ -34,12 +33,6 @@ class UsersController extends Controller
     {
 
         $roles = Role::all();
-        // $roles  = [
-        //     'ADMIN',
-        //     'CASHIER',
-        //     'INVENTORY',
-        //     'MANAGER',
-        // ];
         return view('backend.admin.users.createUser',compact('roles'));        
     }
 
@@ -58,8 +51,10 @@ class UsersController extends Controller
             'number'            => 'numeric|required|digits_between:0,11',
             'password'          => 'required|min:5',
             'confirm_password'  => 'required|same:password',
-            'role'              => 'required',
+            'role_id'           => 'required',
             'image'             => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ],[
+            'role_id.required' => 'Role field is required',
         ]);
 
         $user = new user();
@@ -78,7 +73,6 @@ class UsersController extends Controller
 
             $user->image = $filename;
         }
-
         $user->save();
         $name = $user->getFullName();
 
@@ -114,7 +108,7 @@ class UsersController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     *  the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -127,12 +121,12 @@ class UsersController extends Controller
             'lastname'          => 'required|min:2|max:20',
             'email'             => 'required|email',
             'number'            => 'numeric|required|digits_between:0,11',
-            'role'              => 'required',
+            'role_id'           => 'required',
         ]);
         $user = User::find(request('userid'));
 
         $user->number      = request('number');
-        $user->role_id     = request('role');
+        $user->role_id     = request('role_id');
 
         $user->save();
 

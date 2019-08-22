@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\{Category,Supplier,Product};
+use App\{Category,Supplier,Product,Defective,AddStock};
 use Hash;
 use DB;
 use Auth;
@@ -93,7 +93,7 @@ class ProductsController extends Controller
         if($product->critical_amount > $product->qty){
             $product->critical_status = 1;
         }
-
+        Product::created($product);
         $product->save();
 
         $notification = array(
@@ -196,11 +196,142 @@ class ProductsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $product_id)
     {
-        //
+        $request->validate([
+            'password_confirm' => 'required'
+        ],[
+            'password_confirm.required' => 'Please enter your password'
+        ]);
+        if(Hash::check(request('password_confirm'),Auth()->user()->password)){
+            $product = Product::where('product_id',$product_id)->firstOrFail();
+            if($product->qty == 0){
+                $product->delete();
+
+                $notification = array(
+                    'message'   => 'Product Deleted Successfully!',
+                    'icon'      => 'success',
+                    'heading'   => 'success',
+                );
+            return redirect(route('backend.admin.products.index'))->with($notification);
+            }
+            else{
+                $notification = array(
+                    'message'   => 'Product '.$product->product_id.' has still '.$product->qty.' stock(s) left, it should be 0 to delete this',
+                    'icon'      => 'error',
+                    'heading'   => 'Failed',
+                );
+                return back()->with($notification);
+            }
+        }
+        else{
+            $notification = array(
+                'message'   => "Password Doesn't Match!",
+                'icon'      => 'error',
+                'heading'   => 'Failed!'
+            );
+            return back()->with($notification);
+        }
+    }
+
+    public function addStocks(Request $request)
+    {
+
+        $request->validate([
+            'added_stocks'  => 'required|numeric|integer|min:0',
+        ],[
+            'added_stocks.min'  => 'The adding stocks should be higher than 0',
+            'added_stocks.integer'  => 'The adding stocks should be a whole number',
+        ]);
+
+        $product_id = request('product_id');
+        $product = Product::where('product_id' , $product_id)->firstOrFail();
+        $product->increment('qty', request('added_stocks'));
+
+        if($product->qty == 0){
+            $product->status = "OUT OF STOCK";
+        }
+
+        if($product->critical_amount >= $qty){
+            $product->critical_status = 1;
+        }
+        else{
+            $product->critical_status = 0;
+        }
+
+
+        $product->save();
+
+        $addStock = new addstock();
+
+        $addStock->primary_product_id = $product->primary_product_id;
+        $addStock->user_id = Auth()->user()->user_id;
+        $addStock->add_qty = request('added_stocks');
+
+        $addStock->save();
+
+        $notification = array(
+            'message'   => 'Stocks added successfully  to product '.$product->product_id,
+            'icon'  => 'success',
+            'heading' => 'Successful!'
+        );
+        return redirect(route('backend.admin.products.index'))->with($notification);
+    }
+
+    public function removeDefectives(Request $request)
+    {
+        $request->validate([
+            'defectiveProducts'  => 'required|numeric|integer|min:0',
+        ],[
+            'defectiveProducts.min'  => 'The removing stocks should be higher than 0',
+            'defectiveProducts.integer' => 'The removing stocks should be a whole number',
+        ]);
+        $product_id = request('product_id');
+        $defectiveProducts = request('defectiveProducts');
+        $product = Product::where('product_id',$product_id)->firstOrFail();
+
+        $product->decrement('qty',$defectiveProducts);
+
+        if($product->qty == 0){
+            $product->status = "OUT OF STOCK";
+        }
+
+        if($product->critical_amount >= $qty){
+            $product->critical_status = 1;
+        }
+        else{
+            $product->critical_status = 0;
+        }
+
+        $product->save();
+
+        $defective = new defective();
+
+        $defective->primary_product_id = $product->primary_product_id;
+        $defective->user_id = Auth()->user()->user_id;
+        $defective->description = request('description');
+        $defective->defectives_qty = $defectiveProducts;
+
+        $defective->save();
+
+        $notification = array(
+            'message'   => 'Stocks remove successfully to product '.$product->product_id,
+            'icon'  => 'success',
+            'heading' => 'Successful!'
+        );
+        return redirect(route('backend.admin.products.index'))->with($notification);
+    }
+
+    public function productLog($product_id)
+    {
+        $product = Product::where('product_id',$product_id)->firstOrFail();
+        $product_name = $product->product_name;
+        $defectives = Defective::where('primary_product_id',$product->primary_product_id)->orderBy('created_at', 'DESC')->get();
+        $addStocks = AddStock::where('primary_product_id',$product->primary_product_id)->orderBy('created_at', 'DESC')->get();
+
+        return view('backend.admin.products.productLog',compact('product','defectives','addStocks','product_name'));
     }
 }

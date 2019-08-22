@@ -24,12 +24,12 @@
 <body>
   <div class="container-scroller">
     <div class="container-fluid page-body-wrapper full-page-wrapper">
-      <div class="content-wrapper d-flex align-items-stretch auth auth-img-bg">
+      <div class="content-wrapper-login d-flex align-items-stretch auth auth-img-bg">
         <div class="row flex-grow">
           <div class="col-lg-6 d-flex align-items-center justify-content-center">
             <div class="auth-form-transparent text-left p-3">
               <div class="brand-logo">
-                <img src="/__backend/assets/images/grecon_logo_lg.png" alt="logo">
+                <img src="/__backend/assets/images/grecon_background.png" alt="logo">
               </div>
               @if (Session::has('error'))
                   <div class="alert alert-danger" role="alert">

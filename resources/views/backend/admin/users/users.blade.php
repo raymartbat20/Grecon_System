@@ -68,7 +68,7 @@
                                                 data-target="#edit-user" data-userid = "{{$user->user_id}}"
                                                 data-firstname = "{{$user->firstname}}" data-lastname = "{{$user->lastname}}"
                                                 data-email = "{{$user->email}}" data-number = "{{$user->number}}"
-                                                data-role = "{{$user->role->role}}" data-image="{{$user->image}}">
+                                                data-role = "{{$user->role_id}}" data-image="{{$user->image}}">
                                                 <i class="fa fa-pencil"></i>
                                             </button>
                                         </span>
@@ -131,7 +131,7 @@
 
                             <div class="form-group col-lg-6">
                                 <label for="role">Role</label>
-                                <select class="form-control form-control-sm" name="role">
+                                <select class="form-control form-control-sm" name="role_id">
                                     @foreach ($roles as $role)
                                         <option id="role" value="{{$role->role_id}}">{{$role->role}}</option>
                                     @endforeach

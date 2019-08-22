@@ -3,7 +3,8 @@
 @section('content')
     <div class="col-lg-12 grid-margin stretched-card">
         <div class="card">
-            <div class="card-content">
+            <div class="card-body">
+                <h4 class="card-title float-right">Total Products: {{$products->count()}}</h4>
                 <h4 class="card-title">Hello</h4>
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -22,8 +23,8 @@
                             @foreach ($products as $product)
                                 <tr align="center">
                                     <td class="py-1"><img src="/__backend/assets/images/products/{{$product->image}}"></td>
-                                    <td>{{$product->product_name}}</td>
                                     <td>{{$product->product_id}}</td>
+                                    <td>{{$product->product_name}}</td>
                                     <td>{{$product->price}}</td>
                                     <td>{{$product->qty}}</td>
                                     <td>
@@ -68,7 +69,8 @@
                                         @endif
                                     </td>
                                     <td>
-                                    <a class="btn btn-light" href="{{url('/admin/products/'.$product->product_id.'/edit')}}"><i class="mdi mdi-eye text-primary"></i>View</a>
+                                    <a class="btn btn-danger btn-sm" href="{{url('/admin/products/'.$product->product_id.'/edit')}}"><i class="mdi mdi-eye text-primary"></i>View</a>
+                                    <a class="btn btn-warning btn-sm text-white" href="{{url('/admin/products/'.$product->product_id.'/log')}}"><i class="icon icon-docs text-primary"></i>Logs</a>
                                     </td>                                    
                                 </tr>
                             @endforeach
