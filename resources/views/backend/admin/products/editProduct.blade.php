@@ -21,6 +21,11 @@
         <div class="col-lg-10 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
+                    @if (Session::has('message'))
+                        <div class="alert alert-danger">
+                            <li>{{Session::get('message')}}</li>
+                        </div>
+                    @endif
                     <form method="POST" action="{{route('backend.admin.products.update', $product->product_id)}}" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
@@ -243,7 +248,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <input type="hidden" id="product_id" name="product_id">
+                                <input type="hidden" id="remove_product_id" name="product_id">
                                 <div class="form-group">
                                     <label for="defectiveProducts">Item count to be remove</label>
                                     <input type="number" name="defectiveProducts" id="defectiveProducts" class="form-control"
@@ -251,7 +256,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+                                    <textarea class="form-control" name="description" id="defective_description" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -263,6 +268,57 @@
                 </div>
             </div>
         <!-- End Remove-Defectives -->
+
+
+        <!-- Delete-Product -->
+            <div class="modal fade" id="delete-product" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-default modal-center">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="close" type="button" data-dismiss="modal">
+                            <span ari{a-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h5 class="text-center">Delete Product {{$product->product_name}}?</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#password-confirm"
+                            data-dismiss="modal">DELETE</button>
+                            <button type="button" class="btn btn-outline-primary" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- End Delete-Product -->
+
+        <!-- Password Confirmation modal -->
+            <div class="modal fade" id="password-confirm" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-default modal-center">
+                    <form method="POST" action="{{route('backend.admin.products.destroy',$product->product_id)}}">
+                    @csrf
+                    @method('DELETE')
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button class="close" type="button" data-dismiss="modal">
+                                <span ari{a-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="password_confirm">Input your password to delete</label>
+                                    <input type="password" class="form-control" name="password_confirm" id="password_confirm" placeholder="Password">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-outline-success" type="submit">SUBMIT</button>
+                                <button class="btn btn-outline-danger" type="button" data-dismiss="modal">CANCEL</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <!-- Password Confirmation modal -->
 
     <!-- End modals -->
 @endsection

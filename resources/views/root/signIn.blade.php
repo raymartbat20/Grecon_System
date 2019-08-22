@@ -29,7 +29,7 @@
           <div class="col-lg-6 d-flex align-items-center justify-content-center">
             <div class="auth-form-transparent text-left p-3">
               <div class="brand-logo">
-                <img src="/__backend/assets/images/grecon_logo_lg.png" alt="logo">
+                <img src="/__backend/assets/images/grecon_background.png" alt="logo">
               </div>
               @if (Session::has('error'))
                   <div class="alert alert-danger" role="alert">

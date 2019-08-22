@@ -2,7 +2,7 @@
 @section('content')
     <div class="col-lg-12 grid-margin stretch-card mb-5">
         <div class="card">
-            <div class="card-content">
+            <div class="card-body">
                 <h4 class="card-title mb-3">Stock logs for {{$product_name}}</h4>
                 @if ($addStocks->count() != 0)
                     <div class="table-responsive">
@@ -16,11 +16,13 @@
                             </thead>
                             <tbody>
                                 @foreach ($addStocks as $stock)
-                                <td>{{$stock->product->product_id}}</td>
-                                <td>{{$stock->product->product_name}}</td>
-                                <td>{{$stock->add_qty}}</td>
-                                <td>{{$stock->user->getFullName()}}</td>
-                                <td>{{$stock->created_at->format('Y-m-d')}}</td>
+                                <tr>
+                                    <td>{{$stock->product->product_id}}</td>
+                                    <td>{{$stock->product->product_name}}</td>
+                                    <td>{{$stock->add_qty}}</td>
+                                    <td>{{$stock->user->getFullName()}}</td>
+                                    <td>{{$stock->created_at->format('Y-m-d')}}</td>
+                                </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -34,7 +36,7 @@
     </div>
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
-            <div class="card-content">
+            <div class="card-body">
                 <h4 class="card-title">Defective logs for {{$product_name}}</h4>
                 @if ($defectives->count() != 0)
                     <div class="table-responsive">

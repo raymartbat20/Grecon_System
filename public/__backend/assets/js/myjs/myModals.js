@@ -19,7 +19,7 @@ $(document).ready(function(){
         modal.find('.modal-body #lastname').val(lastname);
         modal.find('.modal-body #number').val(number);
         modal.find('.modal-body #email').val(email);
-        modal.find('.modal-body #role').val(role);
+        modal.find('.modal-body select').val(role);
         modal.find('.modal-header #img-avatar').attr('src','/__backend/assets/images/avatars/' + image);
     });
 
@@ -174,7 +174,7 @@ $(document).ready(function(){
 
         var modal = $(this);
 
-        modal.find('.modal-body #product_id').val(product_id);
+        modal.find('.modal-body #remove_product_id').val(product_id);
     });
 
 

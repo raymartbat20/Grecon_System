@@ -3,7 +3,8 @@
 @section('content')
     <div class="col-lg-12 grid-margin stretched-card">
         <div class="card">
-            <div class="card-content">
+            <div class="card-body">
+                <h4 class="card-title float-right">Total Products: {{$products->count()}}</h4>
                 <h4 class="card-title">Hello</h4>
                 <div class="table-responsive">
                     <table class="table table-hover">

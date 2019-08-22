@@ -29,8 +29,4 @@ class Product extends Model
     {
         return $this->hasMany(AddStock::class,'primary_product_id');
     }
-    public static function created($product)
-    {
-        dd($this->attributes);
-    }
 }
