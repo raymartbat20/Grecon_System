@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Backend\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\{User,Product};
+use App\{User,Product,Cart};
 use Hash;
+use Session;
 use Auth;
 
 class TransactionsController extends Controller
@@ -20,6 +21,7 @@ class TransactionsController extends Controller
         $products = Product::inRandomOrder()->paginate(9);
         return view('backend.admin.transactions.makePurchase',compact('products'));
     }
+
 
     /**
      * Show the form for creating a new resource.

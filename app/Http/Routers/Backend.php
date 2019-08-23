@@ -37,6 +37,11 @@
         Route::resource('products','ProductsController');
 
         //Cart Controller
+        Route::name('ordercart.')->prefix('cart')->group(function(){
+            Route::get('/addToCart', 'OrderCartController@addToCart')->name('addToCart');
+            Route::get('/cart_items','OrderCartController@index')->name('index');
+        });
+        //Transaction Controller
         Route::resource('transaction','TransactionsController');
     });
  });

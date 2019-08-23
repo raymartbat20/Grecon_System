@@ -45,6 +45,9 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
+
+        $products = Product::all();
+        
         $request->validate([
             'product_id'        => 'required|unique:products',
             'product_name'      => 'required|min:2|max:20',
@@ -181,6 +184,7 @@ class ProductsController extends Controller
         $product->width             = request('width');
         $product->width_label       = request('width_label');
         $product->description       = request('description');
+        $product->status            = request('status');
 
         $product->save();
 
@@ -255,7 +259,7 @@ class ProductsController extends Controller
             $product->status = "OUT OF STOCK";
         }
 
-        if($product->critical_amount >= $qty){
+        if($product->critical_amount >= $product->qty){
             $product->critical_status = 1;
         }
         else{
@@ -299,7 +303,7 @@ class ProductsController extends Controller
             $product->status = "OUT OF STOCK";
         }
 
-        if($product->critical_amount >= $qty){
+        if($product->critical_amount >= $product->qty){
             $product->critical_status = 1;
         }
         else{
