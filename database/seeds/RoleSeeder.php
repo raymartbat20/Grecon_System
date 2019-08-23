@@ -23,7 +23,7 @@ class RoleSeeder extends Seeder
             'role' => 'INVENTORY'
         ]);
         Category::Create([
-            'category' => 'SLIDING DOORS'
+            'category' => 'ACCESORIES'
         ]);
     }
 }

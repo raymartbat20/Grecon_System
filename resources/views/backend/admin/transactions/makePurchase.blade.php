@@ -17,6 +17,7 @@
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label></label>
+
                                     <button type="submit" class="btn btn-inverse-info form-control">SEARCH</button>
                                 </div>
                             </div>
@@ -65,7 +66,8 @@
                                         <li>Supplier: {{$product->supplier->company}}</li>
                                     </ul>
                                     <div class="wrapper">
-                                        <a href="#" class="btn btn-outline-primary btn-block">Add</a>
+                                        <button class="btn btn-outline-primary btn-block" 
+                                        {{$product->status != "AVAILABLE" ? 'disabled' : ''}}>Add</button>
                                     </div>
                                 </div>
                             </div>

@@ -170,7 +170,7 @@
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label for="status">Availability</label>
+                                            <label for="status">Status</label>
                                             <select class="form-control" name="status" id="status">
                                                 @foreach ($status as $stat)
                                                     <option value="{{$stat}}" {{$product->status == $stat ? 'selected' : ''}}>{{$stat}}</option>

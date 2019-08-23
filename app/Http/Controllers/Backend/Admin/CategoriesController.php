@@ -95,7 +95,7 @@ class CategoriesController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'category' => 'required|min:2|unique:categories'
+            'category' => 'required|min:2|unique:categories,category,NULL,id,deleted_at,NULL'
         ]);
 
         $category = Category::find(request('catid'));

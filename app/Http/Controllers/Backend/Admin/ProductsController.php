@@ -46,7 +46,7 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'product_id'        => 'required|unique:products',
+            'product_id'        => 'required|unique:products,product_id,NULL,primary_product_id,deleted_at,NULL',
             'product_name'      => 'required|min:2|max:20',
             'category'          => 'required',
             'supplier'          => 'required',
@@ -54,7 +54,7 @@ class ProductsController extends Controller
             'qty'               => 'numeric|integer',
             'critical_amount'   => 'numeric|integer',
             'height'            => 'numeric|integer',
-            'weight'            => 'numeric|integer',
+            'weight'            => 'numeric|numeric|regex:/^\d*(\.\d{1,2})?$/',
             'width'             => 'numeric|integer',
             'description'       => 'max:200',
         ],[
@@ -93,7 +93,7 @@ class ProductsController extends Controller
         if($product->critical_amount > $product->qty){
             $product->critical_status = 1;
         }
-        Product::created($product);
+
         $product->save();
 
         $notification = array(
@@ -181,6 +181,7 @@ class ProductsController extends Controller
         $product->width             = request('width');
         $product->width_label       = request('width_label');
         $product->description       = request('description');
+        $product->status            = request('status');
 
         $product->save();
 
@@ -253,9 +254,11 @@ class ProductsController extends Controller
 
         if($product->qty == 0){
             $product->status = "OUT OF STOCK";
+        }else{
+            $product->status = "AVAILABLE";
         }
 
-        if($product->critical_amount >= $qty){
+        if($product->critical_amount >= $product->qty){
             $product->critical_status = 1;
         }
         else{
@@ -292,14 +295,17 @@ class ProductsController extends Controller
         $product_id = request('product_id');
         $defectiveProducts = request('defectiveProducts');
         $product = Product::where('product_id',$product_id)->firstOrFail();
+        if($product->qty >= $defectiveProducts){
 
         $product->decrement('qty',$defectiveProducts);
 
         if($product->qty == 0){
             $product->status = "OUT OF STOCK";
+        }else{
+            $product->status = "AVAILABLE";
         }
 
-        if($product->critical_amount >= $qty){
+        if($product->critical_amount >= $product->qty){
             $product->critical_status = 1;
         }
         else{
@@ -323,6 +329,16 @@ class ProductsController extends Controller
             'heading' => 'Successful!'
         );
         return redirect(route('backend.admin.products.index'))->with($notification);
+    }
+    else{
+        $notification = array(
+            'message'   => 'Defective products is higher than current stocks!',
+            'icon'  => 'error',
+            'heading' => 'Failed!!'
+        );
+        return back()->with($notification);
+
+    }
     }
 
     public function productLog($product_id)
