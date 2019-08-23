@@ -179,4 +179,29 @@ $(document).ready(function(){
 
 
     //End product modal
+
+
+    //Transactions modal
+
+    $("#add-qty").on("show.bs.modal",function(event){
+        var button = $(event.relatedTarget);
+
+        var product_id  = button.data('product_id');
+        var product_qty = button.data('product_qty');
+
+        var modal = $(this);
+
+        modal.find(".modal-body #qty").val('');
+        modal.find(".modal-body #product_id").val(product_id);
+
+        $("#submit").click(function(event){
+            var qty = $("#qty").val();
+            if(qty > product_qty){
+                $("#modal-warning").modal("show");
+                event.preventDefault();
+            }
+        });
+    });
+
+    //End transactions modal
 });

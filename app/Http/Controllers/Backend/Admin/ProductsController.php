@@ -45,6 +45,9 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
+
+        $products = Product::all();
+        
         $request->validate([
             'product_id'        => 'required|unique:products,product_id,NULL,primary_product_id,deleted_at,NULL',
             'product_name'      => 'required|min:2|max:20',

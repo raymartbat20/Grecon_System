@@ -1,7 +1,7 @@
 @extends('backend.admin.master.adminMaster')
 @section('content')
     <div class="row">
-        <div class="col-lg-2 grid-margin stretch-card">
+        <div class="col-lg-3 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Product Controller</h4>
@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-10 grid-margin stretch-card">
+        <div class="col-lg-9 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     @if (Session::has('message'))
@@ -214,7 +214,7 @@
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel"></h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span ari{a-hidden="true">×</span>
+                                <span aria-hidden="true">×</span>
                                 </button>
                             </div>
                             <div class="modal-body">
