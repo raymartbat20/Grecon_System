@@ -68,8 +68,8 @@
                                         @endif
                                     </td>
                                     <td>
-                                    <a class="btn btn-danger btn-sm" href="{{url('/admin/products/'.$product->product_id.'/edit')}}"><i class="mdi mdi-eye text-primary"></i>View</a>
-                                    <a class="btn btn-warning btn-sm text-white" href="{{url('/admin/products/'.$product->product_id.'/log')}}"><i class="icon icon-docs text-primary"></i>Logs</a>
+                                    <a class="btn btn-outline-info btn-sm" href="{{url('/admin/products/'.$product->product_id.'/edit')}}"><i class="mdi mdi-eye text-primary"></i>View</a>
+                                    <a class="btn btn-outline-primary btn-sm" href="{{url('/admin/products/'.$product->product_id.'/log')}}"><i class="icon icon-docs text-primary"></i>Logs</a>
                                     </td>                                    
                                 </tr>
                             @endforeach
@@ -79,4 +79,9 @@
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        $(".table").DataTable();
+    </script>
 @endsection

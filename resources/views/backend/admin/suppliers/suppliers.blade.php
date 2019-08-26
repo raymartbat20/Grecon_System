@@ -47,7 +47,7 @@
                                     <td>{{$supplier->company}}</td>
                                     <td>
                                         <span class="tooltipped" data-toggle="tooltip" data-title="Edit User" data-placement="top">
-                                            <button class="btn btn-rounded btn-icon btn-sm btn-primary" data-toggle="modal" data-target="#edit-supplier"
+                                            <button class="btn btn-outline-primary" data-toggle="modal" data-target="#edit-supplier"
                                                 data-supplierid="{{$supplier->supplier_id}}" data-firstname="{{$supplier->firstname}}" data-lastname="{{$supplier->lastname}}"
                                                 data-email="{{$supplier->email}}" data-number="{{$supplier->number}}" data-company="{{$supplier->company}}"
                                                 data-image="{{$supplier->image}}">                                                
@@ -55,7 +55,7 @@
                                             </button>
                                         </span>
                                         <span class="tooltipped" data-toggle="tooltip" data-title="Delete User" data-placement="top">
-                                            <button class="btn btn-rounded btn-icon btn-sm btn-warning" data-toggle="modal" data-target="#delete-supplier"
+                                            <button class="btn btn-outline-warning" data-toggle="modal" data-target="#delete-supplier"
                                                 data-supplierid="{{$supplier->supplier_id}}" data-name="{{$supplier->getFullName()}}"
                                                 data-image="{{$supplier->image}}">
                                                 <i class="fa fa-archive"></i>
@@ -186,5 +186,8 @@
         </div>
 @endsection
 @section('scripts')
+    <script>
+        $(".table").dataTable();
+    </script>
     <script type="text/javascript" src="/__backend/assets/js/myjs/myModals.js"></script>
 @endsection

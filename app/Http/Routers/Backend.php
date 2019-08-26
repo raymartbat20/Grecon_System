@@ -40,6 +40,10 @@
         Route::name('ordercart.')->prefix('cart')->group(function(){
             Route::get('/addToCart', 'OrderCartController@addToCart')->name('addToCart');
             Route::get('/cart_items','OrderCartController@index')->name('index');
+            Route::get('/reduce_qty', 'OrderCartController@reduceQty')->name('reduceqty');
+            Route::get('/check_out', 'OrderCartController@checkout')->name('checkout');
+            Route::get('/remove_item', 'OrderCartController@removeItem')->name('removeitem');
+            Route::post('/check_out', 'OrderCartController@store')->name('cartstore');
         });
         //Transaction Controller
         Route::resource('transaction','TransactionsController');

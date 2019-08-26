@@ -44,7 +44,7 @@ var DataTable = $.fn.dataTable;
 
 
 /* Set the defaults for DataTables initialisation */
-$.extend( true, DataTable.defaults, {
+$.extend( true, DataTable.defaults,{
 	dom:
 		"<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
 		"<'row'<'col-sm-12'tr>>" +

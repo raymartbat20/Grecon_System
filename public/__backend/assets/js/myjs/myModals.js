@@ -203,5 +203,25 @@ $(document).ready(function(){
         });
     });
 
+    $("#reduce-qty").on("show.bs.modal",function(event){
+        var button = $(event.relatedTarget);
+
+        var product_id = button.data("product_id");
+
+        var modal = $(this);
+        modal.find('.modal-body #product_id').val(product_id);
+    });
+
+    $("#remove-item").on("show.bs.modal",function(event){
+        
+        var button = $(event.relatedTarget);
+
+        var product_id = button.data("product_id");
+
+        var modal = $(this);
+
+        modal.find(".modal-body #product_id_remove").val(product_id);
+    });
+
     //End transactions modal
 });

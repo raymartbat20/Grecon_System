@@ -298,6 +298,15 @@ class ProductsController extends Controller
         $product_id = request('product_id');
         $defectiveProducts = request('defectiveProducts');
         $product = Product::where('product_id',$product_id)->firstOrFail();
+
+        if($product->qty == 0){
+            $notification = array(
+                'message'   => "Stocks is currenty at 0. Can't reduct more",
+                'icon'  => 'error',
+                'heading' => 'Failed!!'
+            );
+            return back()->with($notification);
+        }
         if($product->qty >= $defectiveProducts){
 
         $product->decrement('qty',$defectiveProducts);

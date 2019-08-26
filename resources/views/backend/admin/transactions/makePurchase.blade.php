@@ -9,7 +9,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Number of items</label>
-                                    <a href="{{url('/admin/cart/cart_items')}}" class="btn btn-outline-info btn-sm form-control">Orders: 
+                                    <a href="{{url('/admin/cart/cart_items')}}" class="btn btn-outline-info form-control">Orders: 
                                         <span class="badge badge-pill badge-danger" >{{ Session::has('cart') ? 
                                         Session::get('cart')->totalQty : '' }}</span>
                                     </a>
@@ -76,8 +76,10 @@
                                                     @break
                                                 @case("OUT OF STOCK")
                                                 <div class="bad badge-info badge-pill">{{$product->status}}</div>
+                                                    @break
                                                 @case("RESERVE")
                                                 <div class="badge badge-primary badge-pill">{{$product->status}}</div>
+                                                    @break
                                                 @default
                                                 <div class="bad badge-warning badge-pill">NO STATUS</div>                                                    
                                             @endswitch
@@ -85,14 +87,10 @@
                                         <li>Supplier: {{$product->supplier->company}}</li>
                                     </ul>
                                     <div class="wrapper">
-<<<<<<< HEAD
                                         <button class="btn btn-outline-primary btn-block" 
-                                        {{$product->status != "AVAILABLE" ? 'disabled' : ''}}>Add</button>
-=======
-                                        <button class="btn btn-outline-primary btn-block" {{$product->status != "AVAILABLE" ? 'disabled' : ''}}
-                                            data-toggle="modal" data-target="#add-qty" data-product_id={{$product->primary_product_id}}
-                                            data-product_qty="{{$product->qty}}">Add</button>
->>>>>>> b788a2b6f2ced7e43b32bc9194834da9ea9b52a2
+                                        {{$product->status != "AVAILABLE" ? 'disabled' : ''}} data-toggle="modal"
+                                        data-target="#add-qty" data-product_id="{{$product->product_id}}"
+                                        data-product_qty = {{$product->qty}}>Add</button>
                                     </div>
                                 </div>
                             </div>
@@ -110,12 +108,15 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">Add Quanity</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span ari{a-hidden="true">×</span>
+                            </button>
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="product_id" id="product_id">
                             <div class="form-group">
                                 <label for="qty">Quantity</label>
-                                <input type="number" name="qty" id="qty" placeholder="Quantity" class="form-control">
+                                <input type="number" name="qty" id="qty" placeholder="Quantity" class="form-control" autocomplete="off">
                             </div>
                         </div>
                         <div class="modal-footer">

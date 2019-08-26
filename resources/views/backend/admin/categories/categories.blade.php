@@ -37,14 +37,14 @@
                                     <td>{{$category->category}}</td>                                
                                     <td>
                                         <span class="tooltipped" data-toggle="tooltip" data-title="Update Category" data-placement="top">
-                                            <button type="button" class="btn btn-rounded btn-icon btn-info" data-toggle="modal"
+                                            <button type="button" class="btn btn-outline-info" data-toggle="modal"
                                                 data-target="#update-category" data-categoryid="{{$category->id}}"
                                                 data-name="{{$category->category}}">
                                                 <i class="fa fa-pencil"></i>
                                             </button>
                                         </span>
                                         <span class="tooltipped" data-toggle="tooltip" data-title="Delete Category" data-placement="top">
-                                            <button type="button" class="btn btn-rounded btn-icon btn-primary" data-toggle="modal" 
+                                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" 
                                                 data-target="#delete-category" data-categoryid="{{$category->id}}"
                                                 data-name="{{$category->category}}">
                                                 <i class="fa fa-archive"></i>
@@ -167,4 +167,9 @@
         </div>
 
     <!-- End Modas -->
+@endsection
+@section('scripts')
+    <script>
+        $(".table").dataTable();
+    </script>
 @endsection
