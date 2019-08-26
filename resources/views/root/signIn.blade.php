@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="/__backend/assets/vendors/jquery-toast-plugin/jquery.toast.min.css">
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="./__backend/assets/css/vertical-layout-light/style.css">
+  <link rel="stylesheet" href="/__backend/assets/css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="/__backend/assets/images/favicon.png" />
 </head>

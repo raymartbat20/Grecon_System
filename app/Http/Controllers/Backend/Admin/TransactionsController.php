@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\{User,Product,Cart};
+use App\{User,Product,Cart,Customer};
 use Hash;
 use Session;
 use Auth;
@@ -52,7 +52,10 @@ class TransactionsController extends Controller
      */
     public function show($id)
     {
-        //
+        $customer = Customer::find($id);
+        $cart = unserialize($customer->items);
+        $items = $cart->items;
+        return view('backend.admin.transactions.invoice',compact('customer','items','cart'));
     }
 
     /**
@@ -63,7 +66,7 @@ class TransactionsController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -87,5 +90,12 @@ class TransactionsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function records()
+    {
+        $customers = Customer::orderBy('created_at','DESC')->get();
+
+        return view('backend.admin.transactions.records',compact('customers'));
     }
 }

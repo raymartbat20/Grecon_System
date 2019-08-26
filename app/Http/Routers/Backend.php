@@ -45,7 +45,9 @@
             Route::get('/remove_item', 'OrderCartController@removeItem')->name('removeitem');
             Route::post('/check_out', 'OrderCartController@store')->name('cartstore');
         });
+        
         //Transaction Controller
+        Route::get('/transaction/records', 'TransactionsController@records')->name('transaction.records');
         Route::resource('transaction','TransactionsController');
     });
  });

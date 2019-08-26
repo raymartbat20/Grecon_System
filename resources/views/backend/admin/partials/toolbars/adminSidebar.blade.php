@@ -36,6 +36,7 @@
         <div class="collapse" id="purchase">
           <ul class="nav flex-column sub-menu">
             <li class="nav-item"><a class="nav-link" href="{{url('/admin/transaction')}}"><i class="fa fa-cart-plus"></i>New Transaction</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{url('/admin/transaction/records')}}"><i class="fa fa-money"></i>Transaction Records  </a></li>
           </ul>
         </div>
       </li>

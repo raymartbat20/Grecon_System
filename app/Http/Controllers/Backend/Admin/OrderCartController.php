@@ -16,6 +16,12 @@ class OrderCartController extends Controller
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
         $itemQty = request('qty');
+        dd($cart);
+        foreach($cart as $car)
+        {
+            dump($car);
+        }
+        die();
         $cart->add($item,$item->product_id,$itemQty);
         
         $request->session()->put('cart',$cart);
