@@ -21,15 +21,16 @@
                         <div class="row">
                             <div class="col-lg-8">
                                 <div class="form-group">
-                                    <label for="search">Search</label>
-                                    <input type="text" name="search" class="form-control" placeholder="Search Product" autocomplete="off">
+                                    <form method="GET" action="{{route('backend.admin.transaction.index')}}">
+                                        <label for="search">Search</label>
+                                        <input type="text" name="search" class="form-control" placeholder="Search Product" autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label></label>
-
                                     <button type="submit" class="btn btn-inverse-info form-control">SEARCH</button>
+                                </form>
                                 </div>
                             </div>
                         </div>
@@ -65,7 +66,7 @@
                                         {{-- <li>width: {{$product->width}}{{$product->width_label}}</li> --}}
                                         {{-- <li>weight: {{$product->weight}}{{$product->weight_label}}</li> --}}
                                         <li>stocks: {{$product->qty}}</li>
-                                        <li>Category: {{$product->category->category}}</li>
+                                        <li>Category: {{$product->category}}</li>
                                         <li>status: 
                                             @switch($product->status)
                                                 @case("AVAILABLE")

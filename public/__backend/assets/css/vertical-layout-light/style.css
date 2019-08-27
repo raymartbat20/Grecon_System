@@ -13723,7 +13723,7 @@ input[type="button"].btn-block {
   border-radius: calc(0.25rem - 1px);
 }
 
-.card-img-top {
+.row {
   width: 100%;
   border-top-left-radius: calc(0.25rem - 1px);
   border-top-right-radius: calc(0.25rem - 1px);
@@ -27534,6 +27534,7 @@ div.tagsinput span.tag a {
   padding-right: 0;
   padding-top: 70px;
 }
+
 
 .page-body-wrapper.full-page-wrapper {
   width: 100%;

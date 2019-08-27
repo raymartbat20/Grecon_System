@@ -37,6 +37,10 @@ class Cart
     }
 
     public function reduceQty($id,$qty){
+        if($qty > $this->items[$id]['qty'])
+        {
+            $qty = $this->items[$id]['qty'];
+        }
         $this->items[$id]['qty'] -= $qty;
         $this->items[$id]['price'] -= ($this->items[$id]['item']['price'] * $qty);
         $this->totalQty -= $qty;

@@ -48,6 +48,7 @@
         
         //Transaction Controller
         Route::get('/transaction/records', 'TransactionsController@records')->name('transaction.records');
+        Route::get('/transaction/{id}/printInvoice', 'TransactionsController@printInvoice')->name('transaction.printInvoice');
         Route::resource('transaction','TransactionsController');
     });
  });

@@ -20,9 +20,8 @@
                                     <td>{{$customer->original_price}}</td>
                                     <td>{{$customer->discount}}</td>
                                     <td>{{$customer->total}}</td>
-                                    <td>{{$customer->created_at->format('m/d/Y')}}</td>   
+                                    <td>{{$customer->created_at->format('M/d/Y')}}</td>   
                                     <td>
-                                        {{-- <a href="{{url('/admin/transaction/'.$customer->customer_id.'/edit')}}" type="submit" class="btn btn-icon btn-rounded btn-warning"><i class="fa fa-print"></i></button> --}}
                                         <form method="GET" action="{{route('backend.admin.transaction.show',[$customer->customer_id])}}">
                                             <button type="submit" class="btn btn-icon btn-rounded btn-warning"><i class="fa fa-print"></i></button>
                                         </form>    

@@ -55,7 +55,8 @@
                   <hr>
                 </div>
                 <div class="container-fluid w-100">
-                  <a href="#" class="btn btn-primary float-right mt-4 ml-2"><i class="mdi mdi-printer mr-1"></i>Print</a>
+                  {{-- <button type="button" id="print" class="btn btn-outline-danger">Print</button> --}}
+                  <a href="{{route('backend.admin.transaction.printInvoice',[$customer->customer_id])}}" target="_blank" class="btn btn-primary float-right mt-4 ml-2"><i class="mdi mdi-printer mr-1"></i>Print</a>
                 </div>
             </div>
         </div>

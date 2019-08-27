@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Backend\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\{User,Product,Cart,Customer};
+use App\{User,Product,Cart,Customer,Category};
 use Hash;
 use Session;
 use Auth;
+use PDF;
 
 class TransactionsController extends Controller
 {
@@ -16,9 +17,15 @@ class TransactionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::inRandomOrder()->paginate(9);
+
+        $search = request('search');
+        $products = Product::join('categories','products.category_id', '=' ,'categories.category_id')
+                            ->where('product_name', 'LIKE', '%'.$search.'%')
+                            ->orWhere('categories.category', 'LIKE' , '%'.$search.'%')
+                            ->paginate(9);
+
         return view('backend.admin.transactions.makePurchase',compact('products'));
     }
 
@@ -97,5 +104,13 @@ class TransactionsController extends Controller
         $customers = Customer::orderBy('created_at','DESC')->get();
 
         return view('backend.admin.transactions.records',compact('customers'));
+    }
+
+    public function printInvoice(Request $request, $id)
+    {
+        $customer = Customer::find($id);
+        $cart = unserialize($customer->items);
+        $items = $cart->items;
+        return view('backend.admin.transactions.invoicePrint',compact('customer','items','cart'));
     }
 }
