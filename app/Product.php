@@ -3,10 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\{Category,Supplier,Defective};
 
 class Product extends Model
 {
+    use softDeletes;
     protected $guarded = [];
     protected $primaryKey = 'primary_product_id';
 

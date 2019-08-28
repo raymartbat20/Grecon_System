@@ -177,7 +177,17 @@ $(document).ready(function(){
         modal.find('.modal-body #remove_product_id').val(product_id);
     });
 
+    $("#restore-product").on('show.bs.modal',function(event){
+        
+        var button = $(event.relatedTarget);
+        var product_id = button.data('product_id');
 
+        var modal = $(this);
+
+        modal.find('.modal-body #modal-message').text('Restore this '+ product_id +'?');
+        modal.find('.modal-body #product_id').val(product_id);
+        
+    });
     //End product modal
 
 

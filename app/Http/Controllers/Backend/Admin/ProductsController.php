@@ -34,7 +34,14 @@ class ProductsController extends Controller
         $categories = Category::all();
         $suppliers = Supplier::all();
 
-        return view('backend.admin.products.createProduct',compact('categories','suppliers'));
+        return view('backend.admin.products.addProduct',compact('categories','suppliers'));
+    }
+
+    public function createProduct()
+    {
+        $products = Product::all();
+
+        return view('backend.admin.products.createProduct',compact('products'));
     }
 
     /**
@@ -49,7 +56,7 @@ class ProductsController extends Controller
         $products = Product::all();
         
         $request->validate([
-            'product_id'        => 'required|unique:products,product_id,NULL,primary_product_id,deleted_at,NULL',
+            'product_id'        => 'required|unique:products',
             'product_name'      => 'required|min:2|max:20',
             'category'          => 'required',
             'supplier'          => 'required',
@@ -146,6 +153,14 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $product_id)
     {
+        $product = Product::where('product_id', $product_id)->firstOrFail();
+
+        if(request('product_id') !=  $product->product_id)
+        {
+            $request->valdate([
+                'product_id' => 'required|unique:products',
+            ]);
+        }
         $request->validate([
             'product_name'      => 'required|min:2|max:20',
             'category'          => 'required',
@@ -159,8 +174,6 @@ class ProductsController extends Controller
         ],[
             'price.regex' => 'price could only have 2 decimals',
         ]);
-
-        $product = Product::where('product_id', $product_id)->firstOrFail();
 
         if($request->hasFile('image')){
             $image = request('image');
@@ -216,7 +229,7 @@ class ProductsController extends Controller
                 $product->delete();
 
                 $notification = array(
-                    'message'   => 'Product Deleted Successfully!',
+                    'message'   => 'Product added to archives Successfully!',
                     'icon'      => 'success',
                     'heading'   => 'success',
                 );
@@ -239,6 +252,40 @@ class ProductsController extends Controller
             );
             return back()->with($notification);
         }
+    }
+
+    public function archiveProducts()
+    {
+        $products = Product::onlyTrashed()->get();
+        
+        
+        return view('backend.admin.products.archiveProducts',compact('products'));
+    }
+
+    public function restoreProduct(Request $request)
+    {
+       $product = Product::onlyTrashed()
+                        ->where('product_id', request('product_id'))
+                        ->firstOrFail();
+
+       $product->restore();
+
+       if($product->qty == 0){
+           $product->status = "OUT OF STACK";
+       }
+
+       if($product->critical_amount >= $product->qty)
+       {
+           $product->critical_status = "CRITICAL";
+       }
+
+       $notification = array(
+            "message"   => "Product ".$product->product_name." restored!",
+            "icon"      => "success",
+            "heading"   => "Restored",
+       );
+
+       return back()->with($notification);
     }
 
     public function addStocks(Request $request)

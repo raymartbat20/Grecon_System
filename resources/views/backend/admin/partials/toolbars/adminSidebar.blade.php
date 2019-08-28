@@ -23,6 +23,7 @@
           <ul class="nav flex-column sub-menu">
             <li class="nav-item"> <a class="nav-link" href="{{url('/admin/category')}}"><i class="mdi mdi-layers"></i> Categories</a></li>
             <li class="nav-item"> <a class="nav-link" href="{{url('/admin/products/create')}}"><i class="mdi mdi-briefcase-plus"></i> New Raw Product</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{url('/admin/products/createProduct')}}"><i class="mdi mdi-briefcase-plus"></i> Create Product</a></li>
             <li class="nav-item"> <a class="nav-link" href="{{url('/admin/products')}}"><i class="fa fa-bar-chart-o"></i> Stocks</a></li>
           </ul>
         </div>

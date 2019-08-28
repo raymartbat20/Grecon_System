@@ -14,7 +14,7 @@
                     data-product_name={{$product->product_name}}>Remove Defectives</button>
                     <button type="button" class="btn btn-outline-info btn-rounded btn-block btn-sm"
                     data-toggle="modal" data-target="#delete-product" data-product_id={{$product->product_id}}
-                    data-product_name={{$product->product_name}}>Delete Product</button>
+                    data-product_name={{$product->product_name}}>Archive Product</button>
                 </div>
             </div>
         </div>
@@ -52,7 +52,7 @@
                                             <div class="form-group col-lg-6">
                                                 <label for="product_id">Product ID</label>
                                                 <input type="text" class="form-control"
-                                                value="{{$product->product_id}}" readonly>
+                                                value="{{$product->product_id}}" name="product_id">
                                             </div>
                                             <div class="form-group col-lg-6">
                                                 <label for="product_name">Product Name</label>
@@ -193,7 +193,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <button type="Submit" class="btn btn-inverse-success pull-right">Submit</button>
+                                    <button type="Submit" class="btn btn-inverse-success pull-right">Update</button>
                                 </div>
                             </div>
                         </div>
@@ -244,7 +244,7 @@
                             <div class="modal-header">
                                 <h5 class="modal-title">Remove Defective Products</h5>
                                 <button type="button" data-dismiss="modal" class="close">
-                                <span ari{a-hidden="true">×</span>
+                                <span aria-hidden="true">×</span>
                                 </button>
                             </div>
                             <div class="modal-body">
@@ -276,15 +276,15 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button class="close" type="button" data-dismiss="modal">
-                            <span ari{a-hidden="true">×</span>
+                            <span aria-hidden="true">×</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <h5 class="text-center">Delete Product {{$product->product_name}}?</h5>
+                            <h5 class="text-center">Add to archive products {{$product->product_name}}?</h5>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#password-confirm"
-                            data-dismiss="modal">DELETE</button>
+                            data-dismiss="modal">ARCHIVE</button>
                             <button type="button" class="btn btn-outline-primary" data-dismiss="modal">CLOSE</button>
                         </div>
                     </div>
@@ -301,7 +301,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button class="close" type="button" data-dismiss="modal">
-                                <span ari{a-hidden="true">×</span>
+                                <span aria-hidden="true">×</span>
                                 </button>
                             </div>
                             <div class="modal-body">

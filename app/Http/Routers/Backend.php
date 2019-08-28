@@ -31,6 +31,9 @@
         Route::resource('category','CategoriesController');
 
         //Products Controller
+        Route::get('/products/createProduct', 'ProductsController@createProduct')->name('products.createProduct');
+        Route::get('/products/archive', 'ProductsController@archiveProducts')->name('products.archiveProducts');
+        Route::post('/products/restore', 'ProductsController@restoreProduct')->name('products.restoreProduct');
         Route::get('/products/{product}/log','ProductsController@productLog')->name('products.log');
         Route::match(['put','patch'],'/products/addStocks','ProductsController@addStocks')->name('products.addStocks');
         Route::match(['put','patch'],'/products/removeDefectives','ProductsController@removeDefectives')->name('products.removeDefectives');
