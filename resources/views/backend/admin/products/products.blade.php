@@ -26,7 +26,7 @@
                                     <td>{{$product->product_id}}</td>
                                     <td>{{$product->product_name}}</td>
                                     <td>{{$product->price}}</td>
-                                    <td>{{$product->qty}}</td>
+                                    <td>{{$product->qty}}{{$product->unit}}</td>
                                     <td>
                                         @switch($product->status)
                                             @case("AVAILABLE")

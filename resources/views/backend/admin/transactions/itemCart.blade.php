@@ -22,6 +22,13 @@
             <div class="card-body">
                 <a href="{{route('backend.admin.transaction.index')}}" class="btn btn-info pull-right">Add Items</a>                 
                 <h1 class="card-title">Your Orders: </h1>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                            <li>{{$error}}</li>
+                        @endforeach
+                    </div>
+                @endif
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
@@ -37,8 +44,8 @@
                                 <tr>
                                     <td>{{$item['item']['product_id']}}</td>
                                     <td>{{$item['item']['product_name']}}</td>
-                                    <td>{{$item['item']['price']}}</td>
-                                    <td>{{$item['qty']}}</td>
+                                    <td>{{$item['item']['price']}} per {{$item['item']['unit'] == "pc" ? "pc(s)" : "kg(s)"}}</td>
+                                    <td>{{$item['qty']}} {{$item['item']['unit'] == "pc" ? "pc(s)" : "kg(s)"}}</td>
                                     <td align="right">{{$item['price']}}</td>
                                     <td>
                                         <button type="button" class="btn btn-outline-success btn-rounded btn-icon"
@@ -104,7 +111,7 @@
                         <input type="hidden" name="product_id"  id="product_id">
                         <div class="form-group">
                             <label for="reduce_qty">Quantity to be remove</label>
-                            <input type="number" id="reduce_qty" name="reduce_qty" placeholder="reduce quantiy" class="form-control">
+                            <input type="text" id="reduce_qty" name="reduce_qty" placeholder="reduce quantiy" class="form-control">
                         </div>
                     </div>
                     <div class="modal-footer">

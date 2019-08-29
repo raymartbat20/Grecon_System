@@ -3,18 +3,18 @@
 namespace App;
 
 
-class Cart
+class Material
 {
     public $items = null;
     public $totalQty = 0;
     public $totalPrice = 0;
 
-    public function __construct($oldCart)
+    public function __construct($oldMaterials)
     {
-        if ($oldCart){
-            $this->items = $oldCart->items;
-            $this->totalQty = $oldCart->totalQty;
-            $this->totalPrice = $oldCart->totalPrice;
+        if ($oldMaterials){
+            $this->items = $oldMaterials->items;
+            $this->totalQty = $oldMaterials->totalQty;
+            $this->totalPrice = $oldMaterials->totalPrice;
         }
     }
 
@@ -31,7 +31,7 @@ class Cart
         $storedItem['qty'] += $qty;
         $storedItem['price'] = $item->price * $storedItem['qty'];
         $this->items[$id] = $storedItem;
-        $this->totalQty += $qty;
+        $this->totalQty += 1;
         $this->totalPrice += $item->price * $qty;
     }
 
@@ -42,16 +42,16 @@ class Cart
         }
         $this->items[$id]['qty'] -= $qty;
         $this->items[$id]['price'] -= ($this->items[$id]['item']['price'] * $qty);
-        $this->totalQty -= $qty;
         $this->totalPrice -= ($this->items[$id]['item']['price'] * $qty);
 
         if ($this->items[$id]['qty'] <= 0){
             unset($this->items[$id]);
+            $this->totalQty -= 1;
         }
     }
 
     public function removeItem($id){
-        $this->totalQty -= $this->items[$id]['qty'];
+        $this->totalQty -= 1;
         $this->totalPrice -= $this->items[$id]['price'];
         unset($this->items[$id]);
     }

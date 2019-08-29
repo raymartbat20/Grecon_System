@@ -45,7 +45,7 @@
                                         </span>
                                         <span class="tooltipped" data-toggle="tooltip" data-title="Delete Category" data-placement="top">
                                             <button type="button" class="btn btn-outline-primary" data-toggle="modal" 
-                                                data-target="#delete-category" data-categoryid="{{$category->id}}"
+                                                data-target="#delete-category" data-catid="{{$category->category_id}}"
                                                 data-name="{{$category->category}}">
                                                 <i class="fa fa-archive"></i>
                                             </button>
@@ -73,7 +73,6 @@
                     <form method="POST" action="{{route('backend.admin.category.store')}}">
                         @csrf
                         <div class="modal-body">
-                            <input type="hidden" name="update-category-id" id="update-category-id">
                             <div class="col-lg-12 form-group">
                                 <label for="category">New Category</label>
                                 <input type="text" name="category" id="category" class="form-control" placeholder="New category">

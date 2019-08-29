@@ -94,6 +94,7 @@ class CategoriesController extends Controller
      */
     public function update(Request $request)
     {
+        dd(request()->all());
         $request->validate([
             'category' => 'required|min:2|unique:categories,category,NULL,id,deleted_at,NULL'
         ]);

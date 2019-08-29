@@ -37,13 +37,6 @@ class ProductsController extends Controller
         return view('backend.admin.products.addProduct',compact('categories','suppliers'));
     }
 
-    public function createProduct()
-    {
-        $products = Product::all();
-
-        return view('backend.admin.products.createProduct',compact('products'));
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -95,6 +88,7 @@ class ProductsController extends Controller
         $product->width             = request('width');
         $product->width_label       = request('width_label');
         $product->description       = request('description');
+        $product->unit              = request('unit');
 
         if($product->qty == 0){
             $product->status = "OUT OF STOCK";
@@ -336,15 +330,29 @@ class ProductsController extends Controller
 
     public function removeDefectives(Request $request)
     {
-        $request->validate([
-            'defectiveProducts'  => 'required|numeric|integer|min:0',
-        ],[
-            'defectiveProducts.min'  => 'The removing stocks should be higher than 0',
-            'defectiveProducts.integer' => 'The removing stocks should be a whole number',
-        ]);
         $product_id = request('product_id');
-        $defectiveProducts = request('defectiveProducts');
         $product = Product::where('product_id',$product_id)->firstOrFail();
+
+        if($product->unit == "pc")
+        {
+            $request->validate([
+                'defectiveProducts'  => 'required|numeric|integer|min:0',
+            ],[
+                'defectiveProducts.min'  => "The removing stocks should be higher than 0 and doesn't contain decimal value",
+                'defectiveProducts.integer' => 'The removing stocks should be a whole number',
+            ]);
+        }
+        else
+        {
+            $request->validate([
+                'defectiveProducts'  => 'required|regex:/^\d*(\.\d{1,3})?$/',
+            ],[
+                'defectiveProducts.min'  => 'The removing stocks should be higher than 0',
+                'defectiveProducts.integer' => 'The removing stocks should be a whole number',
+            ]);
+        }
+        
+        $defectiveProducts = request('defectiveProducts');
 
         if($product->qty == 0){
             $notification = array(
