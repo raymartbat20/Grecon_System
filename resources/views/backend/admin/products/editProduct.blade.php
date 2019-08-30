@@ -106,7 +106,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="qty">Stocks</label>
-                                            <input class="form-control text-right" type="text" name="qty" id="qty"value="{{$product->qty}}" readonly>
+                                            <input class="form-control text-right" type="text" name="qty" id="qty"value="{{$product->qty}} {{$product->unit}}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
@@ -251,7 +251,7 @@
                                 <input type="hidden" id="remove_product_id" name="product_id">
                                 <div class="form-group">
                                     <label for="defectiveProducts">Item count to be remove</label>
-                                    <input type="number" name="defectiveProducts" id="defectiveProducts" class="form-control"
+                                    <input type="text" name="defectiveProducts" id="defectiveProducts" class="form-control"
                                     placeholder="Defective Products to be remove">
                                 </div>
                                 <div class="form-group">

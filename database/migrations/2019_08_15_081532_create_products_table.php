@@ -23,12 +23,12 @@ class CreateProductsTable extends Migration
             $table->integer('supplier_id')->nullable();
             $table->double('price', 8, 2);
             $table->enum('status',['AVAILABLE','UNAVAILABLE','RESERVED','OUT OF STOCK'])->default('AVAILABLE');
-            $table->bigInteger('qty')->default(0);
+            $table->double('qty',15,3)->default(0);
+            $table->string('unit');
             $table->bigInteger('critical_amount')->default(0);
             $table->boolean('critical_status')->default(0);
             $table->string('height')->nullable();
             $table->string('height_label');
-            $table->string('color')->nullable();
             $table->string('width')->nullable();
             $table->string('width_label');
             $table->string('weight')->nullable();

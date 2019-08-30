@@ -67,7 +67,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row mb-5">
-                                <div class="col-lg-4">
+                                <div class="col-lg-2">
                                     <div class="form-group">
                                         <label for="price">Price</label>
                                         <div class="input-group">
@@ -78,6 +78,15 @@
                                             data-toggle="tooltip" data-title="This only allows 2 decimal digits" data-placement="top"
                                             value="{{old('price')}}">
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1">
+                                    <div class="form-group">
+                                        <label for="height_label">Per</label>
+                                        <select class="form-control-sm" name="unit">
+                                            <option value="pc" {{old('width_label') == 'pc' ? 'selected' : ''}}>pc</option>
+                                            <option value="kg" {{old('width_label') == 'kg' ? 'selected' : ''}}>kg</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">

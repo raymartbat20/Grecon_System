@@ -11,6 +11,7 @@
   <title>Grecon</title>
   <!-- plugins:css -->
   @include('backend.layouts.styles.calmStyles')
+  @yield('styles')
 </head>
 <body class="sidebar-fixed">
   <div class="container-scroller">

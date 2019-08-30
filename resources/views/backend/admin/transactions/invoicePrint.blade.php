@@ -50,7 +50,7 @@
                           </div>
                         </div>
                         <div class="container-fluid mt-5 d-flex justify-content-center w-100">
-                          <div class="table-responsive w-100">
+                          <div class="w-100">
                               <table class="table">
                                 <thead>
                                   <tr class="bg-dark text-black">

@@ -12,21 +12,45 @@ class OrderCartController extends Controller
 {
     public function addToCart(Request $request)
     {
-        $item = Product::where('product_id',request('product_id'))->firstOrFail();
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
-        $cart = new Cart($oldCart);
-        $itemQty = request('qty');
-        $cart->add($item,$item->product_id,$itemQty);
-        
-        $request->session()->put('cart',$cart);
-        
-        $notification = array(
-            'message'   => 'Successfully added',
-            'icon'  => 'success',
-            'heading'   => 'Success!',
-        );
+        if(request("qty_kilo") != null)
+        {
+            $request->validate([
+                'qty_kilo'  => 'required|numeric|regex:/^\d*(\.\d{1,3})?$/',
+            ],[
+                'qty_kilo.regex'  => 'The quantity should only have 3 decimal values',
+                'qty_kilo.numeric'    => 'The quantity should be a number'
+            ]);
+            
+            $itemQty = request('qty_kilo');
+        }
 
-        return back()->with($notification);
+        if(request("qty_pc") != null)
+        {
+            $request->validate([
+                'qty_pc'  => 'required|numeric|integer|min:0',
+            ],[
+                'qty_pc.min'  => "The quantity should be higher than 0 and doesn't contain decimal value",
+                'qty_pc.integer' => 'The quantity should be a whole number because this is a per piece item',
+            ]);
+            
+            $itemQty = request('qty_pc');
+        }
+        
+            $item = Product::where('product_id',request('product_id'))->firstOrFail();
+            $oldCart = Session::has('cart') ? Session::get('cart') : null;
+            $cart = new Cart($oldCart);
+            $cart->add($item,$item->product_id,$itemQty);
+            
+            $request->session()->put('cart',$cart);
+            
+            $notification = array(
+                'message'   => 'Successfully added',
+                'icon'  => 'success',
+                'heading'   => 'Success!',
+            );
+
+            return back()->with($notification);
+        
     }
 
     public function index()
@@ -55,6 +79,25 @@ class OrderCartController extends Controller
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
         $product_id = request('product_id');
+        $product = Product::where("product_id", $product_id)->firstOrFail();
+        if($product->unit == "pc")
+        {
+            request()->validate([
+                'reduce_qty'  => 'required|numeric|integer|min:0',
+            ],[
+                'reduce_qty.min'  => "The quantity should be higher than 0 and doesn't contain decimal value",
+                'reduce_qty.integer' => 'The quantity should be a whole number because this is a per piece item',
+            ]);
+        }
+        else
+        {
+            request()->validate([
+                'reduce_qty'  => 'required|numeric|regex:/^\d*(\.\d{1,3})?$/',
+            ],[
+                'reduce_qty.regex'  => 'The quantity should only have 3 decimal values',
+                'reduce.numeric'    => 'The quantity should be a number'
+            ]);
+        }
         $reduce_qty = request('reduce_qty');
         $cart->reduceQty($product_id,$reduce_qty);
 
@@ -70,7 +113,6 @@ class OrderCartController extends Controller
 
     public function removeItem()
     {
-        // dd(request()->all());
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
         $product_id = request('product_id');

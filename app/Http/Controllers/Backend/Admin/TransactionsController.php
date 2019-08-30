@@ -19,7 +19,6 @@ class TransactionsController extends Controller
      */
     public function index(Request $request)
     {
-
         $search = request('search');
         $products = Product::join('categories','products.category_id', '=' ,'categories.category_id')
                             ->where('product_name', 'LIKE', '%'.$search.'%')

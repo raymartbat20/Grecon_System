@@ -9,7 +9,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Number of items</label>
-                                    <a href="{{url('/admin/cart/cart_items')}}" class="btn btn-outline-info form-control">Orders: 
+                                    <a href="{{url('/admin/cart/cart_items')}}" class="btn btn-outline-info form-control">Items: 
                                         <span class="badge badge-pill badge-danger" >{{ Session::has('cart') ? 
                                         Session::get('cart')->totalQty : '' }}</span>
                                     </a>
@@ -36,6 +36,15 @@
                         </div>
                     </div>
                 </div>
+                @if ($errors->any())
+                <div class="col-lg-12">
+                    <div class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                            <li>{{$error}}</li>                            
+                        @endforeach
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </div>
@@ -59,13 +68,10 @@
                                         <div class="product-item mb-2">
                                             <img class="card-img" src="/__backend/assets/images/products/{{$product->image}}">
                                         </div>
-                                        <h1 class="font-weight-normal mb-4">Price: ₱{{$product->price}}</h1>
+                                        <h2 class="font-weight-normal mb-4">Price: ₱{{$product->price}} per {{$product->unit}}</h2>
                                     </div>
                                     <ul class="list-unstyled plan-features">
-                                        {{-- <li>height: {{$product->height}}{{$product->height_label}}</li> --}}
-                                        {{-- <li>width: {{$product->width}}{{$product->width_label}}</li> --}}
-                                        {{-- <li>weight: {{$product->weight}}{{$product->weight_label}}</li> --}}
-                                        <li>stocks: {{$product->qty}}</li>
+                                        <li>stocks: {{$product->qty}} {{$product->unit}}(s)</li>
                                         <li>Category: {{$product->category}}</li>
                                         <li>status: 
                                             @switch($product->status)
@@ -90,7 +96,7 @@
                                     <div class="wrapper">
                                         <button class="btn btn-outline-primary btn-block" 
                                         {{$product->status != "AVAILABLE" ? 'disabled' : ''}} data-toggle="modal"
-                                        data-target="#add-qty" data-product_id="{{$product->product_id}}"
+                                        data-target="{{$product->unit == "pc" ? "#add-qty-pc" : "#add-qty-kilo"}}" data-product_id="{{$product->product_id}}"
                                         data-product_qty = {{$product->qty}}>Add</button>
                                     </div>
                                 </div>
@@ -102,9 +108,9 @@
         </div>
     </div>
     <!-- modal -->
-        <div class="modal fade" id="add-qty" tabindex="-1" aria-hidden="true">
+        <div class="modal fade" id="add-qty-pc" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-center modal-default">
-                <form method="GET" action="{{route('backend.admin.ordercart.addToCart')}}" id="#add-form">
+                <form method="GET" action="{{route('backend.admin.ordercart.addToCart')}}" id="#add-form-pc">
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">
@@ -117,8 +123,36 @@
                             <input type="hidden" name="product_id" id="product_id">
                             <div class="form-group">
                                 <label for="qty">Quantity</label>
-                                <input type="number" name="qty" id="qty" placeholder="Quantity" class="form-control" autocomplete="off">
+                                <input type="text" name="qty_pc" id="qty_pc" placeholder="Quantity" class="form-control" autocomplete="off">
                             </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-outline-success" type="submit" id="submit">ADD</button>
+                            <button class="btn btn-outline-danger" data-dismiss="modal" type="button">CANCEL</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal fade" id="add-qty-kilo" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-center modal-default">
+                <form method="GET" action="{{route('backend.admin.ordercart.addToCart')}}" id="#add-form-kilo">
+                    @csrf
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add Quantity by Kilo</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span ari{a-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="product_id" id="product_id_kilo">
+                            <div class="form-group">
+                                <label for="qty">Quantity</label>
+                                <input type="text" name="qty_kilo" id="qty_kilo" placeholder="Quantity" class="form-control" autocomplete="off">
+                            </div>
+                            <p class="text-success">This only support decimal value</p>
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-outline-success" type="submit" id="submit">ADD</button>

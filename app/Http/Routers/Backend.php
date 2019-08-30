@@ -31,7 +31,6 @@
         Route::resource('category','CategoriesController');
 
         //Products Controller
-        Route::get('/products/createProduct', 'ProductsController@createProduct')->name('products.createProduct');
         Route::get('/products/archive', 'ProductsController@archiveProducts')->name('products.archiveProducts');
         Route::post('/products/restore', 'ProductsController@restoreProduct')->name('products.restoreProduct');
         Route::get('/products/{product}/log','ProductsController@productLog')->name('products.log');
@@ -47,6 +46,15 @@
             Route::get('/check_out', 'OrderCartController@checkout')->name('checkout');
             Route::get('/remove_item', 'OrderCartController@removeItem')->name('removeitem');
             Route::post('/check_out', 'OrderCartController@store')->name('cartstore');
+        });
+
+        //Create Product Controller
+        Route::name('createproduct.')->prefix('createProduct')->group(function(){
+            Route::get('', 'CreateProductController@index')->name('.index');
+            Route::get('/addMaterial', 'CreateProductController@addMaterial')->name('addMaterial');
+            Route::get('/materials', 'CreateProductController@materials')->name('materials');
+            Route::get('/reduceMaterial', 'CreateProductController@reduceMaterial')->name('reduceMaterial');
+            Route::get('/removeMaterial', 'CreateProductController@removeMaterial')->name('removeMaterial');
         });
         
         //Transaction Controller
