@@ -123,9 +123,9 @@ class CreateProductController extends Controller
         Session::put('materials',$materials);
 
         $notification = array(
-            'message'   => 'Success of removing item',
+            'message'   => 'Item was successfuly removed',
             'icon'      => 'success',
-            'heading'   => 'Success',
+            'heading'   => 'Item Removed',
         );
 
         return back()->with($notification);
