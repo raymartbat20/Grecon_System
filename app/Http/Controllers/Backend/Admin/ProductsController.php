@@ -57,7 +57,7 @@ class ProductsController extends Controller
         
         $request->validate([
             'product_id'        => 'required|unique:products',
-            'product_name'      => 'required|min:2|max:20',
+            'product_name'      => 'required|min:2|max:50',
             'category'          => 'required',
             'supplier'          => 'required',
             'price'             => 'required|numeric|regex:/^\d*(\.\d{1,2})?$/',
@@ -162,7 +162,7 @@ class ProductsController extends Controller
             ]);
         }
         $request->validate([
-            'product_name'      => 'required|min:2|max:20',
+            'product_name'      => 'required|min:2|max:50',
             'category'          => 'required',
             'supplier'          => 'required',
             'price'             => 'required|numeric|regex:/^\d*(\.\d{1,2})?$/',
