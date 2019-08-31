@@ -15,7 +15,7 @@
                     Session::get('materials')->totalQty : '' }}</span>
                     </button>       
                 </a>
-                <h4 class="card-title">Crate New Product</h4>
+                <h4 class="card-title text-warning">Select materials to be used</h4>
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         @foreach ($errors->all() as $error)
@@ -41,7 +41,7 @@
                                     <td class="py-1"><img src="/__backend/assets/images/products/{{$product->image}}"></td>
                                     <td>{{$product->product_id}}</td>
                                     <td>{{$product->product_name}}</td>
-                                    <td>{{$product->qty}}</td>
+                                    <td>{{$product->qty}}{{$product->unit}}(s)</td>
                                     <td>{{$product->category->category}}</td>
                                     <td>
                                         @switch($product->status)
@@ -81,14 +81,16 @@
                                     </td>
                                     <td>
                                         <button data-toggle="modal" data-target="{{$product->unit == "pc" ? "#createProduct-material-pc" : "#createProduct-material-kilo"}}" class="btn btn-outline-success btn-sm"
-                                        data-product_id="{{$product->product_id}}" {{$product->status != "AVAILABLE" ? 'disabled' : ''}}>Add</button>
+                                        data-product_id="{{$product->product_id}}" 
+                                        data-product_qty="{{$product->qty}}" {{$product->status != "AVAILABLE" ? 'disabled' : ''}}>Add</button>
 
 
                                         <button data-toggle="modal" data-target="#product-info" class="btn btn-outline-info btn-sm"
                                         data-product_id="{{$product->product_id}}" data-product_image="{{$product->image}}"
                                         data-product_name="{{$product->product_name}}" data-product_height="{{$product->height}}"
-                                        data-product_hLable="{{$product->height_label}}" data-product_qty="{{$product->qty}}"
-                                        data-product_width="{{$product->width}}" data-product_wLabel="{{$product->width_label}}"
+                                        data-product_hlabel="{{$product->height_label}}" data-product_qty="{{$product->qty}}"
+                                        data-product_welabel="{{$product->weight_label}}"
+                                        data-product_width="{{$product->width}}" data-product_wlabel="{{$product->width_label}}"
                                         data-product_supplier="{{$product->supplier->company}}" data-product_description="{{$product->description}}"
                                         data-product_unit="{{$product->unit}}">Info</button>
                                     </td>                                    
@@ -120,7 +122,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-outline-success">ADD</button>
+                        <button id="submit" type="submit" class="btn btn-outline-success">ADD</button>
                         <button type="button" class="btn btn-outline-danger" data-dismiss="modal">CANCEL</button>
                     </div>
                 </div>
@@ -150,7 +152,7 @@
                             <p class="text-success">This is supported only by decimal value</p>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-outline-success">ADD</button>
+                            <button id="submit" type="submit" class="btn btn-outline-success">ADD</button>
                             <button type="button" class="btn btn-outline-danger" data-dismiss="modal">CANCEL</button>
                         </div>
                     </div>
@@ -170,6 +172,24 @@
                 </div>
                 <div class="modal-body">
                                 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-warning" tabindex="-1">
+        <div class="modal-dialog modal-small modal-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h3 class="text-center">Not Enought Stocks</h3>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-success" data-dismiss="modal">OK</button>

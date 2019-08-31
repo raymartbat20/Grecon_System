@@ -189,5 +189,4 @@
     <script>
         $(".table").dataTable();
     </script>
-    <script type="text/javascript" src="/__backend/assets/js/myjs/myModals.js"></script>
 @endsection

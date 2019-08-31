@@ -47,11 +47,11 @@ class UsersController extends Controller
         $request->validate([
             'firstname'         => 'required|min:2|max:20',
             'lastname'          => 'required|min:2|max:20',
-            'email'             => 'required|email|unique:users,email,NULL,user_id,deleted_at,NULL',
+            'username'          => 'required|unique:users,username,NULL,user_id,deleted_at,NULL',
             'number'            => 'numeric|required|digits_between:0,11',
             'password'          => 'required|min:5',
             'confirm_password'  => 'required|same:password',
-            'role'           => 'required',
+            'role'              => 'required',
             'image'             => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ],[
             'role.required' => 'Role field is required',
@@ -61,7 +61,7 @@ class UsersController extends Controller
 
         $user->firstname = request('firstname');
         $user->lastname = request('lastname');
-        $user->email = request('email');
+        $user->username = request('username');
         $user->number = request('number');
         $user->password = Hash::make(request('password'));
         $user->role_id = request('role');
@@ -119,7 +119,6 @@ class UsersController extends Controller
         $request->validate([
             'firstname'         => 'required|min:2|max:20',
             'lastname'          => 'required|min:2|max:20',
-            'email'             => 'required|email',
             'number'            => 'numeric|required|digits_between:0,11',
             'role_id'           => 'required',
         ]);

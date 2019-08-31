@@ -26,7 +26,7 @@ class RedirectIfAuthenticated
                  return redirect('/cashier/dashboard');
 
                  case 3:
-                 return redirect('/inventory/dashboard');
+                 return redirect('/inventory_clerk/dashboard');
             }
         }
 

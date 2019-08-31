@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Supplier;
 
 class SupplierSeeder extends Seeder
 {
@@ -11,6 +12,12 @@ class SupplierSeeder extends Seeder
      */
     public function run()
     {
-        
+        Supplier::create([
+            'firstname' => "Grecon",
+            'lastname'  => "Inventory",
+            'company'   => "Grecon",
+            'email'     => "grecon@supplier.com",
+            'number'    => "09543215",
+        ]);
     }
 }

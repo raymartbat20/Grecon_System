@@ -38,7 +38,7 @@
                                     <td>
                                         <span class="tooltipped" data-toggle="tooltip" data-title="Update Category" data-placement="top">
                                             <button type="button" class="btn btn-outline-info" data-toggle="modal"
-                                                data-target="#update-category" data-categoryid="{{$category->id}}"
+                                                data-target="#update-category" data-categoryid="{{$category->category_id}}"
                                                 data-name="{{$category->category}}">
                                                 <i class="fa fa-pencil"></i>
                                             </button>

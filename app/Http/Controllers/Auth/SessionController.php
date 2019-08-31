@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 
+
 class SessionController extends Controller
 {
     public function showSignIn()
@@ -16,12 +17,12 @@ class SessionController extends Controller
     public function signIn(Request $request)
     {
         $request->validate([
-            'email'     => 'required|email',
+            'username'     => 'required',
             'password'  => 'required',
         ]);
 
         $user_data = array(
-            'email'     => $request->get('email'),
+            'username'     => $request->get('username'),
             'password'  => $request->get('password'),
         );
 

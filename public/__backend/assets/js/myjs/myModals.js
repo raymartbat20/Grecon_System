@@ -8,7 +8,6 @@ $(document).ready(function(){
         var firstname   = button.data('firstname');
         var lastname    = button.data('lastname');
         var number      = button.data('number');
-        var email       = button.data('email')
         var role        = button.data('role');
         var image       = button.data('image');
 
@@ -18,7 +17,6 @@ $(document).ready(function(){
         modal.find('.modal-body #firstname').val(firstname);
         modal.find('.modal-body #lastname').val(lastname);
         modal.find('.modal-body #number').val(number);
-        modal.find('.modal-body #email').val(email);
         modal.find('.modal-body select').val(role);
         modal.find('.modal-header #img-avatar').attr('src','/__backend/assets/images/avatars/' + image);
     });
@@ -76,12 +74,11 @@ $(document).ready(function(){
         modal.find('.modal-body #company').val(company);
         modal.find('.modal-header #image-avatar').attr('src','/__backend/assets/images/suppliers/'+image);
 
-        $("#image").on("change",function(){
-            $("#image-name").val(this.files[0].name);
-        });
-
         $("#upload-btn").on("click",function(){
             $("#image").click();
+        });
+        $("#image").on("change",function(){
+            $("#image-name").val(this.files[0].name);
         });
     });
 
@@ -118,9 +115,9 @@ $(document).ready(function(){
 
     $("#update-category").on('show.bs.modal',function(event){
             var button = $(event.relatedTarget);
-            var catid = button.data('catid');
+            var catid = button.data('categoryid');
             var category = button.data('name');
-            alert(catid);
+
             var modal = $(this);
 
             modal.find('.modal-body #update-category-id').val(catid);
@@ -130,7 +127,7 @@ $(document).ready(function(){
     $("#delete-category").on('show.bs.modal',function(event){
             
             var button = $(event.relatedTarget);
-            var catid = button.data('categoryid');
+            var catid = button.data('catid');
             var category = button.data('name');
 
             var modal = $(this);
@@ -266,8 +263,9 @@ $(document).ready(function(){
             var product_name            = button.data('product_name');
             var product_qty             = button.data('product_qty');
             var product_height          = button.data('product_height');
-            var product_hLabel          = button.data('product_hLabel');
-            var product_wLabel          = button.data('product_wLabel');
+            var product_hlabel          = button.data('product_hlabel');
+            var product_wLabel          = button.data('product_wlabel');
+            var product_weLabel         = button.data('product_welabel');
             var product_description     = button.data('product_description');
             var product_supplier        = button.data('product_supplier');
             var product_width           = button.data('product_width');
@@ -299,7 +297,7 @@ $(document).ready(function(){
                             '<h5>Stocks: <mark><u>'+product_qty+' '+product_unit+'(s)</u></mark></h5>'+
                         '</div>'+
                         '<div class="col-lg-12 text-center">'+
-                            '<h5>Height: <mark><u>'+product_height+''+product_hLabel+'</u></mark></h5>'+
+                            '<h5>Height: <mark><u>'+product_height+''+product_hlabel+'</u></mark></h5>'+
                         '</div>'+
                         '<div class="col-lg-12 text-center">'+
                             '<h5>Width: <mark><u>'+product_width+''+product_wLabel+'</u></mark></h5>'+
@@ -318,10 +316,19 @@ $(document).ready(function(){
         var button = $(event.relatedTarget);
 
         var product_id = button.data('product_id');
+        var product_qty = button.data('product_qty');
 
         var modal = $(this);
 
         modal.find('.modal-body #product_id').val(product_id);
+
+        $("#submit").click(function(event){
+            var qty = $("#qty").val();
+            if(qty > product_qty){
+                $("#modal-warning").modal("show");
+                event.preventDefault();
+            }
+        });
     });
 
     $("#createProduct-material-kilo").on('show.bs.modal',function(event){

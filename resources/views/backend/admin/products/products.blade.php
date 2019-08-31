@@ -4,7 +4,14 @@
     <div class="col-lg-12 grid-margin stretched-card">
         <div class="card">
             <div class="card-body">
-                <a href="{{route('backend.admin.products.archiveProducts')}}" class="btn btn-info pull-right">Archive products</a>
+                <a href="{{route('backend.admin.products.archiveProducts')}}" class="btn btn-info pull-right">
+                    Archive products
+                    @if ($archive > 0)
+                        <span class="badge badge-pill badge-warning">
+                            {{$archive}}
+                        </span>
+                    @endif      
+                </a>
                 <h4 class="card-title">Product List</h4>
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -12,6 +19,7 @@
                             <th>Product</th>
                             <th>Product ID</th>
                             <th>Name</th>
+                            <th>Supplier</th>
                             <th>Price</th>
                             <th>Quantity</th>
                             <th>Status</th>
@@ -25,8 +33,17 @@
                                     <td class="py-1"><img src="/__backend/assets/images/products/{{$product->image}}"></td>
                                     <td>{{$product->product_id}}</td>
                                     <td>{{$product->product_name}}</td>
+                                    <td>
+                                        <span class="badge badge-pill badge-warning">
+                                            {{$product->supplier->company}}
+                                        </span>
+                                    </td>
                                     <td>{{$product->price}}</td>
-                                    <td>{{$product->qty}}{{$product->unit}}</td>
+                                    <td>
+                                        <span class="badge badge-outline-info badge-pill">
+                                            {{$product->qty}}{{$product->unit}}
+                                        </span>
+                                    </td>
                                     <td>
                                         @switch($product->status)
                                             @case("AVAILABLE")
@@ -36,11 +53,6 @@
                                                 @break
                                             @case("UNAVAILABLE")
                                                 <p class="badge badge-info">
-                                                    {{$product->status}}
-                                                </p>
-                                                @break
-                                            @case("RESERVE")
-                                                <p class="badge badge-primary">
                                                     {{$product->status}}
                                                 </p>
                                                 @break

@@ -42,13 +42,16 @@ class SuppliersController extends Controller
     {
         $request->validate([
             'firstname'     => 'required|min:2|max:20',
-            'lastname'      => 'required|min:2|max:20',
+            'lastname'      => 'nullable|min:2|max:20',
             'company'       => 'required|min:2|max:50',
+            'email'         => 'nullable|email',
+            'number'        => 'nullable|numeric|digits_between:0,11',
         ]);
 
         $supplier = new supplier();
 
-        if(request('email') == null && request('number') == null){
+        if(request('email') == null && request('number') == null)
+        {
             $notification = array(
                 'message' => "one of the email or number should have a value!",
                 'icon' => 'error',
@@ -56,23 +59,14 @@ class SuppliersController extends Controller
             );
             return back()->with($notification);
         }
-        elseif(request('email') != null){
-            $request->validate([
-                'email' => 'email'
-                ]);
-            $supplier->email =  request('email');
-        }
-        else{
-            $request->validate([
-                'number' => 'numeric|digits_between:0,11',
-            ]);
-            $supplier->email =  request('number');
-        }
 
 
         $supplier->firstname = request('firstname');
         $supplier->lastname = request('lastname');
         $supplier->company = request('company');
+        $supplier->email = request('email');
+        $supplier->number = request('number');
+
 
         
         if($request->hasFile('image')){
@@ -132,8 +126,11 @@ class SuppliersController extends Controller
 
         $request->validate([
             'firstname'     => 'required|min:2|max:20',
-            'lastname'      => 'required|min:2|max:20',
+            'lastname'      => 'nullable|min:2|max:20',
             'company'       => 'required|min:2|max:50',
+            'email'         => 'nullable|email',
+            'number'        => 'nullable|numeric|digits_between:0,11',
+
         ]);
 
         $supplier = Supplier::find(request('supplier_id'));
@@ -145,20 +142,6 @@ class SuppliersController extends Controller
                 'heading' => 'No Contacts!'
             );
             return back()->with($notification);
-        }
-        
-        if(request('email') != null){
-            $request->validate([
-                'email' => 'email'
-                ]);
-            $supplier->email = request('email');
-        }
-        
-        if(request('number') != null){
-            $request->validate([
-                'number' => 'numeric|digits_between:0,11',
-            ]);
-            $supplier->number = request('number');
         }
 
         if($request->hasFile('image')){
@@ -176,6 +159,8 @@ class SuppliersController extends Controller
         $supplier->firstname = request('firstname');
         $supplier->lastname = request('lastname');
         $supplier->company = request('company');
+        $supplier->email = request('email');
+        $supplier->number = request('number');
 
         $supplier->save();
 
@@ -204,7 +189,7 @@ class SuppliersController extends Controller
             $name = $supplier->getFullName();
             $notification = array (
                 'message' => "Supplier ".$name." was successfuly deleted!",
-                'icon' => 'warning',
+                'icon' => 'success',
                 'heading' => 'Success',
             );
             return back()->with($notification);

@@ -41,7 +41,7 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'category' => 'required|min:2|unique:categories,category,NULL,id,deleted_at,NULL'
+            'category' => 'required|min:2|max:25|unique:categories,category,NULL,id,deleted_at,NULL'
         ]);
 
         $category = new category();
@@ -94,9 +94,8 @@ class CategoriesController extends Controller
      */
     public function update(Request $request)
     {
-        dd(request()->all());
         $request->validate([
-            'category' => 'required|min:2|unique:categories,category,NULL,id,deleted_at,NULL'
+            'category' => 'required|min:2|max:25|unique:categories,category,NULL,id,deleted_at,NULL'
         ]);
 
         $category = Category::find(request('catid'));

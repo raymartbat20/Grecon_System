@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\{Category,Supplier,Defective};
+use App\{Category,Supplier,Defective,ItemLog};
 
 class Product extends Model
 {
@@ -21,14 +21,9 @@ class Product extends Model
     {
         return $this->belongsTo(Supplier::class,'supplier_id');
     }
-
-    public function defective()
+    
+    public function item_log()
     {
-        return $this->hasMany(Defective::class,'primary_product_id');
-    }
-
-    public function addstock()
-    {
-        return $this->hasMany(AddStock::class,'primary_product_id');
+        return $this->hasMany(ItemLog::class,'primary_product_id');
     }
 }

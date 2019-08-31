@@ -98,6 +98,7 @@ class OrderCartController extends Controller
                 'reduce.numeric'    => 'The quantity should be a number'
             ]);
         }
+
         $reduce_qty = request('reduce_qty');
         $cart->reduceQty($product_id,$reduce_qty);
 
@@ -150,7 +151,6 @@ class OrderCartController extends Controller
 
     public function store(Request $request)
     {
-        // dd(request()->all());
         if(!Session::has('cart'))
         {
             $notification = array(

@@ -32,6 +32,18 @@
                     <img src="/__backend/assets/images/grecon_background.png" alt="logo">
                   </div>
                   <h4>Welcome back!</h4>
+                  @if ($errors->any())
+                      <div class="alert alert-danger">
+                        @foreach ($errors->all() as $errors)
+                          <li>{{$error}}</li>
+                        @endforeach
+                      </div>
+                  @endif
+                  @if (Session::has('error'))
+                      <div class="alert alert-danger">
+                        <li>{{Session::get('error')}}</li>
+                      </div>
+                  @endif
                   <form class="pt-3" method="POST" action="{{route('auth.signIn')}}">
                     @csrf
                     <div class="form-group">
@@ -42,7 +54,8 @@
                             <i class="mdi mdi-account-outline text-primary"></i>
                           </span>
                         </div>
-                        <input name="email" type="text" class="form-control form-control-lg border-left-0" id="exampleInputEmail" placeholder="Username">
+                        <input name="username" type="text" class="form-control form-control-lg border-left-0"
+                        autocomplete="off" id="exampleInputEmail" placeholder="Username">
                       </div>
                     </div>
                     <div class="form-group">
@@ -53,7 +66,8 @@
                             <i class="mdi mdi-lock-outline text-primary"></i>
                           </span>
                         </div>
-                        <input type="password" name="password" class="form-control form-control-lg border-left-0" id="exampleInputPassword" placeholder="Password">                        
+                        <input type="password" name="password" class="form-control form-control-lg border-left-0"
+                        autocomplete="off" id="exampleInputPassword" placeholder="Password">                        
                       </div>
                     </div>
                     <div class="my-3">
@@ -73,16 +87,12 @@
       </div>
       <!-- container-scroller -->
       <!-- plugins:js -->
-      <script src="../../../../vendors/js/vendor.bundle.base.js"></script>
+      <script src="/__backend/assets/js/vendors/js/vendor.bundle.base.js"></script>
       <!-- endinject -->
       <!-- Plugin js for this page -->
       <!-- End plugin js for this page -->
       <!-- inject:js -->
-      <script src="../../../../js/off-canvas.js"></script>
-      <script src="../../../../js/hoverable-collapse.js"></script>
-      <script src="../../../../js/template.js"></script>
-      <script src="../../../../js/settings.js"></script>
-      <script src="../../../../js/todolist.js"></script>
+
       <!-- endinject -->
 </body>
 

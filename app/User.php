@@ -43,17 +43,6 @@ class User extends Authenticatable
 
     protected $primaryKey = "user_id";
 
-
-    public function defectives()
-    {
-        return $this->hasMany(Defective::class,'user_id');
-    }
-
-    public function addstock()
-    {
-        return $this->hasMany(AddStock::class,'user_id');
-    }
-
     public function role()
     {
         return $this->belongsTo(Role::class, 'role_id');

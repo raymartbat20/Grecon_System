@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Backend\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\{Category,Supplier,Product,Defective,AddStock};
+use App\{Category,Supplier,Product,Material,ItemLog};
 use Hash;
+use Session;
 use DB;
 use Auth;
 use Image;
@@ -19,9 +20,10 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(20);
+        $products = Product::all();
+        $archive = Product::onlyTrashed()->count();
 
-        return view('backend.admin.products.products',compact('products'));
+        return view('backend.admin.products.products',compact('products','archive'));
     }
 
     /**
@@ -54,15 +56,41 @@ class ProductsController extends Controller
             'category'          => 'required',
             'supplier'          => 'required',
             'price'             => 'required|numeric|regex:/^\d*(\.\d{1,2})?$/',
-            'qty'               => 'numeric|integer',
-            'critical_amount'   => 'numeric|integer',
-            'height'            => 'numeric|integer',
-            'weight'            => 'numeric|numeric|regex:/^\d*(\.\d{1,2})?$/',
-            'width'             => 'numeric|integer',
-            'description'       => 'max:200',
+            'height'            => 'nullable|numeric|regex:/^\d*(\.\d{1,2})?$/',
+            'weight'            => 'nullable|numeric|regex:/^\d*(\.\d{1,2})?$/',
+            'width'             => 'nullable|numeric|regex:/^\d*(\.\d{1,2})?$/',
+            'description'       => 'nullable|max:200',
         ],[
             'price.regex' => 'price could only have 2 decimals',
+            'height.regex' => 'height could only have 2 decimals',
+            'weight.regex' => 'weight could only have 2 decimals',
+            'width.regex'  => 'width could only have 2 decimals',
         ]);
+
+        if(request('unit') == "pc")
+        {
+            request()->validate([
+                'qty' => 'required|numeric|integer|min:0',
+                'critical_amount'   => 'nullable|numeric|integer|min:0',
+            ],[
+                'qty.min' => "The quantity should be higher than 0 and doesn't contain decimal value",
+                'qty.integer' => 'The quantity should be a whole number because this is a per piece item',
+                'critical_amount.min' => "The Critical Amount should be higher than 0 and doesn't contain decimal value",
+                'critical_amount.integer'   => 'The Critical Amount should be a whole number because this is a per piece item',
+            ]);
+        }
+        else
+        {
+            request()->validate([
+                'qty'               => 'required|numeric|regex:/^\d*(\.\d{1,3})?$/',
+                'critical_amount'   => 'nullable|numeric|regex:/^\d*(\.\d{1,3})?$/',
+            ],[
+                'qty.regex'                 => "The quantity should only have 3 decimal values",
+                'qty.integer'               => 'The quantity should be a number',
+                'critical_amount.regex'     => "The Critical Amount should only have 3 decimal values",
+                'critical_amount.integer'   => "The Critical Amount should be a number",
+            ]);
+        }
         
         $product = new product();
         
@@ -73,8 +101,9 @@ class ProductsController extends Controller
             Image::make($image)->resize(300,300)->save(public_path('/__backend/assets/images/products/'.$filename));
             $product->image = $filename;
         }
-
-        $product->product_id        = request('product_id');
+        $product_id_upper           = strToUpper(request('product_id'));
+        
+        $product->product_id        = $product_id_upper;
         $product->product_name      = request('product_name');
         $product->category_id       = request('category');
         $product->supplier_id       = request('supplier');
@@ -131,7 +160,7 @@ class ProductsController extends Controller
         $categories = Category::all();
         $suppliers = Supplier::all();
         $status = [
-            'AVAILABLE','UNAVAILABLE','RESERVED','OUT OF STOCK'
+            'AVAILABLE','UNAVAILABLE','OUT OF STOCK'
         ];
         $product = Product::where('product_id',$product_id)->firstOrFail();
 
@@ -159,15 +188,41 @@ class ProductsController extends Controller
             'product_name'      => 'required|min:2|max:50',
             'category'          => 'required',
             'supplier'          => 'required',
-            'price'             => 'required|numeric|regex:/^\d*(\.\d{1,2})?$/',
-            'critical_amount'   => 'numeric|integer',
-            'height'            => 'numeric|integer',
-            'weight'            => 'numeric|integer',
-            'width'             => 'numeric|integer',
-            'description'       => 'max:200',
+            'height'            => 'nullable|numeric|regex:/^\d*(\.\d{1,2})?$',
+            'weight'            => 'nullable|numeric|regex:/^\d*(\.\d{1,2})?$',
+            'width'             => 'nullable|numeric|regex:/^\d*(\.\d{1,2})?$',
+            'description'       => 'nullable|max:200',
         ],[
             'price.regex' => 'price could only have 2 decimals',
+            'height.regex' => 'height could only have 2 decimals',
+            'weight.regex' => 'weight could only have 2 decimals',
+            'width.regex'  => 'width could only have 2 decimals',
         ]);
+
+        if(request('unit') == "pc")
+        {
+            request()->validate([
+                'qty' => 'required|numeric|integer|min:0',
+                'critical_amount'   => 'nullable|numeric|integer|min:0',
+            ],[
+                'qty.min' => "The quantity should be higher than 0 and doesn't contain decimal value",
+                'qty.integer' => 'The quantity should be a whole number because this is a per piece item',
+                'critical_amount.min' => "The Critical Amount should be higher than 0 and doesn't contain decimal value",
+                'critical_amount.integer'   => 'The Critical Amount should be a whole number because this is a per piece item',
+            ]);
+        }
+        else
+        {
+            request()->validate([
+                'qty'               => 'required|numeric|regex:/^\d*(\.\d{1,3})?$/',
+                'critical_amount'   => 'nullable|numeric|regex:/^\d*(\.\d{1,3})?$/',
+            ],[
+                'qty.regex'                 => "The quantity should only have 3 decimal values",
+                'qty.integer'               => 'The quantity should be a number',
+                'critical_amount.regex'     => "The Critical Amount should only have 3 decimal values",
+                'critical_amount.integer'   => "The Critical Amount should be a number",
+            ]);
+        }
 
         if($request->hasFile('image')){
             $image = request('image');
@@ -193,6 +248,7 @@ class ProductsController extends Controller
         $product->description       = request('description');
         $product->status            = request('status');
 
+        $product->
         $product->save();
 
         $notification = array(
@@ -285,38 +341,67 @@ class ProductsController extends Controller
     public function addStocks(Request $request)
     {
 
-        $request->validate([
-            'added_stocks'  => 'required|numeric|integer|min:0',
-        ],[
-            'added_stocks.min'  => 'The adding stocks should be higher than 0',
-            'added_stocks.integer'  => 'The adding stocks should be a whole number',
-        ]);
-
         $product_id = request('product_id');
         $product = Product::where('product_id' , $product_id)->firstOrFail();
+
+        if($product->unit == "pc")
+        {
+            $request->validate([
+                'added_stocks'  => 'required|numeric|integer|min:0',
+            ],[
+                'added_stocks.min'  => 'The adding stocks should be higher than 0',
+                'added_stocks.integer'  => 'The adding stocks should be a whole number because this is a per piece item',
+            ]);
+        }
+        else
+        {
+            $request->validate([
+                'added_stocks'  => 'required|numeric|regex:/^\d*(\.\d{1,3})?$/',
+            ],[
+                'added_stocks.regex'                 => "The quantity should only have 3 decimal values",
+                'added_stocks.integer'               => 'The quantity should be a number',
+            ]);
+        }
+
+        if($product->own_product == 1)
+        {
+            $product_id = $product->product_id;
+
+            session(['id' => $product_id,
+                    'qty' => request('added_stocks'),
+                    ]);
+            
+            return redirect()->action('Backend\Admin\ProductsController@requirements');
+        }
+
         $product->increment('qty', request('added_stocks'));
 
         if($product->qty == 0){
             $product->status = "OUT OF STOCK";
-        }else{
+        }
+        else
+        {
             $product->status = "AVAILABLE";
         }
 
-        if($product->critical_amount >= $product->qty){
+        if($product->critical_amount >= $product->qty)
+        {
             $product->critical_status = 1;
         }
-        else{
+        else
+        {
             $product->critical_status = 0;
         }
 
 
         $product->save();
 
-        $addStock = new addstock();
+        $addStock = new ItemLog();
 
         $addStock->primary_product_id = $product->primary_product_id;
         $addStock->user_id = Auth()->user()->user_id;
-        $addStock->add_qty = request('added_stocks');
+        $addStock->qty = request('added_stocks');
+        $addStock->type = "add";
 
         $addStock->save();
 
@@ -326,6 +411,76 @@ class ProductsController extends Controller
             'heading' => 'Successful!'
         );
         return redirect(route('backend.admin.products.index'))->with($notification);
+    }
+
+    public function requirements()
+    {
+        $product_id = session('id');
+        $product = Product::where('product_id',$product_id)->firstOrFail();
+        $product_id = $product->product_id;
+        $adding_stocks = session('qty');
+        $used_materials = unserialize($product->materials);
+        $materials = new Material($used_materials);
+        $items = $materials->items;
+
+        return view('backend.admin.products.requirements',compact('items','adding_stocks','product_id'));
+    }
+
+    public function requirementsStore()
+    {
+        $product = Product::where('product_id', request('product_id'))->firstOrFail();
+        $addingQty = request('adding_qty');
+        $materials = unserialize($product->materials);
+        $items = $materials->items;
+        foreach($items as $item)
+        {
+            $checkProd = Product::where('product_id',$item['item']['product_id'])->firstOrFail();
+            $reduction = $item['qty'] * $addingQty;
+            if($checkProd->qty < $reduction)
+            {
+                $notification = array(
+                    "message"   => "Not Enough Stocks for this item:".$item['item']['product_name'],
+                    "icon"      => "error",
+                    "heading"   => "Not Enough Stocks!"
+                );
+                return back()->with($notification);
+            }
+            if($checkProd->status != "AVAILABLE")
+            {
+                $notification = array(
+                    "message"   => "this item:".$item['item']['product_name']." is not available",
+                    "icon"      => "error",
+                    "heading"   => "Not Available!"
+                );
+                return back()->with($notification);
+            }
+        }
+
+        foreach($items as $item)
+        {
+            $reduction = $item['qty'] * $addingQty;
+            $prod = Product::where('product_id',$item['item']['product_id'])->firstOrFail();
+            $prod->decrement('qty', $reduction);
+
+            if($prod->qty == 0)
+            {
+                $prod->status = "OUT OF STACK";
+            }
+            if($prod->critical_amount >= $prod->qty)
+            {
+                $prod->critical_status = 1;
+            }
+        }
+
+        $product->increment('qty',$addingQty);
+
+        $notification = array(
+            'message'   => 'Stocks added successfully  to product '.$product->product_id,
+            'icon'  => 'success',
+            'heading' => 'Successful!'
+        );
+
+        return redirect()->route('backend.admin.products.index')->with($notification);
     }
 
     public function removeDefectives(Request $request)
@@ -366,27 +521,33 @@ class ProductsController extends Controller
 
         $product->decrement('qty',$defectiveProducts);
 
-        if($product->qty == 0){
+        if($product->qty == 0)
+        {
             $product->status = "OUT OF STOCK";
-        }else{
+        }
+        else
+        {
             $product->status = "AVAILABLE";
         }
 
-        if($product->critical_amount >= $product->qty){
+        if($product->critical_amount >= $product->qty)
+        {
             $product->critical_status = 1;
         }
-        else{
+        else
+        {
             $product->critical_status = 0;
         }
 
         $product->save();
 
-        $defective = new defective();
+        $defective = new ItemLog();
 
         $defective->primary_product_id = $product->primary_product_id;
         $defective->user_id = Auth()->user()->user_id;
         $defective->description = request('description');
-        $defective->defectives_qty = $defectiveProducts;
+        $defective->qty = $defectiveProducts;
+        $defective->type = "defective";
 
         $defective->save();
 
@@ -412,9 +573,20 @@ class ProductsController extends Controller
     {
         $product = Product::where('product_id',$product_id)->firstOrFail();
         $product_name = $product->product_name;
-        $defectives = Defective::where('primary_product_id',$product->primary_product_id)->orderBy('created_at', 'DESC')->get();
-        $addStocks = AddStock::where('primary_product_id',$product->primary_product_id)->orderBy('created_at', 'DESC')->get();
+        $defectives = ItemLog::where('primary_product_id',$product->primary_product_id)
+                                ->where('type', 'defective')
+                                ->orderBy('created_at', 'DESC')
+                                ->get();
+        $addStocks = ItemLog::where('primary_product_id',$product->primary_product_id)
+                                ->where('type','add')
+                                ->orderBy('created_at', 'DESC')
+                                ->get();
 
-        return view('backend.admin.products.productLog',compact('product','defectives','addStocks','product_name'));
+        $materials = ItemLog::where('primary_product_id',$product->primary_product_id)
+                                ->where('type','material')
+                                ->orderBy('created_at', 'DESC')
+                                ->get();
+
+        return view('backend.admin.products.productLog',compact('product','defectives','addStocks','product_name','materials'));
     }
 }

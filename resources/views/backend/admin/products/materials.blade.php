@@ -4,9 +4,14 @@
         <div class="card">
             <div class="card-body">
                 <a href="{{url('/admin/createProduct')}}">
-                    <button class="btn btn-success pull-right">Add Materials</button>
+                    <button class="btn btn-info pull-right">Add Materials</button>
                 </a>
                 <h4 class="card-title">Materials to be used</h4>
+                @if (Session::has('message'))
+                    <div class="alert alert-danger">
+                        <li>{{Session::get('message')}}</li>
+                    </div>
+                @endif
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         @foreach ($errors->all() as $error)
@@ -29,7 +34,7 @@
                                     <td align="center"><img class="py-1" src="/__backend/assets/images/products/{{$item['item']['image']}}"></td>
                                     <td align="center">{{$item['item']['product_name']}}</td>
                                     <td align="center">{{$item['item']['product_id']}}</td>
-                                    <td align="center">{{$item['qty']}}</td>
+                                    <td align="center">{{$item['qty']}}{{$item['item']['unit']}}(s)</td>
                                     <td align="center">
                                         <button data-product_id={{$item['item']['product_id']}}
                                             data-product_unit={{$item['item']['unit']}} type="button" data-toggle="modal"
@@ -48,6 +53,11 @@
                         </tbody>
                     </table>
                 </div>
+                @if ($totalQty > 0)
+                    <a href="{{url('/admin/createProduct/registerProduct')}}">
+                        <button class="btn btn-outline-success mt-2 pull-right">PROCEED</button>   
+                    </a>                     
+                @endif
             </div>
         </div>
     </div>
@@ -66,7 +76,7 @@
                         <input type="hidden" name="product_id" id="product_id">
                         <div class="form-group">
                             <label for="qty">Reduce Quantity</label>
-                            <input class="form-control" type="text" name="qty" id="qty" placeholder="Reduce Quantity">
+                            <input class="form-control" type="text" name="qty" id="qty" placeholder="Reduce Quantity" autocomplete="off">
                         </div>
                         <p id="kilo-msg" class="text-success"></p>
                     </div>

@@ -27,36 +27,53 @@
             <div class="row">
                 <div class="form-group col-lg-6">
                     <label for="firstname">Firstname</label>
-                  <input name="firstname" type="text" class="form-control" id="firstname" placeholder="Firstname" value="{{old('firstname')}}">
+                  <input name="firstname" type="text" class="form-control" id="firstname" placeholder="Firstname" value="{{old('firstname')}}"
+                  autocomplete="off">
                 </div>
                 <div class="form-group col-lg-6">
                   <label for="lastname">Lastname</label>
-                  <input name="lastname" type="text" class="form-control" id="lastname" placeholder="Lastname" value="{{old('lastname')}}">
+                  <input name="lastname" type="text" class="form-control" id="lastname" placeholder="Lastname" 
+                  autocomplete="off" value="{{old('lastname')}}">
                 </div>
             </div>
 
-            <div class="form-group">
-              <label for="Email">Email address</label>
-              <input name="email" type="email" class="form-control" id="Email" placeholder="Email" value="{{old('email')}}">
-            </div>  
+            <div class="row">
+              <div class="form-group col-lg-6">
+                <label for="username">username</label>
+                <input name="username" type="text" class="form-control" id="username" placeholder="Username" 
+                autocomplete="off" value="{{old('email')}}">
+              </div>  
+              <div class="form-group col-lg-6">
+                <label for="number">Contact Number</label>
+                <input name="number" type="integer" class="form-control" id="number" 
+                autocomplete="off" placeholder="Contact Number" value="{{old('number')}}">
+              </div>
+            </div>
             
             <div class="row">
               <div class="form-group col-lg-6">
                 <label for="Password">Password</label>
-                <input name="password" type="password" class="form-control tooltipped-focus" id="Password" placeholder="Password"
+                <input name="password" type="password" class="form-control tooltipped-focus" id="Password" 
+                autocomplete="off" placeholder="Password"
                 data-toggle="tooltip" data-title="Minimum length is 5">
               </div>
   
               <div class="form-group col-lg-6">
                 <label for="ConfirmPassword">Confirm Password</label>
-                <input name="confirm_password" type="password" class="form-control" id="ConfirmPassword" placeholder="Confirm Password">
+                <input name="confirm_password" type="password" class="form-control" id="ConfirmPassword" 
+                autocomplete="off" placeholder="Confirm Password">
               </div>
             </div>
             
             <div class="row">
               <div class="form-group col-lg-6">
-                <label for="number">Contact Number</label>
-                <input name="number" type="integer" class="form-control" id="number" placeholder="Contact Number" value="{{old('number')}}">
+                <label for="role">Role</label>
+                <select class="form-control form-control-sm" id="role" name="role">
+                  <option selected>Please Select A role</option>
+                  @foreach ($roles as $role)
+                    <option value="{{$role->role_id}}">{{$role->role}}</option>
+                  @endforeach
+                </select>
               </div>
               <div class="form-group col-lg-6">
                 <label for="image">File upload</label>
@@ -67,18 +84,6 @@
                     <button class="file-upload-browse btn btn-primary" type="button" id="upload-btn">Upload</button>
                   </span>
                 </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-6"></div>
-              <div class="form-group col-lg-6">
-                <label for="role">Role</label>
-                <select class="form-control form-control-sm" id="role" name="role">
-                  <option selected>Please Select A role</option>
-                  @foreach ($roles as $role)
-                    <option value="{{$role->role_id}}">{{$role->role}}</option>
-                  @endforeach
-                </select>
               </div>
             </div>
             <div class="pull-right">

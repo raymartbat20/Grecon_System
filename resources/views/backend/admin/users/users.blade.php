@@ -26,7 +26,6 @@
                             <tr>
                                 <th>User</th>
                                 <th>Name</th>
-                                <th>Email</th>
                                 <th>Contact Number</th>
                                 <th>Role</th>
                                 <th>Action</th>
@@ -37,7 +36,6 @@
                                 <tr>
                                     <td class="py-1"><img src="/__backend/assets/images/avatars/{{$user->image}}" alt="image"></td>
                                     <td>{{$user->getFullName()}}</td>
-                                    <td>{{$user->email}}</td>
                                     <td>{{$user->number}}</td>
                                     <td>
                                         @switch($user->role->role)
@@ -67,7 +65,7 @@
                                             <button class="btn btn-rounded btn-icon btn-primary" data-toggle="modal"
                                                 data-target="#edit-user" data-userid = "{{$user->user_id}}"
                                                 data-firstname = "{{$user->firstname}}" data-lastname = "{{$user->lastname}}"
-                                                data-email = "{{$user->email}}" data-number = "{{$user->number}}"
+                                                data-number = "{{$user->number}}"
                                                 data-role = "{{$user->role_id}}" data-image="{{$user->image}}">
                                                 <i class="fa fa-pencil"></i>
                                             </button>
@@ -118,11 +116,6 @@
                             </div>
                         </div>
             
-                        <div class="form-group">
-                            <label for="Email">Email address</label>
-                            <input name="email" type="email" class="form-control" id="email" placeholder="Email" readonly>
-                        </div>
-                        
                         <div class="row">
                             <div class="form-group col-lg-6">
                             <label for="number">Contact Number</label>

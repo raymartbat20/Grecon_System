@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
         User::create([
             'firstname' => 'Admin',
             'lastname'  => 'Grecon',
-            'email'     => 'admin@example.com',
+            'username'  => 'admin123',
             'password'  => Hash::make('password'),
             'image'     => '1565630577.jpg',
             'number'    => '09195241355',
@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
         User::create([
             'firstname' => 'Admin1',
             'lastname'  => 'Grecon1',
-            'email'     => 'admin1@example.com',
+            'username'  => 'admin1234',
             'password'  => Hash::make('password'),
             'image'     => '1565630577.jpg',
             'number'    => '09195241355',

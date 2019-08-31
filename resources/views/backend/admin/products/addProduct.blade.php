@@ -28,12 +28,12 @@
                                         <div class="form-group col-lg-6">
                                             <label for="product_id">Product ID</label>
                                             <input type="text" class="form-control" name="product_id" id="product_id" placeholder="Product ID"
-                                            value="{{old('product_id')}}">
+                                            value="{{old('product_id')}}" autocomplete="off">
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="product_name">Product Name</label>
                                             <input type="text" class="form-control" name="product_name" id="product_name" placeholder="Product Name"
-                                            value="{{old('product_name')}}">
+                                            value="{{old('product_name')}}" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -67,7 +67,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row mb-5">
-                                <div class="col-lg-2">
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="price">Price</label>
                                         <div class="input-group">
@@ -76,7 +76,7 @@
                                             </div>
                                             <input type="text" class="form-control tooltiped-focus text-right" name="price" id="price" placeholder="Price"
                                             data-toggle="tooltip" data-title="This only allows 2 decimal digits" data-placement="top"
-                                            value="{{old('price')}}">
+                                            value="{{old('price')}}" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -93,7 +93,7 @@
                                     <div class="form-group">
                                         <label for="qty">Quantity</label>
                                         <input class="form-control text-right" type="text" name="qty" id="qty" placeholder="Quantity"
-                                        value="{{old('qty')}}">
+                                        value="{{old('qty')}}" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
@@ -101,7 +101,8 @@
                                         <label for="critical_amount">Critical Amount</label>
                                         <input class="form-control tooltipped-focus text-right" type="number" name="critical_amount" id="critical_amount"
                                         placeholder="Critical Amount" data-toggle="tooltip" data-title="Input the amount that will notify you that this is
-                                        already on its critical level" data-placement="top" value="{{old('critical_amount')}}">    
+                                        already on its critical level" data-placement="top" value="{{old('critical_amount')}}"
+                                        autocomplete="off">    
                                     </div>    
                                 </div>             
                             </div>
@@ -110,7 +111,7 @@
                                     <div class="form-group">
                                         <label for="height">Height</label>
                                         <input type="number" class="form-control text-right" name="height" id="height" placeholder="Height"
-                                        value="{{old('height')}}">
+                                        value="{{old('height')}}" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="col-lg-1">
@@ -127,7 +128,7 @@
                                     <div class="form-group">
                                         <label for="width">width</label>
                                         <input type="number" class="form-control text-right" name="width" id="width" placeholder="Width"
-                                        value="{{old('width')}}">
+                                        value="{{old('width')}}" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="col-lg-1">
@@ -144,7 +145,7 @@
                                     <div class="form-group">
                                         <label for="weight">Weight</label>
                                         <input type="number" class="form-control text-right" name="weight" id="weight" placeholder="Weight"
-                                        value="{{old('weight')}}">
+                                        value="{{old('weight')}}" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="col-lg-1">

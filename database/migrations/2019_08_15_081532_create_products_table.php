@@ -33,7 +33,9 @@ class CreateProductsTable extends Migration
             $table->string('width_label');
             $table->string('weight')->nullable();
             $table->string('weight_label');
+            $table->boolean('own_product')->default(0);
             $table->softDeletes('deleted_at');
+            $table->text('materials')->nullable();
             $table->timestamps();
         });
     }
