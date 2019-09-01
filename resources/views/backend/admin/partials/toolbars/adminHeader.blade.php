@@ -16,56 +16,35 @@
         <li class="nav-item dropdown">
           <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
             <i class="mdi mdi-bell-outline mx-0"></i>
-            <span class="count"></span>
+            @if (Auth()->user()->unreadNotifications->count() > 0)
+              <span class="count"></span>                
+            @endif
           </a>
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
             <a class="dropdown-item">
-              <p class="mb-0 font-weight-normal float-left">You have 4 new notifications
+              <p class="mb-0 font-weight-normal float-left">
+                You have {{Auth()->user()->unreadNotifications->count()}} new notifications
               </p>
-              <span class="badge badge-pill badge-warning float-right">View all</span>
+              <span class="badge badge-pill badge-warning float-right">Mark as Read</span>
             </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item preview-item">
-              <div class="preview-thumbnail">
-                <div class="preview-icon bg-success">
-                  <i class="mdi mdi-information mx-0"></i>
-                </div>
-              </div>
-              <div class="preview-item-content">
-                <h6 class="preview-subject font-weight-medium">Application Error</h6>
-                <p class="font-weight-light small-text mb-0">
-                  Just now
-                </p>
-              </div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item preview-item">
-              <div class="preview-thumbnail">
-                <div class="preview-icon bg-warning">
-                  <i class="mdi mdi-settings mx-0"></i>
-                </div>
-              </div>
-              <div class="preview-item-content">
-                <h6 class="preview-subject font-weight-medium">Settings</h6>
-                <p class="font-weight-light small-text mb-0">
-                  Private message
-                </p>
-              </div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item preview-item">
-              <div class="preview-thumbnail">
-                <div class="preview-icon bg-info">
-                  <i class="mdi mdi-account-box mx-0"></i>
-                </div>
-              </div>
-              <div class="preview-item-content">
-                <h6 class="preview-subject font-weight-medium">New user registration</h6>
-                <p class="font-weight-light small-text mb-0">
-                  2 days ago
-                </p>
-              </div>
-            </a>
+              @foreach (Auth::user()->unreadNotifications as $notification)
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item"
+                href="{{route('backend.admin.profile.index')}}">
+                <input type="hidden" value="{{$notification->notifiable_id}}" name="notif_id">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-warning">
+                      <i class="mdi mdi-information mx-0"></i>
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <h6 class="preview-subject font-weight-medium">{{$notification->data['product_id']}}</h6>
+                    <p class="font-weight-light small-text mb-0">
+                      {{$notification->data['message']}}
+                    </p>
+                  </div>
+                </a>
+              @endforeach
           </div>
         </li>
         <li class="nav-item nav-profile dropdown">

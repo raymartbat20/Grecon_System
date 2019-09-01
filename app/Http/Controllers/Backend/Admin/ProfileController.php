@@ -12,6 +12,8 @@ class ProfileController extends Controller
 {
     public function index()
     {
+    dd(request()->all());
+
         return view('backend.admin.profile.profile');
     }
 

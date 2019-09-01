@@ -4,7 +4,7 @@
         <div class="card px-2">
             <div class="card-body">
                 <div class="container-fluid">
-                  <h3 class="text-right my-5">Invoice&nbsp;&nbsp;#INV-17</h3>
+                  <h3 class="text-right my-5">Invoice&nbsp;&nbsp;#INV-{{$customer->created_at->format('Ymd')}}{{$customer->customer_id}}</h3>
                   <hr>
                 </div>
                 <div class="container-fluid d-flex justify-content-between">

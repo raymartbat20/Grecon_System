@@ -21,7 +21,7 @@ class CreateCustomersTable extends Migration
             $table->text('items');
             $table->double('amount_paid', 15, 2);
             $table->double('original_price', 15, 2);
-            $table->double('discount', 15, 2)->default(0);
+            $table->double('discount', 15, 2)->nullable();
             $table->double('total', 15, 2);
 
             $table->timestamps();

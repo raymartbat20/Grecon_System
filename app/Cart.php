@@ -27,12 +27,13 @@ class Cart
             if($this->items){
                 if (array_key_exists($id, $this->items)){
                     $storedItem = $this->items[$id];
+                    $this->totalQty -= 1;
                 }
             }
         $storedItem['qty'] += $qty;
+        $this->totalQty += 1;
         $storedItem['price'] = $item->price * $storedItem['qty'];
         $this->items[$id] = $storedItem;
-        $this->totalQty += 1;
         $this->totalPrice += $item->price * $qty;
     }
 

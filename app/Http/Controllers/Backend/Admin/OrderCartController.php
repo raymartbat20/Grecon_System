@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Backend\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\{Cart,Product,Customer,ItemLog};
+use App\{Cart,Product,Customer,ItemLog,User};
+use App\Notifications\{ProductCritical,OutOfStock};
 use Auth;
 use Session;
 
@@ -12,6 +13,16 @@ class OrderCartController extends Controller
 {
     public function addToCart(Request $request)
     {
+
+        if(request("qty_kilo") == null && request("qty_pc") == null)
+        {
+            $notification = array(
+                "message"   => "Please add some quantity!",
+                "icon"      => "error",
+                "heading"   => "No value inserted",
+            );
+            return back()->with($notification);
+        }
         if(request("qty_kilo") != null)
         {
             $request->validate([
@@ -166,7 +177,9 @@ class OrderCartController extends Controller
             'name'  => 'required|max:15',
             'contact_number' => '|numeric',
             'address'   => 'max:250',
-            'discount'  => 'numeric'
+            'discount'  => 'nullable|numeric|regex:/^\d*(\.\d{1,2})?$/'
+        ],[
+            'discount.regex'    => 'This should ony have 2 decimal value',
         ]);
 
         $oldCart = Session::get('cart');
@@ -194,13 +207,26 @@ class OrderCartController extends Controller
             
             $product->decrement('qty',$item['qty']);
 
+            $users = User::where('role_id',1)->get();
+
+            if($product->critical_amount >= $product->qty)
+            {
+                $product->critical_status = 1;
+
+                foreach($users as $user)
+                {
+                    $user->notify(new ProductCritical($product));
+                }
+            }
+
             if($product->qty == 0)
             {
                 $product->status = "OUT OF STOCK";
-            }
-            if($product->critical_status >= $product->qty)
-            {
-                $product->critical_status = 1;
+
+                foreach($users as $user)
+                {
+                    $user->notify(new OutOfStock($product));
+                }
             }
 
             $product->save();

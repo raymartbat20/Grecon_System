@@ -9,17 +9,21 @@
             <div class="card-body text-center">
               <div class="text-primary mb-4">
                 <i class="fa fa-gavel fa-2x"></i>
-                <p class="font-weight-medium mt-2">Top Product</p>
+                <p class="font-weight-medium mt-2">Top Product of last month</p>
               </div>
-              <h1 class="font-weight-light text-success">{{$top_product->product->product_name}}</h1>
-              <p class="text-muted mb-0">Number of sold: {{$top_product->sum}}</p>
+              @if ($top_product != null)
+                <h1 class="font-weight-light text-success">{{$top_product->product->product_name}}</h1>
+                <p class="text-muted mb-0">Number of sold: {{$top_product->sum}}{{$top_product->product->unit}}(s)</p>
+              @else
+              <h1 class="font-weight-light text-muted">No Record Yet!</h1>
+              @endif
             </div>
           </div>
         </div>
         <div class="col-md-3 grid-margin stretch-card">
           <div class="card">
             <div class="card-body text-center">
-              <div class="text-danger mb-4">
+              <div class="text-warning mb-4">
                 <i class="mdi mdi-chart-pie mdi-36px"></i>
                 <p class="font-weight-medium mt-2">Total Products</p>
               </div>
@@ -47,7 +51,7 @@
         <div class="col-md-3 grid-margin stretch-card">
           <div class="card">
             <div class="card-body text-center">
-              <div class="text-info mb-4">
+              <div class="text-danger mb-4">
                 <i class="fa fa-warning fa-2x"></i>
                 <p class="font-weight-medium mt-2">Critical Products</p>
               </div>
@@ -64,6 +68,7 @@
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
+        <h4 class="card-title text-success">Top 10 Selling Products</h4>
         <canvas id="productChart">
 
         </canvas>
@@ -81,11 +86,11 @@
         data:{
           labels:[
             @foreach($top10_products as $product)
-              "{{$product->product->product_name}}",
+              '{{$product->product->product_name}}',
             @endforeach
           ],
           datasets:[{
-            label:'Sold Product',
+            label:'Sold: ',
             data:[
             @foreach($top10_products as $product)
               "{{$product->sum}}",
@@ -103,7 +108,11 @@
               'rgba(229, 255, 61, 0.6)',
               'rgba(189, 132, 0, 0.6)',
               'rgba(189, 3, 0,, 0.6)',
-            ]
+            ],
+            borderWidth:1,
+            borderColor:'#777',
+            hoverBorderWidth:4,
+            hoverBorderColor:'#000',
           }],
         },
         options:{},

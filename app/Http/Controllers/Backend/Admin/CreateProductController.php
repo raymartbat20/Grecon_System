@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Backend\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\{Product,Material,Category,Supplier,ItemLog};
+use App\{Product,Material,Category,Supplier,ItemLog,User};
+use App\Notifications\{ProductCritical,OutOfStock};
 use Auth;
 use Session;
 use Image;
@@ -234,7 +235,7 @@ class CreateProductController extends Controller
 
         $product = new Product();
         $product->product_name = request('product_name');
-
+        $users = User::where('role_id',1)->get();
         //Reducing Quantity
         foreach($items as $item)
         {
@@ -242,16 +243,26 @@ class CreateProductController extends Controller
             $prod = Product::where('product_id', $item['item']['product_id'])->firstOrFail();
             $prod->decrement('qty' , $qty);
 
-            if($prod->qty == 0)
-            {
-                $prod->status = "OUT OF STOCK";
-                $prod->save();
-            }
             if($prod->critical_amount >= $prod->qty)
             {
                 $prod->critical_status = 1;
                 $prod->save();
+                foreach($users as $user)
+                {
+                    $user->notify(new ProductCritical($prod));
+                }
             }
+
+            if($prod->qty == 0)
+            {
+                $prod->status = "OUT OF STOCK";
+                $prod->save();
+                foreach($users as $user)
+                {
+                    $user->notify(new OutOfStock($prod));
+                }
+            }
+
 
             //Creating the Log
             $itemLog = new ItemLog();
@@ -285,16 +296,16 @@ class CreateProductController extends Controller
         $product->unit              = request('unit');
         $product->own_product       = 1;
         $product->materials         = serialize($materials);
+        
+        if($product->critcal_amount >= $product->qty)
+        {
+            $product->critcal_status = 1;
+        }
 
         if($product->qty == 0)
         {
             $product->status = "OUT OF STOCK";
 
-        }
-        
-        if($product->critcal_amount >= $product->qty)
-        {
-            $product->critcal_status = 1;
         }
 
         $product->save();

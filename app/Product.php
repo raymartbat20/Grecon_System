@@ -4,11 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 use App\{Category,Supplier,Defective,ItemLog};
 
 class Product extends Model
 {
     use softDeletes;
+    use Notifiable;
+    
     protected $guarded = [];
     protected $primaryKey = 'primary_product_id';
 

@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Backend\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\{Category,Supplier,Product,Material,ItemLog};
+use App\{Category,Supplier,Product,Material,ItemLog,User};
+use App\Notifications\{ProductCritical,OutOfStock};
 use Hash;
 use Session;
 use DB;
@@ -429,6 +430,7 @@ class ProductsController extends Controller
     public function requirementsStore()
     {
         $product = Product::where('product_id', request('product_id'))->firstOrFail();
+        $users = User::where('role_id',1)->get();
         $addingQty = request('adding_qty');
         $materials = unserialize($product->materials);
         $items = $materials->items;
@@ -462,13 +464,23 @@ class ProductsController extends Controller
             $prod = Product::where('product_id',$item['item']['product_id'])->firstOrFail();
             $prod->decrement('qty', $reduction);
 
-            if($prod->qty == 0)
-            {
-                $prod->status = "OUT OF STACK";
-            }
+            
             if($prod->critical_amount >= $prod->qty)
             {
                 $prod->critical_status = 1;
+                foreach($users as $user)
+                {
+                    $user->notify(new ProductCritical($prod));
+                }
+            }
+
+            if($prod->qty == 0)
+            {
+                $prod->status = "OUT OF STACK";
+                foreach($users as $user)
+                {
+                    $user->notify(new OutOfStock($prod));
+                }
             }
         }
 
@@ -521,22 +533,35 @@ class ProductsController extends Controller
 
         $product->decrement('qty',$defectiveProducts);
 
-        if($product->qty == 0)
-        {
-            $product->status = "OUT OF STOCK";
-        }
-        else
-        {
-            $product->status = "AVAILABLE";
-        }
+        $users = User::where('role_id',1)->get();
 
+        //change critical status
         if($product->critical_amount >= $product->qty)
         {
             $product->critical_status = 1;
+
+            foreach($users as $user)
+                {
+                    $user->notify(new ProductCritical($product));
+                }
         }
         else
         {
             $product->critical_status = 0;
+        }
+
+        //change status
+        if($product->qty == 0)
+        {
+        $product->status = "OUT OF STOCK";
+        foreach($users as $user)
+            {
+                $user->notify(new OutOfStock($product));
+            }
+        }
+        else
+        {
+            $product->status = "AVAILABLE";
         }
 
         $product->save();
