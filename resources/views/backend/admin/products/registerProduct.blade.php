@@ -49,7 +49,7 @@
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="supplier">Supplier</label>
-                                            <select class="form-control" name="supplier" id="supplier" disabled>
+                                            <select class="form-control" name="supplier" id="supplier">
                                                 <option value="{{$supplier->supplier_id}}" selected>{{$supplier->company}}</option>
                                             </select>
                                         </div>

@@ -21,12 +21,12 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{url('/inventory/profile')}}">
+            <a class="dropdown-item" href="{{url('/inventory_clerk/profile')}}">
             <i class="icon-user text-primary"></i>
               Profile
             </a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{url('/inventory/change_password')}}">
+            <a class="dropdown-item" href="{{url('/inventory_clerk/change_password')}}">
               <i class="icon-lock text-primary"></i>
               Change Password
             </a>

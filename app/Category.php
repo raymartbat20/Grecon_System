@@ -13,7 +13,13 @@ class Category extends Model
     protected $primaryKey = 'category_id';
 
 
-    public function product(){
+    public function product()
+    {
         return $this->hasMany(Product::class, 'category_id');
+    }
+
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y-m-d');
     }
 }

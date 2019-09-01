@@ -2,7 +2,7 @@
 @section('breadcrumbs')
     <nav aria-labelledby="breadcrumb">
         <ol class="breadcrumb bg-primary">
-            <li class="breadcrumb-item" style="font-size:20px;"><a href="{{url('/inventory/dashboard')}}">Dashboard</a></li>
+            <li class="breadcrumb-item" style="font-size:20px;"><a href="{{url('/inventory_clerk/dashboard')}}">Dashboard</a></li>
             <li class="breadcrumb-item active" style="font-size:20px;">Suppliers</li>
         </ol>
     </nav>

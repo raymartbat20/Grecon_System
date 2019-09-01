@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
-
+use Session;
 
 class SessionController extends Controller
 {
@@ -36,6 +36,14 @@ class SessionController extends Controller
 
     public function logout()
     {
+        if(Session::has('cart'))
+        {
+            Session::forget('cart');
+        }
+        if(Session::has('materials'))
+        {
+            Session::forget('materials');
+        }
         Auth::logout();
 
         return redirect('/');

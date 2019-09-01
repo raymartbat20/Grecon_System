@@ -3,7 +3,7 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <a href="{{url('/inventory/createProduct')}}">
+                <a href="{{url('/inventory_clerk/createProduct')}}">
                     <button class="btn btn-info pull-right">Add Materials</button>
                 </a>
                 <h4 class="card-title">Materials to be used</h4>
@@ -54,7 +54,7 @@
                     </table>
                 </div>
                 @if ($totalQty > 0)
-                    <a href="{{url('/inventory/createProduct/registerProduct')}}">
+                    <a href="{{url('/inventory_clerk/createProduct/registerProduct')}}">
                         <button class="btn btn-outline-success mt-2 pull-right">PROCEED</button>   
                     </a>                     
                 @endif

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\{Cart,Product,Customer};
+use App\{Cart,Product,Customer,ItemLog};
 use Auth;
 use Session;
 
@@ -204,6 +204,14 @@ class OrderCartController extends Controller
             }
 
             $product->save();
+
+            $sold_item = new ItemLog();
+            $sold_item->primary_product_id = $item['item']['primary_product_id'];
+            $sold_item->user_id = Auth()->user()->user_id;
+            $sold_item->qty = $item['qty'];
+            $sold_item->type = "sold";
+
+            $sold_item->save();
         }
 
         $customer = new customer();

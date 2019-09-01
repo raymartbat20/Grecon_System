@@ -9,7 +9,7 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <a href="{{url('/inventory/createProduct/materials')}}">
+                <a href="{{url('/inventory_clerk/createProduct/materials')}}">
                     <button type="button" class="btn btn-primary pull-right mb-2">Materials: 
                     <span class="badge badge-pill badge-danger" >{{ Session::has('materials') ? 
                     Session::get('materials')->totalQty : '' }}</span>

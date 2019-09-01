@@ -158,6 +158,7 @@ class CreateProductController extends Controller
 
     public function store(Request $request)
     {
+        dd(request()->all());
         if(!Session::has('materials'))
         {
             $notification = array(
