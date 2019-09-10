@@ -11,5 +11,5 @@
 |
 */
 
-include_once app_path('Http\Routers\Backend.php');
-include_once app_path('Http\Routers\Root.php');
+include_once app_path('Http/Routers/Backend.php');
+include_once app_path('Http/Routers/Root.php');
