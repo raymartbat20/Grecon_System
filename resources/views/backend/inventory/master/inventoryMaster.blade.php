@@ -23,9 +23,6 @@
         @include('backend.inventory.partials.toolbars.inventorySidebar')
       <!-- partial -->
       <div class="main-panel">
-            <div class="breadcrumbs">
-                @yield('breadcrumbs')
-            </div>
         <div class="content-wrapper">
             @yield('content')
         </div>

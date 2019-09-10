@@ -27,11 +27,11 @@ class CreateProductsTable extends Migration
             $table->string('unit');
             $table->bigInteger('critical_amount')->default(0);
             $table->boolean('critical_status')->default(0);
-            $table->string('height')->nullable();
+            $table->double('height',15,3)->nullable();
             $table->string('height_label');
-            $table->string('width')->nullable();
+            $table->double('width',15,3)->nullable();
             $table->string('width_label');
-            $table->string('weight')->nullable();
+            $table->double('weight',15,3)->nullable();
             $table->string('weight_label');
             $table->boolean('own_product')->default(0);
             $table->softDeletes('deleted_at');

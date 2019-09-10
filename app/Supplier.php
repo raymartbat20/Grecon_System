@@ -21,6 +21,8 @@ class Supplier extends Model
     }
 
     public function getFullName(){
-        return "{$this->firstname} {$this->lastname}";
+        $firstname = ucfirst($this->firstname);
+        $lastname = ucfirst($this->lastname);
+        return "$firstname $lastname";
     }
 }

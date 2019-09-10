@@ -45,6 +45,7 @@ class OutOfStock extends Notification
         return [
             "product_id" => $this->product->product_id,
             "message"    => "Product (".$this->product->product_name.") ran out of stock",
+            "link"       => "/admin/products/".$this->product->product_id."/edit",
         ];
     }
 }

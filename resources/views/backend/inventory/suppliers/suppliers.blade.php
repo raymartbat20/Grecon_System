@@ -53,13 +53,15 @@
                                                 <i class="fa fa-pencil"></i>
                                             </button>
                                         </span>
-                                        <span class="tooltipped" data-toggle="tooltip" data-title="Delete User" data-placement="top">
-                                            <button class="btn btn-outline-warning" data-toggle="modal" data-target="#delete-supplier"
-                                                data-supplierid="{{$supplier->supplier_id}}" data-name="{{$supplier->getFullName()}}"
-                                                data-image="{{$supplier->image}}">
-                                                <i class="fa fa-archive"></i>
-                                            </button>
-                                        </span>
+                                        @if($supplier->company != 'Grecon')
+                                            <span class="tooltipped" data-toggle="tooltip" data-title="Delete User" data-placement="top">
+                                                <button class="btn btn-outline-warning" data-toggle="modal" data-target="#delete-supplier"
+                                                    data-supplierid="{{$supplier->supplier_id}}" data-name="{{$supplier->getFullName()}}"
+                                                    data-image="{{$supplier->image}}">
+                                                    <i class="fa fa-archive"></i>
+                                                </button>
+                                            </span>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach 

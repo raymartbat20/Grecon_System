@@ -56,8 +56,8 @@
                 <p class="font-weight-medium mt-2">Critical Products</p>
               </div>
             <h1 class="font-weight-light">{{$critical_products}}</h1>
-              <a href="{{route('backend.admin.products.index')}}">
-                <p class="text-primary mb-0"><i class="fa fa-arrow-circle-o-right"></i> View Stocks</p>
+              <a href="{{route('backend.admin.reports.critical')}}">
+                <p class="text-primary mb-0"><i class="fa fa-arrow-circle-o-right"></i> View Critical Products</p>
               </a>
             </div>
           </div>
@@ -68,7 +68,20 @@
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title text-success">Top 10 Selling Products</h4>
+        <h6 class="card-title text-primary">Pick Daterange</h6>
+        <form method="GET" action="{{url('/admin/dashboard')}}">
+          <div class="row">
+            <div class="input-group input-daterange d-flex align-items-center col-sm-10">
+              <input type="text" class="form-control" id="dateStart" name="date_start" autocomplete="off">
+              <div class="input-group-addon mx-4">to</div>
+              <input type="text" class="form-control" id="dateEnd" name="date_end" autocomplete="off">
+            </div>
+            <div class="col-sm-2">
+              <button type="submit" class="btn btn-success">Generate</button>
+            </div>
+          </div>
+        </form>
+        <h4 class="card-title text-success mt-2">Top 10 Selling Products</h4>
         <canvas id="productChart">
 
         </canvas>
@@ -90,11 +103,12 @@
             @endforeach
           ],
           datasets:[{
-            label:'Sold: ',
+            label:'Sold ',
             data:[
             @foreach($top10_products as $product)
               "{{$product->sum}}",
-            @endforeach              
+            @endforeach
+            0,            
             ],
             backgroundColor:[
               'rgba(7, 182, 21, 0.6)',
@@ -116,6 +130,20 @@
           }],
         },
         options:{},
+      });
+
+      $('.input-daterange input').each(function() {
+          $(this).datepicker('clearDates');
+      });
+
+      $('#dateEnd').datepicker().on('changeDate',function(ev){
+        var startDateVal = $("#dateStart").datepicker('getDate');
+        var endDateVal = $(this).datepicker('getDate');
+
+        if(startDateVal > endDateVal)
+        {
+          $("#dateStart").datepicker('update',endDateVal);
+        }
       });
     </script>
 @endsection

@@ -49,6 +49,8 @@ class User extends Authenticatable
     }
     public function getFullName()
     {
-        return "{$this->firstname} {$this->lastname}";
+        $firstname = ucfirst($this->firstname);
+        $lastname = ucfirst($this->lastname);
+        return "$firstname $lastname";
     }
 }

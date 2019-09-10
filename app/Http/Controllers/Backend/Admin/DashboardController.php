@@ -15,7 +15,12 @@ class DashboardController extends Controller
 
     $firstDayofPreviousMonth = Carbon::now()->startOfMonth()->subMonth()->toDateString();
     $lastDayofPreviousMonth = Carbon::now()->subMonth()->endOfMonth()->toDateString();
-    // dd($firstDayofPreviousMonth.'-'.$lastDayofPreviousMonth);
+
+    $startDate = Carbon::parse(request('date_start'))->format('Y-m-d');
+    $endDate = Carbon::parse(request('date_end'))->format('Y-m-d');
+
+    $firstDayofMonth = Carbon::now()->startOfMonth()->toDateString();
+    $lastDayofMonth = Carbon::now()->endOfMonth()->toDateString();
 
     $today = Carbon::today()->toDateString();
 
@@ -24,9 +29,6 @@ class DashboardController extends Controller
 
     $getSoldProducts = Customer::all();
 
-    // dd($yesterday);
-    // dd(Carbon::now());
-
     $top_product = ItemLog::where('type','sold')
                             ->whereDate('created_at', '>=' ,$firstDayofPreviousMonth)
                             ->whereDate('created_at', '<=' , $lastDayofPreviousMonth)
@@ -34,25 +36,34 @@ class DashboardController extends Controller
                             ->selectRaw('*, sum(qty) as sum')
                             ->orderBy('sum','DESC')
                             ->first();
-    // dd($top_product);
+
+    if(request('date_start') != null && request('date_end') != null)
+    {
     $top10_products = ItemLog::where('type','sold')
-                            ->whereDate('created_at', '>=' ,$firstDayofPreviousMonth)
-                            ->whereDate('created_at', '<=' , $lastDayofPreviousMonth)
-                            ->groupBy('primary_product_id')
-                            ->selectRaw('*, sum(qty) as sum')
-                            ->orderBy('sum','DESC')
-                            ->take(10)
-                            ->get();
+                    ->whereDate('created_at', '>=' ,$startDate)
+                    ->whereDate('created_at', '<=' , $endDate)
+                    ->groupBy('primary_product_id')
+                    ->selectRaw('*, sum(qty) as sum')
+                    ->orderBy('sum','DESC')
+                    ->take(10)
+                    ->get();
+    }
+    else
+    {
+    $top10_products = ItemLog::where('type','sold')
+                ->whereDate('created_at', '>=' ,$firstDayofMonth)
+                ->whereDate('created_at', '<=' , $lastDayofMonth)
+                ->groupBy('primary_product_id')
+                ->selectRaw('*, sum(qty) as sum')
+                ->orderBy('sum','DESC')
+                ->take(10)
+                ->get();
+    }
 
     $critical_products = Product::where('critical_status',1)
                                 ->get()
                                 ->count();
 
-    // foreach($top10_products as $product)
-    // {
-    //     dump($product->product->product_name);
-    // }
-    // die();
     return view('backend.admin.dashboard.dashboard',compact('products_count','salesRecordsCount','sales_records',
     'top_product','critical_products','top10_products'));
     }

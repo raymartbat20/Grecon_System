@@ -41,7 +41,7 @@
               <div class="form-group col-lg-6">
                 <label for="username">username</label>
                 <input name="username" type="text" class="form-control" id="username" placeholder="Username" 
-                autocomplete="off" value="{{old('email')}}">
+                autocomplete="off" value="{{old('username')}}">
               </div>  
               <div class="form-group col-lg-6">
                 <label for="number">Contact Number</label>

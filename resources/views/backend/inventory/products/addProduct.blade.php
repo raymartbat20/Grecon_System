@@ -110,7 +110,7 @@
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="height">Height</label>
-                                        <input type="number" class="form-control text-right" name="height" id="height" placeholder="Height"
+                                        <input type="text" class="form-control text-right" name="height" id="height" placeholder="Height"
                                         value="{{old('height')}}" autocomplete="off">
                                     </div>
                                 </div>
@@ -127,7 +127,7 @@
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="width">width</label>
-                                        <input type="number" class="form-control text-right" name="width" id="width" placeholder="Width"
+                                        <input type="text" class="form-control text-right" name="width" id="width" placeholder="Width"
                                         value="{{old('width')}}" autocomplete="off">
                                     </div>
                                 </div>
@@ -144,7 +144,7 @@
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="weight">Weight</label>
-                                        <input type="number" class="form-control text-right" name="weight" id="weight" placeholder="Weight"
+                                        <input type="text" class="form-control text-right" name="weight" id="weight" placeholder="Weight"
                                         value="{{old('weight')}}" autocomplete="off">
                                     </div>
                                 </div>

@@ -10,7 +10,7 @@
                 <div class="container-fluid d-flex justify-content-between">
                   <div class="col-lg-3 pl-0">
                     <p class="mt-5 mb-2"><b>Grecon</b></p>
-                    <p>104,<br>Minare SK,<br>Canada, K1A 0G9.</p>
+                    <p>GRECON Bldg.,<br>Km. 38 National Rd Brgy,<br>Santa Maria, Bulacan</p>
                   </div>
                   <div class="col-lg-3 pr-0">
                     <p class="mt-5 mb-2 text-right"><b>Invoice to</b></p>

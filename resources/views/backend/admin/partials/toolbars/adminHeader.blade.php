@@ -16,31 +16,43 @@
         <li class="nav-item dropdown">
           <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
             <i class="mdi mdi-bell-outline mx-0"></i>
-            @if (Auth()->user()->unreadNotifications->count() > 0)
+            @if (Auth()->user()->unreadNotifications()->take(5)->get()->count() > 0)
               <span class="count"></span>                
             @endif
           </a>
-          <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-            <a class="dropdown-item">
-              <p class="mb-0 font-weight-normal float-left">
-                You have {{Auth()->user()->unreadNotifications->count()}} new notifications
-              </p>
-              <span class="badge badge-pill badge-warning float-right">Mark as Read</span>
-            </a>
-              @foreach (Auth::user()->unreadNotifications as $notification)
+          <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list scrollable-dropdown" aria-labelledby="notificationDropdown">
+                @if (Auth()->user()->unreadNotifications->count() > 0)
+                <a class="dropdown-item" href="{{route('backend.admin.notification.markAllRead')}}">
+                  <p class="mb-0 font-weight-normal float-left">
+                      You have {{Auth()->user()->unreadNotifications->count()}} Unread Notifications
+                  </p>
+                  <span class="badge badge-pill badge-warning float-right">Mark all as Read</span>
+                </a>
+                @else
+                <a class="dropdown-item">
+                  <p class="mb-0 font-weight-normal float-left">
+                      No Unread Notification
+                  </p>
+                </a>
+              @endif
+              @foreach (Auth::user()->notifications as $notification)
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item preview-item"
-                href="{{route('backend.admin.profile.index')}}">
-                <input type="hidden" value="{{$notification->notifiable_id}}" name="notif_id">
+                href="{{url('/admin/notification/'.$notification->id.'')}}"
+                style={{$notification->unread() ? "background:#e3e3e3;": ''}}>
                   <div class="preview-thumbnail">
-                    <div class="preview-icon bg-warning">
+                    <div class="preview-icon bg-info">
                       <i class="mdi mdi-information mx-0"></i>
                     </div>
                   </div>
                   <div class="preview-item-content">
                     <h6 class="preview-subject font-weight-medium">{{$notification->data['product_id']}}</h6>
-                    <p class="font-weight-light small-text mb-0">
+                    <p class="font-weight-light small-text text-danger mb-0">
                       {{$notification->data['message']}}
+                    </p>
+                    <p class="font-weight-heavy small-text mb-0">
+                      <br>
+                       {{$notification->created_at->diffForHumans()}}
                     </p>
                   </div>
                 </a>
@@ -68,6 +80,11 @@
             <a class="dropdown-item" href="{{url('/admin/users')}}">
               <i class="icon-people text-primary"></i>
               Users
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{route('backend.admin.password.showForgot')}}">
+              <i class="icon-key text-primary"></i>
+              Forgot Password
             </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{url('/admin/change_password')}}">

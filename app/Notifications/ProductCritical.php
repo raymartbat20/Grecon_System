@@ -45,6 +45,7 @@ class ProductCritical extends Notification
         return [
             "product_id" => $this->product->product_id,
             "message"    => "Product (".$this->product->product_name.") is on Critical level",
+            "link"       => "/admin/products/".$this->product->product_id."/edit",
         ];
     }
 }

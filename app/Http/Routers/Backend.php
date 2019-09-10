@@ -15,6 +15,8 @@
         Route::name('password.')->group(function(){
             Route::get('/change_password','PasswordController@index')->name('index');
             Route::patch('/change_password/reset','PasswordController@update')->name('update');
+            Route::get('/change_password/forgot','PasswordController@showForgot')->name('showForgot');
+            Route::patch('/change_password/forgot','PasswordController@forgot')->name('forgot');
         });
 
         //Users Controller
@@ -66,6 +68,16 @@
         Route::get('/transaction/records', 'TransactionsController@records')->name('transaction.records');
         Route::get('/transaction/{id}/printInvoice', 'TransactionsController@printInvoice')->name('transaction.printInvoice');
         Route::resource('transaction','TransactionsController');
+
+        //Reports Controller
+        Route::get('/reports/top_selling', 'ReportsController@topSelling')->name('reports.topSelling');
+        Route::get('/reports/critical_products', 'ReportsController@critical')->name('reports.critical');
+        Route::get('/reports/print_top_Selling', 'ReportsController@printTopSelling')->name('reports.printTopSelling');
+        Route::get('/reports/print_critical_products','ReportsController@printCritical')->name('reports.printCriticalProducts');
+
+        //Notification Controller
+        Route::get('/notification/allRead', 'NotificationController@markAllRead')->name('notification.markAllRead');
+        Route::get('/notification/{id}', 'NotificationController@markAsRead')->name('notification.mark');
     });
 
 
@@ -149,6 +161,10 @@
             Route::get('/registerProduct', 'CreateProductController@registerProduct')->name('registerProduct');
             Route::post('/registerProduct', 'CreateProductController@store')->name('store');
         });
+
+        //Reports Controller
+        Route::get('/reports/critical_products', 'ReportsController@critical')->name('reports.critical');
+        Route::get('/reports/print_critical_products','ReportsController@printCritical')->name('reports.printCriticalProducts');
     });
     
  });

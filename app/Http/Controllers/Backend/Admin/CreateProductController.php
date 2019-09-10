@@ -181,15 +181,15 @@ class CreateProductController extends Controller
             'category'          => 'required',
             'supplier'          => 'required',
             'price'             => 'required|numeric|regex:/^\d*(\.\d{1,2})?$/',
-            'height'            => 'nullable|numeric|regex:/^\d*(\.\d{1,2})?$/',
-            'weight'            => 'nullable|numeric|regex:/^\d*(\.\d{1,2})?$/',
-            'width'             => 'nullable|numeric|regex:/^\d*(\.\d{1,2})?$/',
+            'height'            => 'nullable|numeric|regex:/^\d*(\.\d{1,3})?$/',
+            'weight'            => 'nullable|numeric|regex:/^\d*(\.\d{1,3})?$/',
+            'width'             => 'nullable|numeric|regex:/^\d*(\.\d{1,3})?$/',
             'description'       => 'nullable|max:200',
         ],[
             'price.regex' => 'price could only have 2 decimals',
-            'height.regex' => 'height could only have 2 decimals',
-            'weight.regex' => 'weight could only have 2 decimals',
-            'width.regex'  => 'width could only have 2 decimals',
+            'height.regex' => 'height could only have 3 decimals',
+            'weight.regex' => 'weight could only have 3 decimals',
+            'width.regex'  => 'width could only have 3 decimals',
         ]);
         
         if(request('unit') == "pc")
@@ -236,6 +236,7 @@ class CreateProductController extends Controller
         $product = new Product();
         $product->product_name = request('product_name');
         $users = User::where('role_id',1)->get();
+
         //Reducing Quantity
         foreach($items as $item)
         {
@@ -305,7 +306,6 @@ class CreateProductController extends Controller
         if($product->qty == 0)
         {
             $product->status = "OUT OF STOCK";
-
         }
 
         $product->save();

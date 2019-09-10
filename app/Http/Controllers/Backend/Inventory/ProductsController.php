@@ -58,15 +58,15 @@ class ProductsController extends Controller
             'category'          => 'required',
             'supplier'          => 'required',
             'price'             => 'required|numeric|regex:/^\d*(\.\d{1,2})?$/',
-            'height'            => 'nullable|numeric|regex:/^\d*(\.\d{1,2})?$/',
-            'weight'            => 'nullable|numeric|regex:/^\d*(\.\d{1,2})?$/',
-            'width'             => 'nullable|numeric|regex:/^\d*(\.\d{1,2})?$/',
+            'height'            => 'nullable|numeric|regex:/^\d*(\.\d{1,3})?$/',
+            'weight'            => 'nullable|numeric|regex:/^\d*(\.\d{1,3})?$/',
+            'width'             => 'nullable|numeric|regex:/^\d*(\.\d{1,3})?$/',
             'description'       => 'nullable|max:200',
         ],[
             'price.regex' => 'price could only have 2 decimals',
-            'height.regex' => 'height could only have 2 decimals',
-            'weight.regex' => 'weight could only have 2 decimals',
-            'width.regex'  => 'width could only have 2 decimals',
+            'height.regex' => 'height could only have 3 decimals',
+            'weight.regex' => 'weight could only have 3 decimals',
+            'width.regex'  => 'width could only have 3 decimals',
         ]);
 
         if(request('unit') == "pc")
@@ -467,16 +467,20 @@ class ProductsController extends Controller
 
             if($prod->critical_amount >= $prod->qty)
             {
-                $prod->critical_status = 1;
-                foreach($users as $user)
+                if($prod->critical_status != 1)
                 {
-                    $user->notify(new ProductCritical($prod));
+                    $prod->critical_status = 1;
+
+                    foreach($users as $user)
+                    {
+                        $user->notify(new ProductCritical($prod));
+                    }
                 }
             }
 
             if($prod->qty == 0)
             {
-                $prod->status = "OUT OF STACK";
+                $prod->status = "OUT OF STOCK";
                 foreach($users as $user)
                 {
                     $user->notify(new OutOfStock($prod));
@@ -485,6 +489,18 @@ class ProductsController extends Controller
         }
 
         $product->increment('qty',$addingQty);
+
+        if($product->qty > 0)
+        {
+            $product->status = "AVAILABLE";
+        }
+
+        if($product->critical_amount < $product->qty)
+        {
+            $product->critical_status = 0;
+        }
+
+        $product->save();
 
         $notification = array(
             'message'   => 'Stocks added successfully  to product '.$product->product_id,
@@ -538,12 +554,15 @@ class ProductsController extends Controller
         //change critical status
         if($product->critical_amount >= $product->qty)
         {
-            $product->critical_status = 1;
+            if($product->critical_status != 1)
+            {
+                $product->critical_status = 1;
 
-            foreach($users as $user)
+                foreach($users as $user)
                 {
                     $user->notify(new ProductCritical($product));
                 }
+            } 
         }
         else
         {

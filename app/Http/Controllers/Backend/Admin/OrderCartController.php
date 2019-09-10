@@ -211,11 +211,14 @@ class OrderCartController extends Controller
 
             if($product->critical_amount >= $product->qty)
             {
-                $product->critical_status = 1;
-
-                foreach($users as $user)
+                if($product->critical_status != 1)
                 {
-                    $user->notify(new ProductCritical($product));
+                    $product->critical_status = 1;
+
+                    foreach($users as $user)
+                    {
+                        $user->notify(new ProductCritical($product));
+                    }
                 }
             }
 
@@ -249,6 +252,12 @@ class OrderCartController extends Controller
         $customer->original_price = $cart->totalPrice;
         $customer->discount = request('discount');
         $customer->total = request('discounted_price');
+
+        if(request('discount') == null)
+        {
+            $customer->total = $cart->totalPrice;
+            $customer->discount =  0;
+        }
         
         $customer->save();
 

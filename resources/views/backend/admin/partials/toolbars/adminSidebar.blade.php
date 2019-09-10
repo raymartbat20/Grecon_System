@@ -41,6 +41,19 @@
           </ul>
         </div>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#reports" aria-expanded="false" aria-controls="reports">
+          <i class="icon icon-docs menu-icon"></i>
+          <span class="menu-title">Reports</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="reports">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"><a class="nav-link" href="{{url('/admin/reports/top_selling')}}"><i class="fa fa-money"></i>Top Selling Products</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{url('/admin/reports/critical_products')}}"><i class="fa fa-warning"></i>Critical Products</a></li>
+          </ul>
+        </div>
+      </li>
     </ul>
   </nav>
   <!-- partial -->

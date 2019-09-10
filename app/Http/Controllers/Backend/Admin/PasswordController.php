@@ -48,4 +48,43 @@ class PasswordController extends Controller
             return back()->with($notification);
         }
     }
+
+    public function showForgot()
+    {
+        return view ('backend.admin.password.forgotPassword');
+    }
+
+    public function forgot(Request $request)
+    {
+
+        $request->validate([
+            'username'          => 'required',
+            'new_password'      => 'min:5|required',
+            'confirm_password'  => 'required|same:new_password',
+        ]);
+
+        $user = User::where('username',request('username'))->first();
+
+        if($user)
+        {
+        $user->password = Hash::make(request('new_password'));
+
+        $notification = array(
+            'message'   => "Password was successfully reset",
+            'icon'      => "success",
+            "heading"   => "Password Reset!",
+        );
+        return back()->with($notification);
+        }
+
+        else
+        {
+            $notification = array(
+                'message'   => "No user matched with this username",
+                'icon'      => "error",
+                "heading"   => "No User Found!",
+            );
+            return back()->with($notification);
+        }
+    }
 }

@@ -18,7 +18,7 @@ class CreateItemLogsTable extends Migration
             $table->string('primary_product_id');
             $table->unsignedInteger('user_id');
             $table->string('description')->nullable();
-            $table->bigInteger('qty');
+            $table->double('qty',15,3);
             $table->enum('type',["add","defective","material","sold"]);
             $table->timestamps();
         });

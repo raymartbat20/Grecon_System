@@ -10,6 +10,8 @@
   <script src="/__backend/assets/js/myjs/myModals.js"></script>
   <script src="/__backend/assets/vendors/datatables.net/jquery.dataTables.js"></script>
   <script src="/__backend/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+  <script src="/__backend/assets/js/myjs/jQuery.print.js"></script>
+  <script src="/__backend/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
   <!-- End plugin js for this page -->
   <!-- Plugin jquery toast -->
   <script src="/__backend/assets/vendors/jquery-toast-plugin/jquery.toast.min.js"></script>

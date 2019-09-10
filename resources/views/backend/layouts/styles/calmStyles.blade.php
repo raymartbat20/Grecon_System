@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/__backend/assets/vendors/jquery-toast-plugin/jquery.toast.min.css">
   <link rel="stylesheet" href="/__backend/assets/vendors/dropify/dropify.min.css">
   <link rel="stylesheet" href="/__backend/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="/__backend/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js">
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="/__backend/assets/css/vertical-layout-light/style.css">

@@ -23,9 +23,6 @@
         @include('backend.admin.partials.toolbars.adminSidebar')
       <!-- partial -->
       <div class="main-panel">
-            <div class="breadcrumbs">
-                @yield('breadcrumbs')
-            </div>
         <div class="content-wrapper">
             @yield('content')
         </div>

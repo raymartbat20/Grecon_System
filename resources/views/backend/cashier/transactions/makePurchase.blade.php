@@ -76,13 +76,13 @@
                                         <li>status: 
                                             @switch($product->status)
                                                 @case("AVAILABLE")
-                                                <div class="badge badge-primary badge-pill">{{$product->status}}</div>                                                    
+                                                <div class="badge badge-primary badge-pill text-center">{{$product->status}}</div>                                                    
                                                     @break
                                                 @case("UNAVAILABLE")
-                                                <div class="badge badge-danger badge-pill">{{$product->status}}</div>                                                                                                        
+                                                <div class="badge badge-danger badge-pill text-center">{{$product->status}}</div>                                                                                                        
                                                     @break
                                                 @case("OUT OF STOCK")
-                                                <div class="bad badge-info badge-pill">{{$product->status}}</div>
+                                                <div class="bad badge-warning badge-pill text-center">{{$product->status}}</div>
                                                     @break
                                                 @case("RESERVE")
                                                 <div class="badge badge-primary badge-pill">{{$product->status}}</div>

@@ -27403,7 +27403,7 @@ div.tagsinput span.tag a {
 /* === Landing screens === */
 /* Auth */
 .auth .login-half-bg {
-  background: url("../../images/auth/login-bg.jpg");
+  background: url("/__backend/assets//images/grecon_bg.jpg");
   background-size: cover;
 }
 
@@ -27563,7 +27563,6 @@ div.tagsinput span.tag a {
   background: #f1f2f7;
   padding: 2.5rem 2.5rem;
   width: 100%;
-  margin-top: 50px;
   -webkit-flex-grow: 1;
   flex-grow: 1;
 }
