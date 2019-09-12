@@ -69,9 +69,7 @@ class UsersController extends Controller
         if($request->hasFile('image')){
             $image = request('image');
             $filename = time(). "." .$image->getClientOriginalExtension();
-            Image::make($image)->resize(300,300)->save(public_path('__backend/assets/images/avatars/'.$filename));
-            dd($filename);
-
+            Image::make($image)->resize(300,300)->save(public_path('/__backend/assets/images/avatars/'.$filename));
             $user->image = $filename;
         }
         $user->save();
