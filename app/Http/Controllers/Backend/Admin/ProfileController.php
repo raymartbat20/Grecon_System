@@ -26,7 +26,7 @@ class ProfileController extends Controller
             'number.required' => 'Contact Number field is required.',
             'number.numeric'    => 'Contact Number should be numbers only.'
         ]);
-            dd(request('image'));
+        
         $user = User::find(Auth::user()->user_id);
 
         $user->firstname = request('firstname');
@@ -41,7 +41,7 @@ class ProfileController extends Controller
 
             $image = request('image');
             $filename = time(). '.' .$image->getClientOriginalExtension();
-
+dd($filename);
             Image::make($image)->resize(300,300)->save(public_path('/__backend/assets/images/avatars/'.$filename));
 
             $user->image = $filename;
