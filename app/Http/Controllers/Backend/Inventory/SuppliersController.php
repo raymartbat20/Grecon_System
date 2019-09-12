@@ -18,7 +18,7 @@ class SuppliersController extends Controller
      */
     public function index()
     {
-        $suppliers = Supplier::paginate(5);
+        $suppliers = Supplier::all();
         return view('backend.inventory.suppliers.suppliers',compact('suppliers'));
     }
 
