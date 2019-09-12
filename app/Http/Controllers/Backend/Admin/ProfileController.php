@@ -36,7 +36,7 @@ class ProfileController extends Controller
         if($request->hasFile('image')){
 
             $request->validate([
-                'image'             => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'image'  => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000',
             ]);
 
             $image = request('image');
