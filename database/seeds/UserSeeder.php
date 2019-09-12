@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             'password'  => Hash::make('password'),
             'image'     => '1565630577.jpg',
             'number'    => '09195241355',
-            'role_id'      => '2',
+            'role_id'      => '1',
         ]);
 
         User::create([
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
             'password'  => Hash::make('password'),
             'image'     => '1565630577.jpg',
             'number'    => '09195241355',
-            'role_id'      => '12',
+            'role_id'      => '2',
         ]);
     }
 }

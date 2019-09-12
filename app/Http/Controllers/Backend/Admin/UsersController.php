@@ -44,6 +44,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+        dd(request()->all());
         $request->validate([
             'firstname'         => 'required|min:2|max:20',
             'lastname'          => 'required|min:2|max:20',
