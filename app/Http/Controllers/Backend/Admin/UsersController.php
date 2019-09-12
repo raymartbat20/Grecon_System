@@ -70,10 +70,10 @@ class UsersController extends Controller
             $image = request('image');
             $filename = time(). "." .$image->getClientOriginalExtension();
             Image::make($image)->resize(300,300)->save(public_path('__backend/assets/images/avatars/'.$filename));
+            dd($filename);
 
             $user->image = $filename;
         }
-        dd($filename);
         $user->save();
         $name = $user->getFullName();
         $notification = array(
