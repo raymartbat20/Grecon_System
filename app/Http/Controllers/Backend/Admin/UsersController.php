@@ -44,7 +44,6 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        dd(request()->all());
         $request->validate([
             'firstname'         => 'required|min:2|max:20',
             'lastname'          => 'required|min:2|max:20',
@@ -74,9 +73,9 @@ class UsersController extends Controller
 
             $user->image = $filename;
         }
+        dd($filename);
         $user->save();
         $name = $user->getFullName();
-
         $notification = array(
             'message' => "Employee ".$name." was successfully registered!",
             'icon' => 'success',
