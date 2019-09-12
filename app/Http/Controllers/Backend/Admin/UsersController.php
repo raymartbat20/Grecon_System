@@ -55,6 +55,8 @@ class UsersController extends Controller
             'image'             => 'image|mimes:jpeg,png,jpg,gif,svg',
         ],[
             'role.required' => 'Role field is required',
+            'image.mimes'   => 'mimes problem',
+            'image.image'   => 'image problem',
         ]);
 
         $user = new user();
