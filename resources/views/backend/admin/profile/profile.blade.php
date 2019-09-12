@@ -9,7 +9,7 @@
                             <h3 class="card-title">Profile</h3>
                             <img id="avatar" src="/__backend/assets/images/avatars/{{Auth::user()->image}}" class="img-lg rounded-circle mb-3">
                             <p>{{Auth::user()->getFullName()}}</p>
-                            <p>{{Auth::user()->role->role}}</p>
+                            <p>{{Auth::user()->role()->role}}</p>
                             <p>{{Auth::user()->email}}</p>
                         </div>
                     </div>
