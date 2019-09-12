@@ -21,12 +21,13 @@ class ProfileController extends Controller
             'firstname'         => 'required|min:2|max:20',
             'lastname'          => 'required|min:2|max:20',
             'number'            => 'numeric|required|digits_between:0,11',
+            'image'  => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000',
         ],
         [
             'number.required' => 'Contact Number field is required.',
             'number.numeric'    => 'Contact Number should be numbers only.'
         ]);
-        
+
         $user = User::find(Auth::user()->user_id);
 
         $user->firstname = request('firstname');
@@ -35,13 +36,9 @@ class ProfileController extends Controller
 
         if($request->hasFile('image')){
 
-            $request->validate([
-                'image'  => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000',
-            ]);
-
             $image = request('image');
             $filename = time(). '.' .$image->getClientOriginalExtension();
-dd($filename);
+            dd($filename);
             Image::make($image)->resize(300,300)->save(public_path('/__backend/assets/images/avatars/'.$filename));
 
             $user->image = $filename;
