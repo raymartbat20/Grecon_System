@@ -52,11 +52,9 @@ class UsersController extends Controller
             'password'          => 'required|min:5',
             'confirm_password'  => 'required|same:password',
             'role'              => 'required',
-            'image'             => 'image|mimes:jpeg,png,jpg,gif,svg',
+            'image'             => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000',
         ],[
             'role.required' => 'Role field is required',
-            'image.mimes'   => 'mimes problem',
-            'image.image'   => 'image problem',
         ]);
 
         $user = new user();
