@@ -56,7 +56,7 @@ class UsersController extends Controller
         ],[
             'role.required' => 'Role field is required',
         ]);
-
+        dd(request('image'));
         $user = new user();
 
         $user->firstname = request('firstname');
