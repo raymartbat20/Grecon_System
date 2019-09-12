@@ -26,7 +26,7 @@ class ProfileController extends Controller
             'number.required' => 'Contact Number field is required.',
             'number.numeric'    => 'Contact Number should be numbers only.'
         ]);
-
+            dd(request('image'));
         $user = User::find(Auth::user()->user_id);
 
         $user->firstname = request('firstname');
