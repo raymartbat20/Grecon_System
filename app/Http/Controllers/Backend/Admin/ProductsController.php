@@ -189,9 +189,9 @@ class ProductsController extends Controller
             'product_name'      => 'required|min:2|max:50',
             'category'          => 'required',
             'supplier'          => 'required',
-            'height'            => 'nullable|numeric|regex:/^\d*(\.\d{1,2})?$',
-            'weight'            => 'nullable|numeric|regex:/^\d*(\.\d{1,2})?$',
-            'width'             => 'nullable|numeric|regex:/^\d*(\.\d{1,2})?$',
+            'height'            => 'nullable|numeric|regex:/^\d*(\.\d{1,3})?$',
+            'weight'            => 'nullable|numeric|regex:/^\d*(\.\d{1,3})?$',
+            'width'             => 'nullable|numeric|regex:/^\d*(\.\d{1,3})?$',
             'description'       => 'nullable|max:200',
         ],[
             'price.regex' => 'price could only have 2 decimals',
