@@ -217,7 +217,14 @@ class CreateProductController extends Controller
                 'critical_amount.integer'   => "The Critical Amount should be a number",
             ]);
         }
+        if($request->hasFile('image'))
+        {
+            $image = request('image');
+            $filename = time() .'.'.$image->getClientOriginalExtension();
+            Image::make($image)->resize(300,300)->save(public_path('/__backend/assets/images/products'.$filename));
 
+            $product->image = $filename;
+        }
         //Checking for quantity
         foreach($items as $item)
         {

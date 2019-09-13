@@ -21,7 +21,7 @@ class ProfileController extends Controller
             'firstname'         => 'required|min:2|max:20',
             'lastname'          => 'required|min:2|max:20',
             'number'            => 'numeric|required|digits_between:0,11',
-            'image'             => 'image|mimes:jpeg,png,jpg,gif,svg|max:5028',
+            'image'             => 'image|mimes:jpeg,png,jpg,gif,svg|max:20000',
         ],
         [
             'number.required' => 'Contact Number field is required.',

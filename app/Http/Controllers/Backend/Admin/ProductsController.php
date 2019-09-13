@@ -61,6 +61,7 @@ class ProductsController extends Controller
             'weight'            => 'nullable|numeric|regex:/^\d*(\.\d{1,3})?$/',
             'width'             => 'nullable|numeric|regex:/^\d*(\.\d{1,3})?$/',
             'description'       => 'nullable|max:200',
+            'image'             => 'image|mimes:jpeg,png,jpg,gif,svg|max:20000',
         ],[
             'price.regex' => 'price could only have 2 decimals',
             'height.regex' => 'height could only have 3 decimals',
@@ -124,7 +125,7 @@ class ProductsController extends Controller
             $product->status = "OUT OF STOCK";
         }
 
-        if($product->critical_amount > $product->qty){
+        if($product->critical_amount >= $product->qty){
             $product->critical_status = 1;
         }
 
@@ -194,6 +195,7 @@ class ProductsController extends Controller
             'weight'            => 'nullable|numeric|regex:/^\d*(\.\d{1,3})?$/',
             'width'             => 'nullable|numeric|regex:/^\d*(\.\d{1,3})?$/',
             'description'       => 'nullable|max:200',
+            'image'             => 'image|mimes:jpeg,png,jpg,gif,svg|max:20000',
         ],[
             'price.regex' => 'price could only have 2 decimals',
             'height.regex' => 'height could only have 3 decimals',
