@@ -20,7 +20,9 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-2">
-                                <input type="file" name="image" class="dropify" data-default-file="/__backend/assets/images/avatars/default.png"
+                                <input type="file" name="image" data-max-file-size="10M"
+                                data-max-width="50000" data-max-width="50000"
+                                class="dropify" data-default-file="/__backend/assets/images/products/unavailable.png"
                                 data-height="150">
                                 </div>
                                 <div class="col-lg-10">

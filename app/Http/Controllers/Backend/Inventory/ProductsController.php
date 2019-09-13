@@ -190,9 +190,9 @@ class ProductsController extends Controller
             'product_name'      => 'required|min:2|max:50',
             'category'          => 'required',
             'supplier'          => 'required',
-            'height'            => 'nullable|numeric|regex:/^\d*(\.\d{1,2})?$',
-            'weight'            => 'nullable|numeric|regex:/^\d*(\.\d{1,2})?$',
-            'width'             => 'nullable|numeric|regex:/^\d*(\.\d{1,2})?$',
+            'height'            => 'nullable|numeric|regex:/^\d*(\.\d{1,2})?$/',
+            'weight'            => 'nullable|numeric|regex:/^\d*(\.\d{1,2})?$/',
+            'width'             => 'nullable|numeric|regex:/^\d*(\.\d{1,2})?$/',
             'description'       => 'nullable|max:200',
         ],[
             'price.regex' => 'price could only have 2 decimals',
@@ -204,11 +204,8 @@ class ProductsController extends Controller
         if(request('unit') == "pc")
         {
             request()->validate([
-                'qty' => 'required|numeric|integer|min:0',
                 'critical_amount'   => 'nullable|numeric|integer|min:0',
             ],[
-                'qty.min' => "The quantity should be higher than 0 and doesn't contain decimal value",
-                'qty.integer' => 'The quantity should be a whole number because this is a per piece item',
                 'critical_amount.min' => "The Critical Amount should be higher than 0 and doesn't contain decimal value",
                 'critical_amount.integer'   => 'The Critical Amount should be a whole number because this is a per piece item',
             ]);
@@ -216,11 +213,8 @@ class ProductsController extends Controller
         else
         {
             request()->validate([
-                'qty'               => 'required|numeric|regex:/^\d*(\.\d{1,3})?$/',
                 'critical_amount'   => 'nullable|numeric|regex:/^\d*(\.\d{1,3})?$/',
             ],[
-                'qty.regex'                 => "The quantity should only have 3 decimal values",
-                'qty.integer'               => 'The quantity should be a number',
                 'critical_amount.regex'     => "The Critical Amount should only have 3 decimal values",
                 'critical_amount.integer'   => "The Critical Amount should be a number",
             ]);
@@ -239,7 +233,7 @@ class ProductsController extends Controller
         $product->category_id       = request('category');
         $product->supplier_id       = request('supplier');
         $product->price             = request('price');
-        $product->qty               = request('qty');
+        $product->unixtojd          = request('unit');
         $product->critical_amount   = request('critical_amount');
         $product->height            = request('height');
         $product->height_label      = request('height_label');
@@ -250,7 +244,6 @@ class ProductsController extends Controller
         $product->description       = request('description');
         $product->status            = request('status');
 
-        $product->
         $product->save();
 
         $notification = array(
