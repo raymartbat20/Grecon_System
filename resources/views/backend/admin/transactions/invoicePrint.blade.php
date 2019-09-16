@@ -106,22 +106,11 @@
 </body>
 
 <script>
-    $(document).ready(function(){
-        window.print();
+    // $(document).ready(function(){
+    //     window.print();
 
-        window.close();
-      @if(Session::has('message'))  
-        $.toast({
-            heading: "{{Session::get('heading')}}",
-            text: "{{Session::get('message')}}",
-            showHideTransition: 'plain',
-            icon: "{{Session::get('icon')}}",
-            loaderBg: '#60cf00',
-            hideAfter: 5000,
-            position: 'top-right'
-        });
-        @endif
-    });
+    //     window.close();
+    // });
 </script>
 
 <!-- Mirrored from www.urbanui.com/calmui/template/demo/vertical-default-light/pages/samples/login-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Aug 2019 15:55:48 GMT -->
