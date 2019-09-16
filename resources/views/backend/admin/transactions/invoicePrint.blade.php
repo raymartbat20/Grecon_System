@@ -106,11 +106,13 @@
 </body>
 
 <script>
-    // $(document).ready(function(){
+    $(document).ready(function(){
+      $(".table").load(function(){
         window.print();
 
         window.close();
-    // });
+      });
+    });
 </script>
 
 <!-- Mirrored from www.urbanui.com/calmui/template/demo/vertical-default-light/pages/samples/login-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Aug 2019 15:55:48 GMT -->
