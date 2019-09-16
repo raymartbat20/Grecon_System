@@ -107,7 +107,7 @@
 
 <script>
     $(document).ready(function(){
-      $(".card").load(function(){
+      $(window).on("load",function(){
         alert("card loaded");
         window.print();
 
