@@ -107,7 +107,7 @@
 
 <script>
     $(document).ready(function(){
-      $(".table").load(function(){
+      $(".card").load(function(){
         window.print();
 
         window.close();
