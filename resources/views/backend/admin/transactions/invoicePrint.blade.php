@@ -108,6 +108,7 @@
 <script>
     $(document).ready(function(){
       $(".card").load(function(){
+        alert("card loaded");
         window.print();
 
         window.close();
