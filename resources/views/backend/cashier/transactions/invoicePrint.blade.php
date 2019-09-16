@@ -107,9 +107,11 @@
 
 <script>
     $(document).ready(function(){
-        window.print();
+      $(window).on("load",function(){
+            window.print();
 
-        window.close();
+            window.close();
+        });
       @if(Session::has('message'))  
         $.toast({
             heading: "{{Session::get('heading')}}",
