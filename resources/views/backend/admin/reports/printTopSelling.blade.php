@@ -24,7 +24,7 @@
 </head>
 
 <body>
-    <table class="table table-bordered">
+    <table class="table table-bordered mt-4">
         <thead>
             <th>Product Name</th>
             <th>Qty</th>
