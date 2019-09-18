@@ -111,7 +111,6 @@ class ProductsController extends Controller
         $product->supplier_id       = request('supplier');
         $product->price             = request('price');
         $product->qty               = request('qty');
-        $product->critical_amount   = request('critical_amount');
         $product->height            = request('height');
         $product->height_label      = request('height_label');
         $product->weight            = request('weight');
@@ -120,6 +119,15 @@ class ProductsController extends Controller
         $product->width_label       = request('width_label');
         $product->description       = request('description');
         $product->unit              = request('unit');
+
+        if(request('critical_amount') == null)
+        {
+            $product->critical_amount = 0;
+        }
+        else
+        {
+            $product->critical_amount = request('critical_amount');
+        }
 
         if($product->qty == 0){
             $product->status = "OUT OF STOCK";
@@ -303,9 +311,7 @@ class ProductsController extends Controller
 
     public function archiveProducts()
     {
-        $products = Product::onlyTrashed()->get();
-        
-        
+        $products = Product::onlyTrashed()->get();     
         return view('backend.admin.products.archiveProducts',compact('products'));
     }
 
