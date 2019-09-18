@@ -12,6 +12,7 @@
                             <th>Product ID</th>
                             <th>Name</th>
                             <th>Supplier</th>
+                            <th>Category</th>
                             <th>Price</th>
                             <th>Quantity</th>
                             <th>Status</th>
@@ -29,6 +30,7 @@
                                             {{$product->supplier->company}}
                                         </span>
                                     </td>
+                                    <td>{{$product->category->category}}</td>
                                     <td>{{$product->price}}</td>
                                     <td>
                                         <span class="badge badge-outline-info badge-pill">
