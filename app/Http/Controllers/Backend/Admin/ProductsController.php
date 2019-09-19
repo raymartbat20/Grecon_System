@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Backend\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\{Category,Supplier,Product,Material,ItemLog,User};
-use App\Notifications\{ProductCritical,OutOfStock};
+use App\Notifications\{ProductCritical,OutOfStock,ProductResource};
 use Hash;
 use Session;
 use DB;
@@ -104,6 +104,15 @@ class ProductsController extends Controller
             $product->image = $filename;
         }
         $product_id_upper           = strToUpper(request('product_id'));
+        $auth_user = Auth::user();
+        $admins = User::where('role_id',1)->get();
+        $notifiers = User::where('role_id',1)
+                         ->orWhere('role_id',3)
+                         ->get();
+        $badge = array(
+            'bg' => 'success',
+            'icon' => 'fa fa-gavel mx-0'
+        );
         
         $product->product_id        = $product_id_upper;
         $product->product_name      = request('product_name');
@@ -131,13 +140,37 @@ class ProductsController extends Controller
 
         if($product->qty == 0){
             $product->status = "OUT OF STOCK";
+            foreach($notifiers as $notifier)
+            {
+                if($notifier->role_id == 1)
+                {
+                    $notifier->notify(new OutOfStock($product,'admin'));
+                }
+                else
+                    $notifier->notify(new OutOfStock($product,'inventory_clerk'));  
+            }
         }
 
         if($product->critical_amount >= $product->qty){
             $product->critical_status = 1;
+
+            foreach($notifiers as $notifier)
+            {
+                if($notifier->role_id == 1)
+                {
+                    $notifier->notify(new ProductCritical($product,'admin'));
+                }
+                else
+                    $notifier->notify(new ProductCritical($product,'inventory_clerk'));  
+            }
         }
 
         $product->save();
+
+        foreach($admins as $admin)
+        {
+            $admin->notify(new ProductResource($auth_user,$product,"created",$badge));
+        }
 
         $notification = array(
             'message' => "Product is successfully Registered",
@@ -187,12 +220,19 @@ class ProductsController extends Controller
     public function update(Request $request, $product_id)
     {
         $product = Product::where('product_id', $product_id)->firstOrFail();
+        $auth_user = Auth::user();
+        $admins = User::where('role_id',1)->get();
+        $badge = array(
+            'bg' => 'warning',
+            'icon' => 'fa fa-gavel mx-0'
+        );
 
         if(request('product_id') !=  $product->product_id)
         {
-            $request->valdate([
+            $request->validate([
                 'product_id' => 'required|unique:products',
             ]);
+            $product->product_id   = request('product_id');
         }
 
         $request->validate([
@@ -256,6 +296,11 @@ class ProductsController extends Controller
 
         $product->save();
 
+        foreach($admins as $admin)
+        {
+            $admin->notify(new ProductResource($auth_user,$product,"updated",$badge));
+        }
+
         $notification = array(
             'message' => 'Product '.$product->product_id.' successfully updated!',
             'icon'      => 'success',
@@ -280,8 +325,19 @@ class ProductsController extends Controller
         ]);
         if(Hash::check(request('password_confirm'),Auth()->user()->password)){
             $product = Product::where('product_id',$product_id)->firstOrFail();
+            $admins = User::where('role_id',1)->get();
+            $auth_user = Auth::user();
+            $badge = array(
+                'bg' => 'danger',
+                'icon' => 'fa fa-gavel mx-0'
+            );
             if($product->qty == 0){
                 $product->delete();
+
+                foreach($admins as $admin)
+                {
+                    $admin->notify(new ProductResource($auth_user,$product,"archived",$badge));
+                }
 
                 $notification = array(
                     'message'   => 'Product added to archives Successfully!',

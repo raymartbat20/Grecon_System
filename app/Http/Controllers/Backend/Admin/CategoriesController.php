@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Backend\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Category;
+use App\Notifications\CategoryResource;
+use App\{Category,User};
 use Hash;
 use DB;
 use Auth;
@@ -50,7 +51,19 @@ class CategoriesController extends Controller
 
         $category->category = $upper;
 
+        $auth_user = Auth::user();
+        $admins = User::where('role_id',1)->get();
+        $badge = array(
+            "bg" => "success",
+            "icon" => "mdi mdi-layers mx-0"
+        );
+
         $category->save();
+
+        foreach($admins as $admin)
+        {
+            $admin->notify(new CategoryResource($auth_user,$category,"created",$badge));
+        }
 
         $notification = array(
             'message' => "category ".$category->category." was successfuly created!",
@@ -99,10 +112,22 @@ class CategoriesController extends Controller
         ]);
 
         $category = Category::find(request('catid'));
-
+        $auth_user = Auth::user();
+        $admins = User::where('role_id',1)->get();
+        $badge = array(
+            "bg" => "warning",
+            "icon" => "mdi mdi-layers mx-0"
+        );
+        
         $category->category = request('category');
 
         $category->save();
+
+        foreach($admins as $admin)
+        {
+            $admin->notify(new CategoryResource($auth_user,$category,"updated",$badge));
+        }
+
 
         $notification = array(
             'message' => "category ".$category->category." was successfuly updated!",
@@ -127,9 +152,20 @@ class CategoriesController extends Controller
                                           ->where('deleted_at','=',null)->count();
                 if($count == 0){
                 $category = Category::find(request('categoryid'));
+                $auth_user = Auth::user();
+                $admins = User::where('role_id',1)->get();
+                $badge = array(
+                    "bg" => "danger",
+                    "icon" => "mdi mdi-layers mx-0"
+                );
 
                 $category->delete();
                 
+                foreach($admins as $admin)
+                {
+                    $admin->notify(new CategoryResource($auth_user,$category,"deleted",$badge));
+                }
+
                 $notification = array(
                     'message' => "category ".$category->category." was successfuly deleted!",
                     'icon'  => 'warning',

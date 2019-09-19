@@ -41,13 +41,13 @@
                 href="{{url('/admin/notification/'.$notification->id.'')}}"
                 style={{$notification->unread() ? "background:#e3e3e3;": ''}}>
                   <div class="preview-thumbnail">
-                    <div class="preview-icon bg-info">
-                      <i class="mdi mdi-information mx-0"></i>
+                    <div class="preview-icon bg-{{$notification->data['badge']['bg']}}">
+                      <i class="{{$notification->data['badge']['icon']}}"></i>
                     </div>
                   </div>
                   <div class="preview-item-content">
-                    <h6 class="preview-subject font-weight-medium">{{$notification->data['product_id']}}</h6>
-                    <p class="font-weight-light small-text text-danger mb-0">
+                    <h6 class="preview-subject font-weight-medium">{{$notification->data['title']}}</h6>
+                    <p class="font-weight-light small-text mb-0">
                       {{$notification->data['message']}}
                     </p>
                     <p class="font-weight-heavy small-text mb-0">
@@ -57,6 +57,26 @@
                   </div>
                 </a>
               @endforeach
+              {{-- <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item"
+                href="#"
+                style="background:#e3e3e3;">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-info">
+                      <img src="/__backend/assets/images/avatars/{{Auth::user()->image}}">
+                    </div>
+                  </div>
+                  <div class="preview-item-content">
+                    <h6 class="preview-subject font-weight-medium">ASDAS</h6>
+                    <p class="font-weight-light small-text text-danger mb-0">
+                      ASDASD
+                    </p>
+                    <p class="font-weight-heavy small-text mb-0">
+                      <br>
+                       1 Hour AGo
+                    </p>
+                  </div>
+                </a> --}}
           </div>
         </li>
         <li class="nav-item nav-profile dropdown">

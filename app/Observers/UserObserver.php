@@ -6,6 +6,7 @@ use App\User;
 
 class UserObserver
 {
+
     /**
      * Handle the user "created" event.
      *

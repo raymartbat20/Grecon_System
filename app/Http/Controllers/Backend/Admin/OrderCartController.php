@@ -201,13 +201,15 @@ class OrderCartController extends Controller
             }
         }
 
+        $users = User::where('role_id',1)
+                      ->orWhere('role_id',3)
+                      ->get();
+
         foreach($items as $item)
         {
             $product = Product::where('product_id',$item['item']['product_id'])->firstOrFail();
             
             $product->decrement('qty',$item['qty']);
-
-            $users = User::where('role_id',1)->get();
 
             if($product->critical_amount >= $product->qty)
             {
@@ -217,7 +219,12 @@ class OrderCartController extends Controller
 
                     foreach($users as $user)
                     {
-                        $user->notify(new ProductCritical($product));
+                        if($user->role_id == 1)
+                        {
+                            $user->notify(new ProductCritical($product,"admin"));
+                        }
+                        else
+                            $user->notify(new ProductCritical($product,"inventory_clerk"));
                     }
                 }
             }
@@ -228,7 +235,12 @@ class OrderCartController extends Controller
 
                 foreach($users as $user)
                 {
-                    $user->notify(new OutOfStock($product));
+                    if($user->role_id == 1)
+                    {
+                        $user->notify(new OutOfStock($product,"admin"));
+                    }
+                    else
+                        $user->notify(new OutofStock($product,"inventory_clerk"));
                 }
             }
 

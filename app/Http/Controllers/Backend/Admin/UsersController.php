@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Notifications\CreateUser;
 use App\{User,Role};
 use Auth;
 use DB;
@@ -56,7 +57,14 @@ class UsersController extends Controller
         ],[
             'role.required' => 'Role field is required',
         ]);
+
+        $auth_user = Auth::user();
+        $users = User::where('role_id',1)->get();
         $user = new user();
+        $badge = array(
+            "bg"    => "success",
+            "icon"  => "mdi mdi-account-box mx-0",   
+        );
 
         $user->firstname = request('firstname');
         $user->lastname = request('lastname');
@@ -72,7 +80,14 @@ class UsersController extends Controller
 
             $user->image = $filename;
         }
+
         $user->save();
+
+        foreach($users as $admin_user)
+        {
+            $admin_user->notify(new CreateUser($auth_user, $user,"Created",$badge));
+        }
+
         $name = $user->getFullName();
         $notification = array(
             'message' => "Employee ".$name." was successfully registered!",
@@ -121,11 +136,22 @@ class UsersController extends Controller
             'role_id'           => 'required',
         ]);
         $user = User::find(request('userid'));
+        $auth_user = Auth::user();
+        $admins = User::where('role_id',1)->get();
+        $badge = array(
+            "bg"    => "warning",
+            "icon"  => "mdi mdi-account-box mx-0",
+        );
 
         $user->number      = request('number');
         $user->role_id     = request('role_id');
 
         $user->save();
+
+        foreach($admins as $admin)
+        {
+            $admin->notify(new CreateUser($auth_user,$user,"Updated",$badge));
+        }
 
         $name = $user->getFullName();
 
@@ -148,8 +174,19 @@ class UsersController extends Controller
     {
         if(Hash::check(request('password'),Auth::user()->password)){
             $user = User::find(request('myid'));
-
+            $auth_user = Auth::user();
+            $admins = User::where('role_id',1)->get();
+            $badge = array(
+                "bg"    => "danger",
+                "icon"  => "mdi mdi-account-box mx-0",
+            );
+            
             $user->delete();
+
+            foreach($admins as $admin)
+            {
+                $admin->notify(new Createuser($auth_user,$user,"Deleted",$badge));
+            }
 
             $name = $user->getFullName();
             $notification = array(
@@ -171,24 +208,4 @@ class UsersController extends Controller
         }
     }
 
-    public function try()
-    {
-        $count = DB::table('users')->where('role_id', 2)
-                                   ->where('deleted_at', '=', null)->count();
-        if($count == 0){
-            Role::find(2)->delete();
-            $notification = array(
-                'message' => "Password Doesn't match",
-                'icon' => 'success',
-                'heading' => 'Failed!',
-            );
-            return redirect(route('backend.admin.users.index'))->with($notification);
-        }
-        $notification = array(
-            'message' => "Password Doesn't match",
-            'icon' => 'error',
-            'heading' => 'Failed!',
-        );
-        return redirect(route('backend.admin.users.index'))->with($notification);
-    }
 }

@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use App\Product;
 
 class OutOfStock extends Notification
 {
@@ -13,14 +14,17 @@ class OutOfStock extends Notification
 
     public $product;
 
+    protected $role;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($product)
+    public function __construct($product,$role)
     {
         $this->product = $product;
+        $this->role    = $role;
     }
 
     /**
@@ -43,9 +47,13 @@ class OutOfStock extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            "product_id" => $this->product->product_id,
+            "title" => "Product ".$this->product->product_id,
             "message"    => "Product (".$this->product->product_name.") ran out of stock",
-            "link"       => "/admin/products/".$this->product->product_id."/edit",
+            "link"       => "/".$this->role."/products/".$this->product->product_id."/edit",
+            "badge" => [
+                "bg" => 'danger',
+                "icon"  => 'fa fa-gavel mx-0',
+            ],
         ];
     }
 }

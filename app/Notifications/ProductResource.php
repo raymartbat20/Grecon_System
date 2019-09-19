@@ -7,23 +7,28 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class ProductCritical extends Notification
+class ProductResource extends Notification
 {
     use Queueable;
+    
+    protected $auth_user;
 
-    protected $role;
+    protected $product;
 
-    public $product;
+    protected $resource;
 
+    protected $badge;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($product,$role)
+    public function __construct($auth_user,$product,$resource,$badge = [])
     {
+        $this->auth_user = $auth_user;
         $this->product = $product;
-        $this->role = $role;
+        $this->resource = $resource;
+        $this->badge = $badge;
     }
 
     /**
@@ -46,13 +51,10 @@ class ProductCritical extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            "title" => "Product ".$this->product->product_id,
-            "message"    => "Product (".$this->product->product_name.") is on Critical level",
-            "link"       => "/".$this->role."/".""."products/".$this->product->product_id."/edit",
-            "badge" =>  [
-                "bg" => 'danger',
-                "icon"  => 'fa fa-gavel mx-0',
-            ],
+            "title"     => $this->resource." Product",
+            "message"   => $this->auth_user->getFullName()." ". $this->resource." the product "
+            .$this->product->product_name,
+            "link"      => "/admin/products/".$this->product->product_id."/edit",
         ];
     }
 }

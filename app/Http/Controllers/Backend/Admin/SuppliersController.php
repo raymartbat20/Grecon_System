@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Backend\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Supplier;
+use App\Notifications\SupplierResource;
+use App\{Supplier,User};
 use Auth;
 use Hash;
 use Image;
@@ -67,7 +68,12 @@ class SuppliersController extends Controller
         $supplier->email = request('email');
         $supplier->number = request('number');
 
-
+        $auth_user  = Auth::user();
+        $admins = User::where('role_id',1)->get();
+        $badge = array(
+            'bg' => "success",
+            'icon' => "fa fa-address-card mx-0",
+        );
         
         if($request->hasFile('image')){
             $request->validate([
@@ -81,6 +87,11 @@ class SuppliersController extends Controller
         }
 
         $supplier->save();
+
+        foreach($admins as $admin)
+        {
+            $admin->notify(new SupplierResource($auth_user,$supplier,"created",$badge));
+        }
 
         $name = $supplier->getFullName();
         $notification = array(
@@ -156,6 +167,13 @@ class SuppliersController extends Controller
 
         }
 
+        $auth_user  = Auth::user();
+        $admins = User::where('role_id',1)->get();
+        $badge = array(
+            'bg' => "warning",
+            'icon' => "fa fa-address-card mx-0",
+        );
+        
         $supplier->firstname = request('firstname');
         $supplier->lastname = request('lastname');
         $supplier->company = request('company');
@@ -163,6 +181,11 @@ class SuppliersController extends Controller
         $supplier->number = request('number');
 
         $supplier->save();
+
+        foreach($admins as $admin)
+        {
+            $admin->notify(new SupplierResource($auth_user,$supplier,"updated",$badge));
+        }
 
         $name = $supplier->getFullName();
         $notification = array(
@@ -184,7 +207,18 @@ class SuppliersController extends Controller
     {
         if(Hash::check(request('password'),Auth::user()->password)){
             $supplier = Supplier::find(request('supplier_id'));
+            $auth_user  = Auth::user();
+            $admins = User::where('role_id',1)->get();
+            $badge = array(
+                'bg' => "danger",
+                'icon' => "fa fa-address-card mx-0",
+            );
             $supplier->delete();
+            
+            foreach($admins as $admin)
+            {
+                $admin->notify(new SupplierResource($auth_user,$supplier,"deleted",$badge));
+            }
 
             $name = $supplier->getFullName();
             $notification = array (

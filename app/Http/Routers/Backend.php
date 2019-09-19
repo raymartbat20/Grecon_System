@@ -20,7 +20,6 @@
         });
 
         //Users Controller
-        Route::get('/users/trying','UsersController@try');
         Route::resource('users','UsersController')->except([
             'edit','show',
         ]);
