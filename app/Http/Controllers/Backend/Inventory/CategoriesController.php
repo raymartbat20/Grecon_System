@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Inventory;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Notifications\CategoryResource;
 use App\Category;
 use Hash;
 use DB;
