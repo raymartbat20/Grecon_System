@@ -267,6 +267,6 @@ class SuppliersController extends Controller
     {
         $suppliers = Supplier::onlyTrashed()->get();
 
-        return view('backend.admin.suppliers.suppliersArchive',compact('suppliers'));
+        return view('backend.inventory.suppliers.suppliersArchive',compact('suppliers'));
     }
 }

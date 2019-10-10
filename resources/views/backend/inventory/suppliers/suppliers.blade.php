@@ -11,6 +11,7 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
+                <a class="btn btn-warning btn-sm pull-right" href="/suppliers/archive"><i class="fa fa-archive"></i></a>
                 <h3 class="card-title" style="font-weight:bold; font-size:12;">Suppliers</h3>
                 <div class="table-responsive">
                     <table class="table table-hover">
