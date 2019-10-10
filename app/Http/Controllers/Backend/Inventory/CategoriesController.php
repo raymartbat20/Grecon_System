@@ -145,6 +145,8 @@ class CategoriesController extends Controller
                     'icon'  => 'error',
                     'heading'   => 'Failed!',
                 );
+                
+                return back()->with($notification);
             }
         }
         else{
