@@ -377,16 +377,61 @@ class ProductsController extends Controller
                         ->where('product_id', request('product_id'))
                         ->firstOrFail();
 
-       $product->restore();
+       $supplier = Supplier::withTrashed()
+                            ->where('supplier_id',$product->supplier_id)
+                            ->firstOrFail();
+       $category = Category::where('category_id',$product->category_id)
+                                ->firstOrFail();
+
+       if($supplier->deleted_at != null)
+       {    
+           $notification = array(
+               "supplier_message" => "This Product Cannot be returned! Because the supplier is already deleted!",
+               "heading" => "Deleted Supplier",
+               "icon"    => "warning",
+               "supplier_id" => $supplier->supplier_id,
+               "supplier_company" => $supplier->company,
+           );
+           return back()->with($notification);
+       }
+
+       if($category->deleted_at != null)
+       {
+        $notification = array(
+            "message" => "This Product Cannot be returned! Because the category is already deleted!",
+            "heading" => "Deleted Category",
+            "icon"    => "warning",
+            "category_id" => $category->category_id,
+            "category_name" => $category->category,
+            );
+
+        return back()->with($notification);
+       }
+
 
        if($product->qty == 0){
-           $product->status = "OUT OF STACK";
+           $product->status = "OUT OF STOCK";
        }
 
        if($product->critical_amount >= $product->qty)
        {
-           $product->critical_status = "CRITICAL";
+           $product->critical_status = 1;
        }
+
+       $product->restore();
+       $product->save();
+
+       $admins = User::where('role_id',1)->get();
+            $auth_user = Auth::user();
+            $badge = array(
+                'bg' => 'info',
+                'icon' => 'fa fa-gavel mx-0'
+            );
+
+        foreach($admins as $admin)
+        {
+            $admin->notify(new ProductResource($auth_user,$product,"restored",$badge));
+        }
 
        $notification = array(
             "message"   => "Product ".$product->product_name." restored!",
@@ -469,7 +514,7 @@ class ProductsController extends Controller
             'icon'  => 'success',
             'heading' => 'Successful!'
         );
-        return redirect(route('backend.admin.products.index'))->with($notification);
+        return redirect('admin/products/stocks')->with($notification);
     }
 
     public function requirements()
@@ -489,7 +534,7 @@ class ProductsController extends Controller
 
         return view('backend.admin.products.requirements',compact('items','adding_stocks','product_id'));
     }
-
+    
     public function requirementsStore()
     {
         $product = Product::where('product_id', request('product_id'))->firstOrFail();

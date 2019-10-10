@@ -20,12 +20,21 @@ class ProfileController extends Controller
         $request->validate([
             'firstname'         => 'required|min:2|max:20',
             'lastname'          => 'required|min:2|max:20',
-            'number'            => 'numeric|required|digits_between:0,11',
+            'number'            => 'required|numeric|digits_between:0,11',
             'image'             => 'image|mimes:jpeg,png,jpg,gif,svg|max:20000',
         ],
         [
-            'number.required' => 'Contact Number field is required.',
-            'number.numeric'    => 'Contact Number should be numbers only.'
+            'number.required'       => 'Contact Number field is required.',
+            'number.numeric'        => 'Contact Number should be numbers only.',
+            'firstname.required'    => 'First Name field is required',
+            'firstname.min'         => 'First Name should be atleast 2 characters',
+            'lastname.min'          => 'Last Name should be atleast 2 characters',
+            'lastname.max'          => 'Last Name maximum characters is 20',
+            'firstname.max'         => 'First Name maximum characters is 20',
+            'lastname.required'     => 'Last Name field is required',
+            'image.image'           => 'Please Input an image file',
+            'image.mimes'           => 'Profile Picture format is not supported',
+            'image.max'             => 'Profile Picture max file size is 20MB',
         ]);
 
         $user = User::find(Auth::user()->user_id);

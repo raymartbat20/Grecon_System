@@ -9,9 +9,14 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Number of items</label>
-                                    <a href="{{url('/admin/cart/cart_items')}}" class="btn btn-outline-info form-control">Items: 
-                                        <span class="badge badge-pill badge-danger" >{{ Session::has('cart') ? 
-                                        Session::get('cart')->totalQty : '' }}</span>
+                                    <a href="{{url('/admin/cart/cart_items')}}" class="btn btn-outline-info form-control">Items:
+                                        @if(Session::has('cart'))
+                                            @if(Session::get('cart')->totalQty > 0) 
+                                                <span class="badge badge-pill badge-danger" >
+                                                    {{ Session::get('cart')->totalQty }}
+                                                </span>
+                                            @endif
+                                        @endif
                                     </a>
                                 </div>
                             </div>
@@ -68,7 +73,7 @@
                                         <div class="product-item mb-2">
                                             <img class="card-img" src="/__backend/assets/images/products/{{$product->image}}">
                                         </div>
-                                        <h2 class="font-weight-normal mb-4">Price: ₱{{$product->price}} per {{$product->unit}}</h2>
+                                        <h2 class="font-weight-normal mb-4">₱{{$product->price}}/{{$product->unit}}</h2>
                                     </div>
                                     <ul class="list-unstyled plan-features">
                                         <li>stocks: {{$product->qty}} {{$product->unit}}(s)</li>

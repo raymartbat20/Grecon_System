@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Backend\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\{Cart,Product,Customer,ItemLog,User};
-use App\Notifications\{ProductCritical,OutOfStock};
+use App\Notifications\{ProductCritical,OutOfStock,Transaction};
 use Auth;
 use Session;
 
@@ -66,7 +66,7 @@ class OrderCartController extends Controller
 
     public function index()
     {
-        if(!Session::has('cart'))
+        if(!Session::has('cart') || Session::get('cart')->totalQty <= 0)
         {
             $notification = array(
                 'message'   => "Please add some item first",
@@ -185,6 +185,8 @@ class OrderCartController extends Controller
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
         $items = $cart->items;
+        $admins = User::where('role_id',1)->get();
+        $auth_user = Auth::user();
 
         foreach($items as $item)
         {
@@ -273,6 +275,11 @@ class OrderCartController extends Controller
         
         $customer->save();
 
+        foreach($admins as $admin)
+        {
+            $admin->notify(new Transaction($auth_user,$customer));
+        }
+
         Session::forget('cart');
 
         $notification = array(
@@ -280,6 +287,6 @@ class OrderCartController extends Controller
             'icon'      => 'success',
             'heading'   => 'SUCCESS!',
         );
-        return redirect(route('backend.admin.transaction.index'))->with($notification);
+        return redirect("admin/transaction/$customer->customer_id")->with($notification);
     }
 }

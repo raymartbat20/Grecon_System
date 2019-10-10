@@ -180,6 +180,8 @@ class CategoriesController extends Controller
                     'icon'  => 'error',
                     'heading'   => 'Failed!',
                 );
+
+                return back()->with($notification);
             }
         }
         else{
@@ -191,5 +193,41 @@ class CategoriesController extends Controller
 
             return back()->with($notification);
         }
+    }
+
+    public function archives()
+    {
+        $categories = Category::onlyTrashed()->get();
+
+        return view('backend.admin.categories.archiveCategories',compact('categories'));
+    }
+
+    public function restore()
+    {
+        $category = Category::onlyTrashed()
+                            ->where('category_id',request('category_id'))
+                            ->firstOrFail();
+
+        $category->restore();
+
+        $auth_user = Auth::user();
+        $admins = User::where('role_id',1)->get();
+        $badge = array(
+            "bg" => "danger",
+            "icon" => "mdi mdi-layers mx-0"
+        );
+
+        foreach($admins as $admin)
+        {
+            $admin->notify(new CategoryResource($auth_user,$category,"restored",$badge));
+        }
+
+        $notification = array(
+            'message' => "Category successfully Restored!",
+            'icon'  => 'success',
+            'heading'   => 'Success!',
+        );
+
+        return back()->with($notification);
     }
 }

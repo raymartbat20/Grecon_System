@@ -63,7 +63,8 @@ class CreateProductController extends Controller
     public function materials()
     {
         // Session::forget('materials');
-        if(!Session::has('materials'))
+              
+        if(!Session::has('materials') || Session::get('materials')->totalQty <= 0)
         {
             $notification = array(
                 "message"   => "Please Add some materials first",
@@ -152,7 +153,7 @@ class CreateProductController extends Controller
             return redirect(route('backend.admin.createproduct.index'))->with($notification);
         }
         $categories = Category::all();
-        $supplier = Supplier::where('company','GRECON')->firstOrFail();
+        $supplier = Supplier::where('supplier_id',1)->firstOrFail();
 
         return view('backend.admin.products.registerProduct',compact('items','totalQty','categories','supplier'));
     }
@@ -187,6 +188,11 @@ class CreateProductController extends Controller
             'description'       => 'nullable|max:200',
             'image'             => 'image|mimes:jpeg,png,jpg,gif,svg|max:20000',            
         ],[
+            'product_id.required' => "Product ID field is required",
+            'product_id.unique' => "Product ID already exist!",
+            'product_name.required' => "Product Name is required",
+            'product_name.min'      => "Product Name minimun characters is 2",
+            'product_name.max'      => "Product Name minimun characters is 50",
             'price.regex' => 'price could only have 2 decimals',
             'height.regex' => 'height could only have 3 decimals',
             'weight.regex' => 'weight could only have 3 decimals',
@@ -243,7 +249,9 @@ class CreateProductController extends Controller
 
         $product = new Product();
         $product->product_name = request('product_name');
-        $users = User::where('role_id',1)->get();
+        $admins = User::where('role_id',1)
+                        ->orWhere('role_id',3)
+                        ->get();
 
         //Reducing Quantity
         foreach($items as $item)
@@ -256,9 +264,9 @@ class CreateProductController extends Controller
             {
                 $prod->critical_status = 1;
                 $prod->save();
-                foreach($users as $user)
+                foreach($admins as $admin)
                 {
-                    $user->notify(new ProductCritical($prod));
+                    $admin->notify(new ProductCritical($prod,$admin->role_id == 1 ? 'admin' : 'inventory_clerk'));
                 }
             }
 
@@ -266,9 +274,9 @@ class CreateProductController extends Controller
             {
                 $prod->status = "OUT OF STOCK";
                 $prod->save();
-                foreach($users as $user)
+                foreach($admins as $admin)
                 {
-                    $user->notify(new OutOfStock($prod));
+                    $admin->notify(new OutOfStock($prod,$admin->role_id == 1 ? 'admin' : 'inventory_clerk'));
                 }
             }
 
@@ -294,7 +302,6 @@ class CreateProductController extends Controller
         $product->supplier_id       = $grecon_supplier->supplier_id;
         $product->price             = request('price');
         $product->qty               = request('qty');
-        $product->critical_amount   = request('critical_amount');
         $product->height            = request('height');
         $product->height_label      = request('height_label');
         $product->weight            = request('weight');
@@ -305,6 +312,15 @@ class CreateProductController extends Controller
         $product->unit              = request('unit');
         $product->own_product       = 1;
         $product->materials         = serialize($materials);
+        
+        if(request('critical_amount') == null)
+        {
+            $product->critical_amount = 0;
+        }
+        else
+        {
+            $product->critical_amount = request('critical_amount');
+        }
         
         if($product->critcal_amount >= $product->qty)
         {

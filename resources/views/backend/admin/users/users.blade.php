@@ -11,6 +11,7 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
+                    <a class="btn btn-primary btn-sm pull-right mb-2" href="{{url('/admin/users/create')}}"><i class="icon icon-user-follow"></i></a>
                 <h4 class="card-title">Users Table</h4>
 
                 @if ($errors->any())
@@ -107,11 +108,11 @@
                         <input type="hidden" id="userid" name="userid">
                         <div class="row">
                             <div class="form-group col-lg-6">
-                                <label for="firstname">Firstname</label>
+                                <label for="firstname">First Name</label>
                                 <input name="firstname" type="text" class="form-control" id="firstname" placeholder="Firstname" readonly>
                             </div>
                             <div class="form-group col-lg-6">
-                                <label for="lastname">Lastname</label>
+                                <label for="lastname">Last Name</label>
                                 <input name="lastname" type="text" class="form-control" id="lastname" placeholder="Lastname" readonly>
                             </div>
                         </div>

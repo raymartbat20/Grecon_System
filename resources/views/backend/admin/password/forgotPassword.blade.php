@@ -3,7 +3,7 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Reset Password</h4>
+                <h4 class="card-title">Forgot Password</h4>
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -28,7 +28,7 @@
                         <label class="col-lg-3" for="confirm_password">Confirm Password:</label>
                         <input type="password" class="form-control col-lg-9" name="confirm_password" id="confirm_password" placeholder="Confirm Password">
                     </div>
-                    <button type="submit" class="btn btn-outline-success pull-right">SUBMIT</button>
+                    <button type="submit" class="btn btn-success pull-right">SUBMIT</button>
                 </form>
             </div>
         </div>

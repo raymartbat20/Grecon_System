@@ -8,15 +8,6 @@
     </style>
 @endsection
 @section('content')
-    {{-- <div class="col-lg-12 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <div class="form-group">
-                    <a href="{{url('backend.admin.transactions.index')}}" class="btn btn-info pull-right">Add Items</a>
-                </div>
-            </div>
-        </div>
-    </div> --}}
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
@@ -69,7 +60,7 @@
                                 <td></td>
                                 <td style="font-weight:bold;">Total Price:</td>
                                 <td align="right" style="font-weight:bold;">
-                                    {{$totalPrice}}
+                                    ₱{{$totalPrice}}
                                 </td>
                                 <td></td>
                             </tr>

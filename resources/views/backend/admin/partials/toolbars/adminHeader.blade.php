@@ -1,6 +1,10 @@
 <!-- partial:partials/_navbar.html -->
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-    <div class="navbar-menu-wrapper d-flex align-items-stretch justify-content-between">
+    <div class="navbar-menu-wrapper d-flex align-items-stretch">
+        <img src="/__backend/assets/images/grecon_background.png" alt="logo" style="
+          width:100px;
+          margin-left:50px;
+          margin-right:50px;"/>
       <ul class="navbar-nav mr-lg-2 d-none d-lg-flex">
         <li class="nav-item nav-toggler-item">
           <button class="navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -9,10 +13,10 @@
         </li>
       </ul>
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="/admin/dashboard"><img src="/__backend/assets/images/grecon_background.png" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="/admin/dashboard"><img src="/__backend/assets/images/grecon_background.png" alt="logo"/></a>
+        <a class="navbar-brand brand-logo" href="/admin/dashboard"></a>
+        <a class="navbar-brand brand-logo-mini" href="/admin/dashboard"></a>
       </div>
-      <ul class="navbar-nav navbar-nav-right">
+      <ul class="navbar-nav ml-auto navbar-nav-right">
         <li class="nav-item dropdown">
           <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
             <i class="mdi mdi-bell-outline mx-0"></i>
@@ -90,11 +94,6 @@
             <a class="dropdown-item" href="{{url('/admin/profile')}}">
             <i class="icon-user text-primary"></i>
               Profile
-            </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{url('/admin/users/create')}}">
-              <i class="icon-user-follow text-primary"></i>
-              New User
             </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{url('/admin/users')}}">

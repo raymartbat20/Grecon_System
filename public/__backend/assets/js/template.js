@@ -7,6 +7,7 @@
     var footer = $('.footer');
     var sidebar = $('.sidebar');
 
+
     //Add active class to nav-link based on url dynamically
     //Active class can be hard coded directly in html file also as required
 

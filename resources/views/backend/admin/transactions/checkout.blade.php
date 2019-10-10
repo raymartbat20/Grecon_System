@@ -37,11 +37,11 @@
                             <tr>
                                 <td width="50%"></td>
                                 <td width="20%" align="center" style="font-weight:bold;">Total Price:</td>
-                                <td width="30%" align="center" style="font-weight:bold;">{{$totalPrice}}</td>
+                                <td width="30%" align="center" style="font-weight:bold;">₱{{$totalPrice}}</td>
                             </tr>
                             <tr>
                                 <td width="50%"></td>
-                                <td width="20%" align="center" style="font-weight:bold;">Discount:</td>
+                                <td width="20%" align="center" style="font-weight:bold;">Discount Price:</td>
                                 <td width="30%" align="center" style="font-weight:bold;">
                                     <input type="number" class="form-control text-center" name="discount" id="discount" placeholder="discount"  autocomplete="off">
                                 </td>
@@ -49,7 +49,7 @@
                             <tr id="row_total" style="display:none;">
                                 <td width="50%"></td>
                                 <td width="20%" align="center" style="font-weight:bold;">Discounted Price:</td>
-                                <td id="totalPrice" width="30%" align="center" style="font-weight:bold;">{{$totalPrice}}</td>
+                                <td id="totalPrice" width="30%" align="center" style="font-weight:bold;">₱{{$totalPrice}}</td>
                             </tr>
                             <tr>
                                 <td width="50%"></td>
@@ -114,7 +114,8 @@
             {
                 $("#row_total").removeAttr("style");
                 totalPrice = {{$totalPrice}} - $(this).val();
-                $("#totalPrice").text(totalPrice);
+                $("totalPrice").val(totalPrice);
+                $("#totalPrice").text("₱"+totalPrice);
                 $("#hidden_discounted_price").val(totalPrice);
             }
 
@@ -127,9 +128,9 @@
         });
         $("#amount_paid").on("change",function(){
 
-            var current_total = $("#totalPrice").text();
+            var current_total = $("#totalPrice").val();
             var change = $(this).val() - current_total;
-            $("#change").text(change);
+            $("#change").text("₱"+change);
             $("#hidden_discounted_price").val(totalPrice);
         });
 

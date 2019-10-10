@@ -6,25 +6,24 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use App\Product;
 
-class OutOfStock extends Notification
+class Transaction extends Notification
 {
     use Queueable;
 
-    public $product;
+    protected $auth_user;
 
-    protected $role;
+    protected $customer;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($product,$role)
+    public function __construct($auth_user,$customer)
     {
-        $this->product = $product;
-        $this->role    = $role;
+        $this->auth_user = $auth_user;
+        $this->customer = $customer;
     }
 
     /**
@@ -44,15 +43,15 @@ class OutOfStock extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toDatabase($notifiable)
+    public function toArray($notifiable)
     {
         return [
-            "title" => "Product ".$this->product->product_id,
-            "message"    => "Product (".$this->product->product_name.") ran out of stock",
-            "link"       => "/".$this->role."/"."products/".$this->product->product_id."/edit",
+            "title" => "Transaction created",
+            "message" => $this->auth_user->getFullName()." Created a new transaction",
+            "link" => "/admin/transaction/".$this->customer->customer_id,
             "badge" => [
-                "bg" => 'danger',
-                "icon"  => 'fa fa-gavel mx-0',
+                'bg' => 'success',
+                'icon' => 'fa fa-money mx-0',
             ],
         ];
     }

@@ -3,8 +3,13 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
+                <span class="tooltipped pull-right" data-toggle="tooltip" data-title="View Archive Category" data-placement="top">
+                    <a class="btn btn-warning btn-sm pull-right" href="{{route('backend.admin.category.archives')}}">
+                        <i class="fa fa-archive"></i>
+                    </a>
+                </span>
                 <span class="tooltipped pull-right" data-toggle="tooltip" data-title="Create Category" data-placement="top">
-                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#create-category">
+                    <button class="btn btn-primary btn-sm pull-right mr-2" data-toggle="modal" data-target="#create-category">
                         <i class="fa fa-plus"></i>
                         <i class="mdi mdi-layers"></i>
                     </button>
@@ -37,14 +42,14 @@
                                     <td>{{$category->category}}</td>                                
                                     <td>
                                         <span class="tooltipped" data-toggle="tooltip" data-title="Update Category" data-placement="top">
-                                            <button type="button" class="btn btn-outline-info" data-toggle="modal"
+                                            <button type="button" class="btn btn-outline-info p-3" data-toggle="modal"
                                                 data-target="#update-category" data-categoryid="{{$category->category_id}}"
                                                 data-name="{{$category->category}}">
                                                 <i class="fa fa-pencil"></i>
                                             </button>
                                         </span>
                                         <span class="tooltipped" data-toggle="tooltip" data-title="Delete Category" data-placement="top">
-                                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" 
+                                            <button type="button" class="btn btn-outline-primary p-3" data-toggle="modal" 
                                                 data-target="#delete-category" data-catid="{{$category->category_id}}"
                                                 data-name="{{$category->category}}">
                                                 <i class="fa fa-archive"></i>
@@ -79,8 +84,8 @@
                             </div>                                
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-inverse-success">Create</button>
-                            <button type="button" class="btn btn-inverse-warning" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Create</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
                         </div>
                     </form>
                 </div>
@@ -107,8 +112,8 @@
                             </div>                                
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-inverse-success">Update</button>
-                            <button type="button" class="btn btn-inverse-warning" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Update</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
                         </div>
                     </form>
                 </div>
@@ -129,9 +134,9 @@
                         <span id="message"></span>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-inverse-danger" id="btn-delete" data-toggle="modal"
+                        <button type="button" class="btn btn-danger" id="btn-delete" data-toggle="modal"
                             data-target="#password-confirm">Delete</button>
-                        <button type="button" class="btn btn-inverse-warning" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -157,8 +162,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-inverse-danger">Delete</button>
-                            <button type="button" class="btn btn-inverse-warning" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
                         </div>
                     </form>
                 </div>

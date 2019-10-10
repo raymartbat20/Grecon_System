@@ -55,6 +55,10 @@ class ProductResource extends Notification
             "message"   => $this->auth_user->getFullName()." ". $this->resource." the product "
             .$this->product->product_name,
             "link"      => "/admin/products/".$this->product->product_id."/edit",
+            "badge" => [
+              "bg" => $this->badge["bg"],
+              'icon'    => $this->badge['icon'],  
+            ],
         ];
     }
 }

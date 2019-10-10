@@ -58,7 +58,7 @@ class TransactionsController extends Controller
      */
     public function show($id)
     {
-        $customer = Customer::find($id);
+        $customer = Customer::findOrFail($id);
         $cart = unserialize($customer->items);
         $items = $cart->items;
         return view('backend.admin.transactions.invoice',compact('customer','items','cart'));
@@ -107,7 +107,7 @@ class TransactionsController extends Controller
 
     public function printInvoice(Request $request, $id)
     {
-        $customer = Customer::find($id);
+        $customer = Customer::findOrFail($id);
         $cart = unserialize($customer->items);
         $items = $cart->items;
         return view('backend.admin.transactions.invoicePrint',compact('customer','items','cart'));

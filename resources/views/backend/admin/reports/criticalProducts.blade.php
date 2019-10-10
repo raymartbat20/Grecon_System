@@ -9,7 +9,7 @@
                     <table class="table table-hover">
                         <thead>
                             <th>Product Name</th>
-                            <th>Qty</th>
+                            <th>Quantity</th>
                             <th>Critical Amount</th>
                             <th>Price</th>
                         </thead>
@@ -28,4 +28,9 @@
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        $(".table").DataTable();
+    </script>
 @endsection

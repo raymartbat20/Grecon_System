@@ -26,12 +26,12 @@
             @csrf
             <div class="row">
                 <div class="form-group col-lg-6">
-                    <label for="firstname">Firstname</label>
+                    <label for="firstname">First name</label>
                   <input name="firstname" type="text" class="form-control" id="firstname" placeholder="Firstname" value="{{old('firstname')}}"
                   autocomplete="off">
                 </div>
                 <div class="form-group col-lg-6">
-                  <label for="lastname">Lastname</label>
+                  <label for="lastname">Last name</label>
                   <input name="lastname" type="text" class="form-control" id="lastname" placeholder="Lastname" 
                   autocomplete="off" value="{{old('lastname')}}">
                 </div>
@@ -39,7 +39,7 @@
 
             <div class="row">
               <div class="form-group col-lg-6">
-                <label for="username">username</label>
+                <label for="username">Username</label>
                 <input name="username" type="text" class="form-control" id="username" placeholder="Username" 
                 autocomplete="off" value="{{old('username')}}">
               </div>  
@@ -87,8 +87,8 @@
               </div>
             </div>
             <div class="pull-right">
-                <button type="submit" class="btn btn-outline-success">Submit</button>    
-                <button type="button" class="btn btn-outline-danger">Cancel</button>    
+                <button type="submit" class="btn btn-success">Submit</button>    
+                <button type="button" class="btn btn-danger">Cancel</button>    
             </div>
           </form>
         </div>

@@ -9,9 +9,9 @@
                     <table class="table table-hover">
                         <thead>
                             <th>Product Name</th>
-                            <th>Qty</th>
-                            <th>Total qty Sold</th>
-                            <th>price</th>
+                            <th>Quantity</th>
+                            <th>Total Quantity Sold</th>
+                            <th>Price</th>
                         </thead>
                         <tbody>
                             @foreach ($products as $product)
@@ -31,4 +31,9 @@
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        $(".table").DataTable();
+    </script>
 @endsection

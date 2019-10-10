@@ -70,7 +70,7 @@
                             <span>×</span>
                         </button>
                     </div>
-                    <form method="POST" action="{{route('backend.inventory_clerk.category.store')}}">
+                    <form method="POST" action="{{route('backend.inventory.category.store')}}">
                         @csrf
                         <div class="modal-body">
                             <div class="col-lg-12 form-group">

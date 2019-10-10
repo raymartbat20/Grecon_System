@@ -3,12 +3,14 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <a href="{{url('/admin/createProduct')}}">
+                <a href="{{url('/admin/product/new-product')}}">
                     <button class="btn btn-info pull-right">Add Materials</button>
                 </a>
                 <h4 class="card-title">Materials to be used</h4>
                 @if (Session::has('message'))
-                    <div class="alert alert-danger">
+                    <div class="alert alert-{{(session::get('message') == "Item was successfuly removed")
+                    ||(session::get('message') == "Success reduce of quantity") ?
+                    'success' : 'danger'}}">
                         <li>{{Session::get('message')}}</li>
                     </div>
                 @endif
@@ -54,7 +56,7 @@
                     </table>
                 </div>
                 @if ($totalQty > 0)
-                    <a href="{{url('/admin/createProduct/registerProduct')}}">
+                    <a href="{{url('/admin/product/new-product/registerproduct')}}">
                         <button class="btn btn-outline-success mt-2 pull-right">PROCEED</button>   
                     </a>                     
                 @endif

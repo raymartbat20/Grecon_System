@@ -28,17 +28,17 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">New Password:</label>
                         <div class="col-sm-9">
-                            <input class="form-control" type="password" id="password" name="password" placeholder="password">
+                            <input class="form-control" type="password" id="password" name="password" placeholder="Password">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Confirtm Password:</label>
+                        <label class="col-sm-3 col-form-label">Confirm Password:</label>
                         <div class="col-sm-9">
-                            <input class="form-control" type="password" id="confirm_password" name="confirm_password" placeholder="confirm_password">
+                            <input class="form-control" type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password">
                         </div>
                     </div>
                     <div class="pull-right">
-                        <button class="btn btn-inverse-success" type="submit">Change Password</button>
+                        <button class="btn btn-success" type="submit">Change Password</button>
                     </div>
                 </form>
             </div>

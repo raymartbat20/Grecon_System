@@ -68,7 +68,7 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-inverse-success pull-right" type="submit">Create</button>
+                    <button class="btn btn-success pull-right" type="submit">Create</button>
                 </form>
             </div>
         </div>

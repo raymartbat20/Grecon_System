@@ -18,7 +18,7 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="/__backend/assets/css/vertical-layout-light/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="/__backend/assets/images/favicon.png" />
+  <link rel="shortcut icon" href="/__backend/assets/images/grecon_icon.png" />
 </head>
 
 <body>
@@ -51,7 +51,8 @@
                       <div class="input-group">
                         <div class="input-group-prepend bg-transparent">
                           <span class="input-group-text bg-transparent border-right-0">
-                            <i class="mdi mdi-account-outline text-primary"></i>
+                            <i class="mdi mdi-account-outline text-primary" style="
+                            margin-left:10px;"></i>
                           </span>
                         </div>
                         <input name="username" type="text" class="form-control form-control-lg border-left-0"
@@ -63,7 +64,8 @@
                       <div class="input-group">
                         <div class="input-group-prepend bg-transparent">
                           <span class="input-group-text bg-transparent border-right-0">
-                            <i class="mdi mdi-lock-outline text-primary"></i>
+                            <i class="mdi mdi-lock-outline text-primary" style="
+                            margin-left:10px;"></i>
                           </span>
                         </div>
                         <input type="password" name="password" class="form-control form-control-lg border-left-0"

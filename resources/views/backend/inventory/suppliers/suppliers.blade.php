@@ -67,9 +67,6 @@
                             @endforeach 
                         </tbody>
                     </table>
-                    <ul class="pagination d-flex justify-content-center pagination-success">
-                        {{$suppliers->links()}}
-                    </ul>
                 </div>
             </div>
         </div>

@@ -11,7 +11,8 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <a class="btn btn-primary btn-sm pull-right mb-2" href="{{url('/admin/suppliers/create')}}"><i class="icon icon-user-follow"></i></a>
+                <a class="btn btn-warning btn-sm pull-right mb-2" href="{{url('/admin/suppliers/archive')}}"><i class="fa fa-archive"></i></a>
+                <a class="btn btn-primary btn-sm pull-right mb-2 mr-2" href="{{url('/admin/suppliers/create')}}"><i class="icon icon-user-follow"></i></a>
                 <h3 class="card-title" style="font-weight:bold; font-size:12;">Suppliers</h3>
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -46,17 +47,17 @@
                                     <td>{{$supplier->number}}</td>
                                     <td>{{$supplier->company}}</td>
                                     <td>
-                                        <span class="tooltipped" data-toggle="tooltip" data-title="Edit User" data-placement="top">
-                                            <button class="btn btn-outline-primary" data-toggle="modal" data-target="#edit-supplier"
+                                        <span class="tooltipped" data-toggle="tooltip" data-title="Edit Supplier" data-placement="top">
+                                            <button class="btn btn-outline-primary p-3" data-toggle="modal" data-target="#edit-supplier"
                                                 data-supplierid="{{$supplier->supplier_id}}" data-firstname="{{$supplier->firstname}}" data-lastname="{{$supplier->lastname}}"
                                                 data-email="{{$supplier->email}}" data-number="{{$supplier->number}}" data-company="{{$supplier->company}}"
                                                 data-image="{{$supplier->image}}">                                                
                                                 <i class="fa fa-pencil"></i>
                                             </button>
                                         </span>
-                                        @if($supplier->company != 'Grecon')
-                                            <span class="tooltipped" data-toggle="tooltip" data-title="Delete User" data-placement="top">
-                                                <button class="btn btn-outline-warning" data-toggle="modal" data-target="#delete-supplier"
+                                        @if($supplier->supplier_id != 1)
+                                            <span class="tooltipped" data-toggle="tooltip" data-title="Archive Supplier" data-placement="top">
+                                                <button class="btn btn-outline-warning p-3" data-toggle="modal" data-target="#delete-supplier"
                                                     data-supplierid="{{$supplier->supplier_id}}" data-name="{{$supplier->getFullName()}}"
                                                     data-image="{{$supplier->image}}">
                                                     <i class="fa fa-archive"></i>
@@ -130,8 +131,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-inverse-success">Update</button>
-                        <button type="button" data-dismiss="modal" class="btn btn-inverse-warning">Cancel</button>
+                        <button type="submit" class="btn btn-success">Update</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-warning">Cancel</button>
                     </div>
                 </form>
             </div>
@@ -139,7 +140,7 @@
     </div>
 
     <div class="modal fade" id="delete-supplier" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-default" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="close">
@@ -160,7 +161,7 @@
         </div>
 
     <div class="modal fade" id="confirm-delete-supplier" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-default" role="document">
                 <div class="modal-content">
                     <form method="POST" action="{{route('backend.admin.suppliers.destroy','delete')}}">
                         @csrf

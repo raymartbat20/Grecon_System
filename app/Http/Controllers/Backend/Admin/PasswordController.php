@@ -19,8 +19,14 @@ class PasswordController extends Controller
     {
 
         request()->validate([
-            'password' => 'min:5|required',
+            'password' => 'required|min:5',
             'confirm_password' => 'required|same:password',
+        ],
+        [
+            'password.required'         => 'New Password field is required',
+            'password.min'              => 'New Password should be atleast 5 characters',
+            'confirm_password.required' => 'Confirm Password field is required',
+            'confirm_password.same'     => 'Confirm Password and Password does not match',
         ]);
 
         if(Hash::check(request('old_password'), Auth::user()->password)){
@@ -59,8 +65,14 @@ class PasswordController extends Controller
 
         $request->validate([
             'username'          => 'required',
-            'new_password'      => 'min:5|required',
+            'new_password'      => 'required|min:5',
             'confirm_password'  => 'required|same:new_password',
+        ],
+        [
+            'new_password.required'     => 'New Password field is required',
+            'new_password.min'          => 'New Password should be atleast 5 characters',
+            'confirm_password.required' => 'Confirm Password field is required',
+            'confirm_password.same'     => 'Confirm Password and Password does not match',
         ]);
 
         $user = User::where('username',request('username'))->first();

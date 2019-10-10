@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Backend\Cashier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\{Cart,Product,Customer,ItemLog};
-use App\Notifications\{ProductCritical,OutOfStock};
+use App\Notifications\{ProductCritical,OutOfStock,Transaction};
 use Auth;
 use Session;
 

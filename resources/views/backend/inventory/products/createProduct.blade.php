@@ -122,8 +122,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button id="submit" type="submit" class="btn btn-outline-success">ADD</button>
-                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">CANCEL</button>
+                        <button id="submit" type="submit" class="btn btn-success">ADD</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">CANCEL</button>
                     </div>
                 </div>
             </form>
@@ -152,8 +152,8 @@
                             <p class="text-success">This is supported only by decimal value</p>
                         </div>
                         <div class="modal-footer">
-                            <button id="submit" type="submit" class="btn btn-outline-success">ADD</button>
-                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">CANCEL</button>
+                            <button id="submit" type="submit" class="btn btn-success">ADD</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">CANCEL</button>
                         </div>
                     </div>
                 </form>
@@ -174,7 +174,7 @@
                                 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-success" data-dismiss="modal">OK</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>
@@ -192,7 +192,7 @@
                     <h3 class="text-center">Not Enought Stocks</h3>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-success" data-dismiss="modal">OK</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>

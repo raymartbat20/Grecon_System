@@ -3,23 +3,6 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Product Controller</h4>
-                <div class="dropdown-divider"></div>
-                <button type="button" class="btn btn-outline-info btn-rounded btn-block btn-sm"
-                data-toggle="modal" data-target="#add-stocks" data-product_id={{$product->product_id}}
-                data-product_name={{$product->product_name}}>Add Stocks</button>
-                <button type="button" class="btn btn-outline-info btn-rounded btn-block btn-sm"
-                data-toggle="modal" data-target="#remove-defectives" data-product_id={{$product->product_id}}
-                data-product_name={{$product->product_name}}>Remove Defectives</button>
-                <button type="button" class="btn btn-outline-info btn-rounded btn-block btn-sm"
-                data-toggle="modal" data-target="#delete-product" data-product_id={{$product->product_id}}
-                data-product_name={{$product->product_name}}>Archive This Product</button>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-12 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
                 @if (Session::has('message'))
                     <div class="alert alert-danger">
                         <li>{{Session::get('message')}}</li>
@@ -36,7 +19,20 @@
                                 @endforeach
                             </div>
                         @endif
-                        <h4 class="card-title mt-2 ml-2">Edit Product</h4>
+                        <div class="col-lg-12">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-info btn-sm mt-3"
+                                data-toggle="modal" data-target="#add-stocks" data-product_id={{$product->product_id}}
+                                data-product_name={{$product->product_name}}>Add Stocks</button>
+                                <button type="button" class="btn btn-info mt-3 btn-sm"
+                                data-toggle="modal" data-target="#remove-defectives" data-product_id={{$product->product_id}}
+                                data-product_name={{$product->product_name}}>Remove Defectives</button>
+                                <button type="button" class="btn btn-info mt-3 btn-sm"
+                                data-toggle="modal" data-target="#delete-product" data-product_id={{$product->product_id}}
+                                data-product_name={{$product->product_name}}>Archive This Product</button>
+                            </div>
+                            <h4 class="card-title mt-2 ml-2">Edit Product</h4>
+                        </div>
                         <div class="card-header container-fluid bg-warning py-2">
                             <p class="mb-0 text-white">Basic Product Information</p>
                         </div>
@@ -201,7 +197,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <button type="Submit" class="btn btn-inverse-success pull-right">Update</button>
+                                <button type="Submit" class="btn btn-success pull-right">Update</button>
                             </div>
                         </div>
                     </div>
@@ -231,8 +227,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button class="btn btn-outline-success" type="submit">ADD</button>
-                                <button class="btn btn-outline-danger" type="button" data-dismiss="modal">CLOSE</button>
+                                <button class="btn btn-success" type="submit">ADD</button>
+                                <button class="btn btn-danger" type="button" data-dismiss="modal">CLOSE</button>
                             </div>
                         </div>
                     </form>
@@ -266,8 +262,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button class="btn btn-outline-success" type="submit">REMOVE</button>
-                                <button class="btn btn-outline-danger" type="button" data-dismiss="modal">CLOSE</button>
+                                <button class="btn btn-success" type="submit">REMOVE</button>
+                                <button class="btn btn-danger" type="button" data-dismiss="modal">CLOSE</button>
                             </div>
                         </form>
                     </div>
@@ -289,9 +285,9 @@
                             <h5 class="text-center">Add to archive products {{$product->product_name}}?</h5>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#password-confirm"
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#password-confirm"
                             data-dismiss="modal">ARCHIVE</button>
-                            <button type="button" class="btn btn-outline-primary" data-dismiss="modal">CLOSE</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">CLOSE</button>
                         </div>
                     </div>
                 </div>
@@ -317,8 +313,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button class="btn btn-outline-success" type="submit">SUBMIT</button>
-                                <button class="btn btn-outline-danger" type="button" data-dismiss="modal">CANCEL</button>
+                                <button class="btn btn-success" type="submit">SUBMIT</button>
+                                <button class="btn btn-danger" type="button" data-dismiss="modal">CANCEL</button>
                             </div>
                         </div>
                     </form>

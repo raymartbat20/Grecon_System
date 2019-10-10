@@ -4,7 +4,7 @@
     <div class="col-lg-12 grid-margin stretched-card">
         <div class="card">
             <div class="card-body">
-                <a href="{{route('backend.admin.products.archiveProducts')}}" class="btn btn-info pull-right">
+                <a href="{{route('backend.admin.products.archiveProducts')}}" class="btn btn-info pull-right mb-2">
                     Archive products
                     @if ($archive > 0)
                         <span class="badge badge-pill badge-warning">
@@ -42,7 +42,7 @@
                                     <td>{{$product->category->category}}</td>
                                     <td>{{$product->price}}</td>
                                     <td>
-                                        <span class="badge badge-outline-info badge-pill">
+                                        <span class="badge badge-outline-{{$product->qty == 0 ? 'danger' : 'info'}} badge-pill">
                                             {{$product->qty}}{{$product->unit}}
                                         </span>
                                     </td>
@@ -83,8 +83,8 @@
                                         @endif
                                     </td>
                                     <td>
-                                    <a class="btn btn-outline-info btn-sm" href="{{url('/admin/products/'.$product->product_id.'/edit')}}"><i class="mdi mdi-eye text-primary"></i>View</a>
-                                    <a class="btn btn-outline-danger btn-sm" href="{{url('/admin/products/'.$product->product_id.'/log')}}"><i class="icon icon-docs text-primary"></i>Logs</a>
+                                    <a class="btn btn-outline-info btn-sm p-2" href="{{url('/admin/products/'.$product->product_id.'/edit')}}"><i class="mdi mdi-eye text-primary"></i>View</a>
+                                    <a class="btn btn-outline-danger btn-sm p-2" href="{{url('/admin/products/'.$product->product_id.'/log')}}"><i class="icon icon-docs text-primary"></i>Logs</a>
                                     </td>                                    
                                 </tr>
                             @endforeach

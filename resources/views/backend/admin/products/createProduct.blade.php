@@ -9,10 +9,15 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <a href="{{url('/admin/createProduct/materials')}}">
+                <a href="{{url('/admin/product/new-product/materials')}}">
                     <button type="button" class="btn btn-primary pull-right mb-2">Materials: 
-                    <span class="badge badge-pill badge-danger" >{{ Session::has('materials') ? 
-                    Session::get('materials')->totalQty : '' }}</span>
+                        @if(Session::has('materials'))
+                            @if(Session::get('materials')->totalQty > 0)
+                                <span class="badge badge-pill badge-danger" > 
+                                    {{Session::get('materials')->totalQty}}
+                                </span>
+                            @endif
+                        @endif
                     </button>       
                 </a>
                 <h4 class="card-title text-warning">Select materials to be used</h4>
@@ -80,12 +85,12 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <button data-toggle="modal" data-target="{{$product->unit == "pc" ? "#createProduct-material-pc" : "#createProduct-material-kilo"}}" class="btn btn-outline-success btn-sm"
+                                        <button data-toggle="modal" data-target="{{$product->unit == "pc" ? "#createProduct-material-pc" : "#createProduct-material-kilo"}}" class="btn btn-outline-success btn-sm p-3"
                                         data-product_id="{{$product->product_id}}" 
                                         data-product_qty="{{$product->qty}}" {{$product->status != "AVAILABLE" ? 'disabled' : ''}}>Add</button>
 
 
-                                        <button data-toggle="modal" data-target="#product-info" class="btn btn-outline-info btn-sm"
+                                        <button data-toggle="modal" data-target="#product-info" class="btn btn-outline-info btn-sm p-3"
                                         data-product_id="{{$product->product_id}}" data-product_image="{{$product->image}}"
                                         data-product_name="{{$product->product_name}}" data-product_height="{{$product->height}}"
                                         data-product_hlabel="{{$product->height_label}}" data-product_qty="{{$product->qty}}"
@@ -122,8 +127,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button id="submit" type="submit" class="btn btn-outline-success">ADD</button>
-                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">CANCEL</button>
+                        <button id="submit" type="submit" class="btn btn-success">ADD</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">CANCEL</button>
                     </div>
                 </div>
             </form>
@@ -152,8 +157,8 @@
                             <p class="text-success">This is supported only by decimal value</p>
                         </div>
                         <div class="modal-footer">
-                            <button id="submit" type="submit" class="btn btn-outline-success">ADD</button>
-                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">CANCEL</button>
+                            <button id="submit" type="submit" class="btn btn-success">ADD</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">CANCEL</button>
                         </div>
                     </div>
                 </form>
@@ -174,7 +179,7 @@
                                 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-success" data-dismiss="modal">OK</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>
@@ -192,7 +197,7 @@
                     <h3 class="text-center">Not Enought Stocks</h3>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-success" data-dismiss="modal">OK</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>

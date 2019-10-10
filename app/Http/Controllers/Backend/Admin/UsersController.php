@@ -49,13 +49,24 @@ class UsersController extends Controller
             'firstname'         => 'required|min:2|max:20',
             'lastname'          => 'required|min:2|max:20',
             'username'          => 'required|unique:users,username,NULL,user_id,deleted_at,NULL',
-            'number'            => 'numeric|required|digits_between:0,11',
+            'number'            => 'required|numeric|digits_between:0,11',
             'password'          => 'required|min:5',
             'confirm_password'  => 'required|same:password',
             'role'              => 'required',
             'image'             => 'image|mimes:jpeg,png,jpg,gif,svg|max:10000',
         ],[
-            'role.required' => 'Role field is required',
+            'role.required'                 => 'Role field is required',
+            'number.required'               => 'Contact Number is required',
+            'number.numeric'                => 'Contact Number should be numbers only.',
+            'number.digits_between'         => 'Contact Number should only contain 11 digits or lower',
+            'confirm_password.required'     => 'Confirm Password is required',
+            'confirm_password.same'         => 'Confirm Password and Password does not match',
+            'firstname.required'            => 'First Name field is required',
+            'firstname.min'                 => 'First Name should be atleast 2 characters',
+            'lastname.min'                  => 'Last Name should be atleast 2 characters',
+            'lastname.max'                  => 'Last Name maximum characters is 20',
+            'firstname.max'                 => 'First Name maximum characters is 20',
+            'lastname.required'             => 'Last Name field is required',
         ]);
 
         $auth_user = Auth::user();
@@ -134,6 +145,18 @@ class UsersController extends Controller
             'lastname'          => 'required|min:2|max:20',
             'number'            => 'numeric|required|digits_between:0,11',
             'role_id'           => 'required',
+        ],
+        [
+            'number.required'               => 'Contact Number is required',
+            'number.numeric'                => 'Contact Number should be numbers only.',
+            'number.digits_between'         => 'Contact Number should only contain 11 digits or lower',
+            'firstname.required'            => 'First Name field is required',
+            'firstname.min'                 => 'First Name should be atleast 2 characters',
+            'lastname.min'                  => 'Last Name should be atleast 2 characters',
+            'lastname.max'                  => 'Last Name maximum characters is 20',
+            'firstname.max'                 => 'First Name maximum characters is 20',
+            'lastname.required'             => 'Last Name field is required',
+            'role_id.required'              => 'Role field is required',
         ]);
         $user = User::find(request('userid'));
         $auth_user = Auth::user();

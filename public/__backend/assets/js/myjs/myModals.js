@@ -93,7 +93,7 @@ $(document).ready(function(){
 
         modal.find('.modal-body #userid').val(supplier_id);
         modal.find('.modal-body #img-avatar').attr('src','/__backend/assets/images/suppliers/' + image)
-        modal.find('.modal-body .modal-title').text('Are you sure you want to delete '+name+'?');
+        modal.find('.modal-body .modal-title').text('Are you sure you want to archive '+name+'?');
         modal.find('.modal-footer .btn-danger').attr('data-supplierid',supplier_id);
 
     });
@@ -133,7 +133,7 @@ $(document).ready(function(){
             var modal = $(this);
 
             modal.find('.modal-body #delete-category-id').val(catid);
-            modal.find('.modal-body #message').html("<h3>Delete this <span>"+category+"</span> category?</h3>");
+            modal.find('.modal-body #message').html("<h3>Add to archive this <span>"+category+"</span> category?</h3>");
             modal.find('.modal-body #message h3 span').attr('style','color:blue');
             modal.find('.modal-footer #btn-delete').attr('data-categoryid',catid);
     });
@@ -374,4 +374,31 @@ $(document).ready(function(){
     });
     
     //End make Product
+
+    //Restore Supplier Modal
+    $("#restore-supplier-modal").on('show.bs.modal',function(event){
+        var button = $(event.relatedTarget);
+
+        var supplier_id = button.data('supplier_id');
+        var supplier_company = button.data('supplier_company');
+
+        var modal = $(this);
+
+        modal.find('.modal-body #supplier-id').val(supplier_id);
+        modal.find('.modal-body #message').text("Restore supplier "+supplier_company+"?");
+    });
+
+    //Restore Category Modal
+
+    $("#restore-category").on('show.bs.modal',function(event){
+        var button = $(event.relatedTarget);
+
+        var category_id = button.data('categoryid');
+        var category_name = button.data('name');
+
+        var modal = $(this);
+
+        modal.find('.modal-body #category_id').val(category_id);
+        modal.find('.modal-body #message').text("Restore category "+category_name+"?");
+    });
 });

@@ -52,6 +52,7 @@
                                         <div class="form-group col-lg-6">
                                             <label for="supplier">Supplier</label>
                                             <select class="form-control" name="supplier" id="supplier">
+                                                <option>Please Select a Supplier</option>
                                                 @foreach ($suppliers as $supplier)
                                                     <option value="{{$supplier->supplier_id}}"
                                                         {{old('supplier' == $supplier->supplier_id ? 'selected' : '')}}>{{$supplier->company}}</option>
@@ -120,9 +121,9 @@
                                     <div class="form-group">
                                         <label for="height_label">Label</label>
                                         <select class="form-control-sm" name="height_label">
-                                            <option value="ft" {{old('width_label') == 'ft' ? 'selected' : ''}}>ft</option>
-                                            <option value="in" {{old('width_label') == 'in' ? 'selected' : ''}}>in</option>
-                                            <option value="m" {{old('width_label') == 'm' ? 'selected' : ''}}>m</option>
+                                            <option value="ft" {{old('height_label') == 'ft' ? 'selected' : ''}}>ft</option>
+                                            <option value="in" {{old('height_label') == 'in' ? 'selected' : ''}}>in</option>
+                                            <option value="m" {{old('height_label') == 'm' ? 'selected' : ''}}>m</option>
                                         </select>
                                     </div>
                                 </div>
@@ -154,8 +155,8 @@
                                     <div class="form-group">
                                         <label for="weight_label">Label</label>
                                         <select class="form-control-sm" name="weight_label">
-                                            <option value="kg">kg</option>
-                                            <option value="lbs">lbs</option>
+                                            <option value="kg" {{old('weight_label') == 'kg' ? 'selected' : ''}}>kg</option>
+                                            <option value="lbs" {{old('weight_label') == 'lbs' ? 'selected' : ''}}>lbs</option>
                                         </select>
                                     </div>
                                 </div>
@@ -170,11 +171,11 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea class="form-control" name="description" id="description" rows="5"></textarea>
+                                    <textarea class="form-control" name="description" id="description" rows="5">{{old('description')}}</textarea>
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <button type="Submit" class="btn btn-inverse-success pull-right">Submit</button>
+                                <button type="Submit" class="btn btn-success pull-right">Submit</button>
                             </div>
                         </div>
                     </div>
